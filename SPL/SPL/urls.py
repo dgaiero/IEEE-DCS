@@ -23,7 +23,6 @@ from django.contrib import admin
 
 # Link apps to project
 urlpatterns = [
-    path('app_Registration/', include('app_Registration.urls')),
     path('app_Transaction/', include('app_Transaction.urls')),
     path('admin/', admin.site.urls),
 ]
