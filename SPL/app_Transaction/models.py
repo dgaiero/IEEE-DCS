@@ -5,7 +5,7 @@ class Part(models.Model):
     part_Name_Text              = models.CharField(max_length=100)
     quantity_Number             = models.IntegerField(default=0)
     quantity_Checked_Out_Number = models.IntegerField(default=0)
-    #ID                  = models.IntegerField(blank=True, null=True)
+    id_Number                   = models.IntegerField(blank=True, null=True)
 
 class User(models.Model):
     first_Name_text     = models.CharField(max_length=100)
@@ -25,6 +25,7 @@ class Lab(models.Model):
     course_Name_Text = models.CharField(max_length=100)
     section_Number   = models.IntegerField(default=0)
     week_Number      = models.IntegerField(default=0)
+    parts            = models.ManyToManyField(Part)
 
 class Log(models.Model):
     #date_And_Time        = models.DateTimeField(default=datetime.now(), blank=True)
