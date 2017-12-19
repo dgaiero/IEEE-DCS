@@ -6,7 +6,9 @@
 import csv
 '''
 # Need to see how this import works:
-from SPL.app_Transaction.models import Part
+import django
+django.setup()
+from app_Transaction.models import Part
 '''
 with open('splParts.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimcd ../iter=',')
