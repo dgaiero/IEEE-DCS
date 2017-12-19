@@ -9,7 +9,7 @@ import csv
 from SPL.app_Transaction.models import Part
 '''
 with open('splParts.csv') as csvfile:
-    readCSV = csv.reader(csvfile, delimiter=',')
+    readCSV = csv.reader(csvfile, delimcd ../iter=',')
     for row in readCSV:
         p = Part("part_Name_Text='{}'".format(row[0]))
         p.save()
