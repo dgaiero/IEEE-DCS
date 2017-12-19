@@ -41,7 +41,7 @@ class Transaction(models.Model):
 class Lab(models.Model):
     course_Name_Text = models.CharField(max_length=100)
     section_Number   = models.IntegerField(default=0)
-    week_Number      = models.IntegerField(default=0)
+    experiment_Number      = models.IntegerField(default=0)
     parts            = models.ManyToManyField(Part)
     # possible things to add: professor name
 
