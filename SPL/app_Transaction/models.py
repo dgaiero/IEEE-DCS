@@ -12,14 +12,15 @@ class Part(models.Model):
 
 # Create User model with necessary attributes
 class User(models.Model):
-    first_Name_Text     = models.CharField(max_length=100)
-    last_Name_Text      = models.CharField(max_length=100)
-    user_Type_Text      = models.CharField(max_length=100)
-    user_Email          = models.EmailField(null=True, max_length=100)
-    polyCard_Data_Text = models.CharField(max_length=100)
-    iso_Number          = models.IntegerField(default=0)
-    library_Code_Number = models.IntegerField(default=0)
-    parts               = models.ManyToManyField(Part)
+    first_Name_Text       = models.CharField(max_length=100)
+    last_Name_Text        = models.CharField(max_length=100)
+    user_Type_Text        = models.CharField(max_length=100)
+    user_Email            = models.EmailField(null=True, max_length=100)
+    polyCard_Data_Text    = models.CharField(max_length=100)
+    iso_Number            = models.IntegerField(default=0)
+    library_Code_Number   = models.IntegerField(default=0)
+    parts                 = models.ManyToManyField(Part)
+    has_Items_Checked_Out = models.BooleanField(default=False)
 
 # Create Transaction model with necessary attributes
 # We'll worry about this later...
@@ -32,10 +33,10 @@ class Transaction(models.Model):
 
 # Create Lab model with necessary attributes
 class Lab(models.Model):
-    course_Name_Text = models.CharField(max_length=100)
-    section_Number   = models.IntegerField(default=0)
-    experiment_Number      = models.IntegerField(default=0)
-    parts            = models.ManyToManyField(Part)
+    course_Name_Text  = models.CharField(max_length=100)
+    section_Number    = models.IntegerField(default=0)
+    experiment_Number = models.IntegerField(default=0)
+    parts             = models.ManyToManyField(Part)
     # possible things to add: professor name
 
 # Create Log model with necessary attributes
