@@ -1,14 +1,6 @@
 from django.db import models
 import datetime
 
-# Create PolyCardData model with necessary attributes
-class PolyCard(models.Model):
-    polyCard_Data_Text = models.CharField(max_length=100)
-    iso_Number = models.IntegerField(null=True)
-    library_Code_Number = models.IntegerField(null=True)
-    def __str__(self):
-        return self.polyCard_Data_Text
-
 # Create Part model with necessary attributes
 class Part(models.Model):
     part_Name_Text              = models.CharField(max_length=100)
@@ -23,9 +15,10 @@ class User(models.Model):
     first_Name_Text     = models.CharField(max_length=100)
     last_Name_Text      = models.CharField(max_length=100)
     user_Type_Text      = models.CharField(max_length=100)
-    user_Email          = models.EmailField(("Email"), null=True, max_length=100)
-    #iso_Number          = models.IntegerField(default=0)
-    #library_Code_Number = models.IntegerField(default=0)
+    user_Email          = models.EmailField(null=True, max_length=100)
+    polyCard_Data_Text = models.CharField(max_length=100)
+    iso_Number          = models.IntegerField(default=0)
+    library_Code_Number = models.IntegerField(default=0)
     parts               = models.ManyToManyField(Part)
 
 # Create Transaction model with necessary attributes

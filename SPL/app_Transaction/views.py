@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import PolyCard
+# from .models import 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index view.")
