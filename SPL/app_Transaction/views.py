@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 
-# from .models import
+from .models import User
 
 
 def index(request):
@@ -18,7 +18,7 @@ def registration(request):
     return HttpResponse("Hello, world. You're at the registration view.")
 
 
-def checkPolyCardData(request, User.iso_number):
+def checkPolyCardData(request, iso_Number):
     # return
     pass
 
