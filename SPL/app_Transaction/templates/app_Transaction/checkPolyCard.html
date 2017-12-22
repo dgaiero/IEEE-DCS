@@ -1,0 +1,9 @@
+<h1>Polycard Check</h1>
+
+<h3>Please swipe your polycard</h3>
+
+<form action="{% url 'app_Transaction:checkPolycardEnrollment' User.iso_Number %}" method="post">
+  {%csrf_token %}
+  <input type="text" name="polyCardNumber" id="polyCardUserData" />
+  <input type="submit" value="validate Data">
+</form>
