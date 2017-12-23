@@ -13,7 +13,7 @@ x = '***REMOVED***'
 # Invalid PolyCard Data
 #x = 'ajkslfjlaskjfklasjklfjaskljflsakjf'
 
-def getData(polyCardData):
+def separate_ISO_And_Lib_Number(polyCardData):
     while True:
         # Verifies if card swiped is a PolyCard
         if (len(polyCardData)   == 41        and
@@ -34,8 +34,8 @@ def getData(polyCardData):
 
         else:
             # Returns 'None' if card is invalid
-            return None
+            print ('Invalid card! Please try again.')
             break
 
-# y = separate_ISO_And_Lib_Number(x)
-# print (y)
+y = separate_ISO_And_Lib_Number(x)
+print (y)
