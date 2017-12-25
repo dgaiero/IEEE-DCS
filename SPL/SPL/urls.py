@@ -20,9 +20,13 @@ Including another URLconf
 
 from django.urls import include, path
 from django.contrib import admin
+from django.conf.urls import url
+
+from SPL import views
 
 # Link apps/views to project
 urlpatterns = [
+    url(r'^$', views.home_redirect, name='home_redirect'),
     path('app_Transaction/', include('app_Transaction.urls')),
     path('admin/', admin.site.urls),
 ]
