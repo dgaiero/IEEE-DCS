@@ -24,6 +24,5 @@ from django.contrib import admin
 # Link apps/views to project
 urlpatterns = [
     path('app_Transaction/', include('app_Transaction.urls')),
-    #path('checkPolyCard/', include('app_Transaction.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -16,6 +16,7 @@ class User(models.Model):
     last_Name_Text        = models.CharField(max_length=100)
     user_Type_Text        = models.CharField(max_length=100)
     user_Email            = models.EmailField(null=True, max_length=100)
+    user_phone_Number     = models.IntegerField(default = 0)
     polyCard_Data_Text    = models.CharField(max_length=100)
     iso_Number            = models.IntegerField(default=0)
     library_Code_Number   = models.IntegerField(default=0)
