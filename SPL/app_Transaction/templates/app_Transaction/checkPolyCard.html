@@ -1,9 +1,22 @@
-<h1>Polycard Check</h1>
+<html>
+  <head>
+    <title>Login</title>
+    <!-- Obtataining the latest version of bootstrap
+     from https://getbootstrap.com/docs/4.0/getting-started/download/ -->
+    <link rel="stylesheet"
+     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+     integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+     crossorigin="anonymous">
 
-<h3>Please swipe your polycard</h3>
-
-<form action="{% url 'app_Transaction:checkPolycardEnrollment' User.iso_Number %}" method="post">
-  {%csrf_token %}
-  <input type="text" name="polyCardNumber" id="polyCardUserData" />
-  <input type="submit" value="validate Data">
-</form>
+     {% load static %}
+     <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
+  </head>
+  <body>
+    <br></br>
+    <div class="container">
+      <h1>Welcome</h1>
+      Welcome to the SPL CheckOut system!
+      <button class="btn btn-default" type="button" name="button">Submit</button>
+    </div>
+  </body>
+</html>
