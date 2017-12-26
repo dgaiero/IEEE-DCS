@@ -1,6 +1,11 @@
 <!--Import template base.html layout-->
 {% extends 'base.html' %}
 
+<!--Button code adapted from:
+https://getbootstrap.com/docs/4.0/components/buttons/
+https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,8 +23,8 @@
     <div class="container">
       <h1>CheckInOrCheckOut Page</h1>
       <p> Would you like to check in or check out? </p>
-      <button type="button" class="btn btn-outline-secondary btn-lg btn-block">Check In</button>
-      <button type="button" class="btn btn-outline-secondary btn-lg btn-block">Check Out</button>
+      <a href="/app_Transaction/checkIn/" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check In</a>
+      <a href="/app_Transaction/checkOut/" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check Out</a>
     </div>
     {% endblock %}
   </body>
