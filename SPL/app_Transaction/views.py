@@ -3,7 +3,7 @@ from django.template import loader
 from django.shortcuts import render, redirect
 
 from .models import User
-from app_Transaction.forms import RegistrationForm
+from app_Transaction.forms import RegistrationForm, CheckPolyCardForm
 
 # Define function-based views
 
@@ -17,6 +17,15 @@ def checkOut(request):
     return render(request, 'app_Transaction/checkOut.html')
 
 def checkPolyCardData(request):
+    if request.method =='POST':
+        checkPolyCardForm = CheckPolyCardForm(request.POST)
+        if checkPolyCardForm.is_valid():
+            checkPolyCardForm.save()
+            return redirect('/app_Transaction')
+    else:
+        checkPolyCardForm = CheckPolyCardForm()
+        args = {'checkPolyCardForm': checkPolyCardForm}
+        return render(request, 'app_Transaction/checkPolyCard.html', args)
     #numbers = [1,2,3,4,5]
     #name = 'Bill Gates'
     #args = {'myName' : name, 'numbers' : numbers}
@@ -29,13 +38,13 @@ def index(request):
 
 def registration(request):
     if request.method =='POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        registrationForm = RegistrationForm(request.POST)
+        if registrationForm.is_valid():
+            registrationForm.save()
             return redirect('/app_Transaction')
     else:
-        form = RegistrationForm()
-        args = {'form': form}
+        registrationForm = RegistrationForm()
+        args = {'registrationForm': registrationForm}
         return render(request, 'app_Transaction/registration.html', args)
     #return render(request, 'app_Transaction/registration.html')
 

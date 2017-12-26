@@ -5,12 +5,22 @@ from django import forms
 from .models import User
 #from phonenumber_field.modelfields import PhoneNumberField
 
+class CheckPolyCardForm(forms.ModelForm):
+    polyCard_Data = forms.CharField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('polyCard_Data',)
+
+    def save(self, commit=True):
+        pass
+
 class RegistrationForm(forms.ModelForm):
     first_Name = forms.CharField(required=True)
     last_Name = forms.CharField(required=True)
     # see if you can force @calpoly.edu on email field
     cal_Poly_Email = forms.EmailField(required=True)
-    phone_Number = forms.IntegerField(required=True)
+    phone_Number = forms.IntegerField(required=True, help_text ='(e.g. 8057561111)')
     #user_Phone_Number = PhoneNumberField()
 
     class Meta:

@@ -18,10 +18,10 @@
     <div class="container">
       <h1>Register</h1>
       <p>You can register here!</p>
-      <!--Registration form will go here:-->
+      <!--Registration form-->
       <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ registrationForm.as_p }}
         <button type="submit">Submit</button>
       </form>
     </div>
