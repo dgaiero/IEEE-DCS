@@ -1,5 +1,7 @@
 from django.db import models
+
 import datetime
+#from phonenumber_field.modelfields import PhoneNumberField
 
 # Create Part model with necessary attributes
 class Part(models.Model):
@@ -12,11 +14,12 @@ class Part(models.Model):
 
 # Create User model with necessary attributes
 class User(models.Model):
-    first_Name_Text       = models.CharField(max_length=100)
-    last_Name_Text        = models.CharField(max_length=100)
-    user_Type_Text        = models.CharField(max_length=100)
-    user_Email            = models.EmailField(null=True, max_length=100)
-    user_phone_Number     = models.IntegerField(default = 0)
+    first_Name            = models.CharField(max_length=100)
+    last_Name        = models.CharField(max_length=100)
+    user_Type_Text        = models.CharField(max_length=100, default="STUDENT")
+    cal_Poly_Email            = models.EmailField(null=True, max_length=100)
+    #user_Phone_Number     = PhoneNumberField()
+    phone_Number     = models.IntegerField(default=0)
     polyCard_Data_Text    = models.CharField(max_length=100)
     iso_Number            = models.IntegerField(default=0)
     library_Code_Number   = models.IntegerField(default=0)

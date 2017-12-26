@@ -29,9 +29,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# For phone number field: https://github.com/stefanfoulis/django-phonenumber-field
 
 INSTALLED_APPS = [
     'app_Transaction.apps.AppTransactionConfig',
+    #'phonenumber_field',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

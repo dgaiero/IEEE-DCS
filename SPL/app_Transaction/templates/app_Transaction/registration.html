@@ -16,7 +16,14 @@
     {% block body %}
     <br>
     <div class="container">
-      <h1>Registration Page</h1>
+      <h1>Register</h1>
+      <p>You can register here!</p>
+      <!--Registration form will go here:-->
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
     </div>
     {% endblock %}
   </body>

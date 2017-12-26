@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import User
+from app_Transaction.forms import RegistrationForm
 
 # Define function-based views
 
@@ -27,7 +28,16 @@ def index(request):
     return render(request, 'app_Transaction/index.html')
 
 def registration(request):
-    return render(request, 'app_Transaction/registration.html')
+    if request.method =='POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/app_Transaction')
+    else:
+        form = RegistrationForm()
+        args = {'form': form}
+        return render(request, 'app_Transaction/registration.html', args)
+    #return render(request, 'app_Transaction/registration.html')
 
 def transaction_Summary(request):
     return render(request, 'app_Transaction/transactionSummary.html')

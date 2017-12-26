@@ -15,15 +15,17 @@ class PartAdmin(admin.ModelAdmin):
 
 # Create visual settings for User class in Django admin
 class UserAdmin(admin.ModelAdmin):
-    list_display  = ('first_Name_Text',
-                     'last_Name_Text',
-                     'user_Email',)
-    list_filter   = ['first_Name_Text',
-                     'last_Name_Text',
-                     'user_Email',]
-    search_fields = ['first_Name_Text',
-                     'last_Name_Text',
-                     'user_Email',]
+    list_display  = ('first_Name',
+                     'last_Name',
+                     'cal_Poly_Email',
+                     'phone_Number')
+    list_filter   = ['first_Name',
+                     'last_Name',
+                     'cal_Poly_Email',]
+    search_fields = ['first_Name',
+                     'last_Name',
+                     'cal_Poly_Email',
+                     'phone_Number']
 
 # Register classes with the Django admin
 # register() takes 2-3 arguments at one time
