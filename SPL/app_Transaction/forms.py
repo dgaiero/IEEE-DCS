@@ -9,7 +9,7 @@ class RegistrationForm(forms.ModelForm):
     first_Name = forms.CharField(required=True)
     last_Name = forms.CharField(required=True)
     # see if you can force @calpoly.edu on email field
-    cal_Poly_Email = forms.EmailField(required=True, label_suffix = ' @calpoly.edu')
+    cal_Poly_Email = forms.EmailField(required=True)
     phone_Number = forms.IntegerField(required=True)
     #user_Phone_Number = PhoneNumberField()
 
