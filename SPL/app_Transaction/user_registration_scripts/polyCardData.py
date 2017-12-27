@@ -36,6 +36,3 @@ def getData(polyCardData):
             # Returns 'None' if card is invalid
             return None
             break
-
-# y = separate_ISO_And_Lib_Number(x)
-# print (y)

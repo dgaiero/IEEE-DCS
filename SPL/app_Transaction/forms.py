@@ -1,10 +1,11 @@
 from django import forms
-#from django.db import models
+from django.db import models
 
 # Import user model here
 from .models import User
 #from phonenumber_field.modelfields import PhoneNumberField
 from app_Transaction.user_registration_scripts.polyCardData import getData
+from app_Transaction.models import User
 
 
 class CheckPolyCardForm(forms.ModelForm):
@@ -23,6 +24,29 @@ class CheckPolyCardForm(forms.ModelForm):
         polycardData = getData(user.polyCardData)
         print(polycardData)
         '''
+        if (polyCardData is not(None)):
+            ## This might need some fixing...
+            isoNumber = user.polyCardData['iso_Number']
+            libraryCodeNumber = user.polyCardData['libraryCodeNumber']
+            ## End fixing...
+
+
+
+        else:
+            pass
+            #Tell user invalid polyCardData
+        '''
+        all_Users = list(User.objects.all())
+        #print ((User.objects.values('first_Name')[0])) {'first_Name': 'Test'}
+
+        model_Attribute = 'polyCard_Data'
+        i = 0
+        while i < len(all_Users):
+            x = User.objects.values(model_Attribute)[i][model_Attribute]
+            print (x)
+            i += 1
+
+        '''
         if get data returns useful info:
             check if iso number is in user database
 
@@ -30,8 +54,10 @@ class CheckPolyCardForm(forms.ModelForm):
                 redirect user to checkin or check out page
             else:
                 redirect user to register page
+                # Add dom stuff here
         else:
             tell user invalid polycard and redirect them back to checkPolyCard page
+            client validation here
         '''
         #pass
 
