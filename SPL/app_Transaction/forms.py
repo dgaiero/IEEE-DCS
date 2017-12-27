@@ -21,41 +21,49 @@ class CheckPolyCardForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(CheckPolyCardForm, self).save(commit=False)
         user.polyCardData = self.cleaned_data['polyCard_Data']
-        polycardData = getData(user.polyCardData)
-        print(polycardData)
+        polyCardData = getData(user.polyCardData)
+
         '''
         if (polyCardData is not(None)):
             ## This might need some fixing...
             isoNumber = user.polyCardData['iso_Number']
             libraryCodeNumber = user.polyCardData['libraryCodeNumber']
             ## End fixing...
-
-
-
-        else:
-            pass
-            #Tell user invalid polyCardData
         '''
-        all_Users = list(User.objects.all())
-        #print ((User.objects.values('first_Name')[0])) {'first_Name': 'Test'}
 
-        model_Attribute = 'polyCard_Data'
-        i = 0
-        while i < len(all_Users):
-            x = User.objects.values(model_Attribute)[i][model_Attribute]
-            print (x)
-            i += 1
+        if polyCardData[1] == True:
+            all_Users = list(User.objects.all())
 
-        '''
-        if get data returns useful info:
-            check if iso number is in user database
+            model_Attribute = 'polyCard_Data'
+            registeredStatus = None
+            i = 0
+            while i < len(all_Users):
+                userInput = User.objects.values(model_Attribute)[i][model_Attribute]
+                if userInput == user.polyCardData:
+                    print ('\nYou are already registered!\n')
+                    registeredStatus = True
+                    break
+                i += 1
 
-            if iso is in database:
-                redirect user to checkin or check out page
+            if registeredStatus == True:
+                print ('\nYou will be redirected to checkInOrCheckOut page\n')
+                # redirect to checkInOrCheckOut page
             else:
+                print ('\nYou will be redirected to register page\n')
+        else:
+            print ('\nInvalid PolyCard! Please swipe a valid PolyCard\n')
+
+        '''
+        Pseudo code for next steps:
+
+        #1 if get data returns useful info:
+            check if polyCardData is in user database
+             #2 if iso is in database:
+                redirect user to checkin or check out page
+             #3 else:
                 redirect user to register page
                 # Add dom stuff here
-        else:
+        #4 else:
             tell user invalid polycard and redirect them back to checkPolyCard page
             client validation here
         '''

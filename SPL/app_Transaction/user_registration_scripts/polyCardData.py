@@ -30,9 +30,9 @@ def getData(polyCardData):
             useful_polyCard_Data = {'libraryCodeNumber': library_Code_Number,
                                     'isoNumber'        : iso_Number,
             }
-            return useful_polyCard_Data
+            return useful_polyCard_Data, True
 
         else:
             # Returns 'None' if card is invalid
-            return None
+            return None, False
             break
