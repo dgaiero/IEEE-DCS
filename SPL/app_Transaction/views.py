@@ -36,6 +36,9 @@ def checkPolyCardData(request):
 def index(request):
     return render(request, 'app_Transaction/index.html')
 
+def registered_Users(request):
+    return render(request, 'app_Transaction/registeredUsers.html')
+
 def registration(request):
     if request.method =='POST':
         registrationForm = RegistrationForm(request.POST)
