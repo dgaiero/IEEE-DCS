@@ -4,17 +4,36 @@ from django import forms
 # Import user model here
 from .models import User
 #from phonenumber_field.modelfields import PhoneNumberField
+from app_Transaction.user_registration_scripts.polyCardData import getData
 
 
 class CheckPolyCardForm(forms.ModelForm):
     polyCard_Data = forms.CharField(required=True)
+
+    #polycardData = getData(polyCard_Data)
+    #print(polycardData)
 
     class Meta:
         model = User
         fields = ('polyCard_Data',)
 
     def save(self, commit=True):
-        pass
+        user = super(CheckPolyCardForm, self).save(commit=False)
+        user.polyCardData = self.cleaned_data['polyCard_Data']
+        polycardData = getData(user.polyCardData)
+        print(polycardData)
+        '''
+        if get data returns useful info:
+            check if iso number is in user database
+
+            if iso is in database:
+                redirect user to checkin or check out page
+            else:
+                redirect user to register page
+        else:
+            tell user invalid polycard and redirect them back to checkPolyCard page
+        '''
+        #pass
 
 
 class RegistrationForm(forms.ModelForm):

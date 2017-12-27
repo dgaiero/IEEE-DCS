@@ -15,12 +15,12 @@ class Part(models.Model):
 # Create User model with necessary attributes
 class User(models.Model):
     first_Name            = models.CharField(max_length=100)
-    last_Name        = models.CharField(max_length=100)
-    user_Type        = models.CharField(max_length=100, default="STUDENT")
-    cal_Poly_Email            = models.EmailField(null=True, max_length=100)
+    last_Name             = models.CharField(max_length=100)
+    user_Type             = models.CharField(max_length=100, default="STUDENT")
+    cal_Poly_Email        = models.EmailField(null=True, max_length=100)
     #user_Phone_Number     = PhoneNumberField()
-    phone_Number     = models.IntegerField(default=0)
-    polyCard_Data    = models.CharField(max_length=100)
+    phone_Number          = models.IntegerField(default=0)
+    polyCard_Data         = models.CharField(max_length=100)
     iso_Number            = models.IntegerField(default=0)
     library_Code_Number   = models.IntegerField(default=0)
     parts                 = models.ManyToManyField(Part)

@@ -3,6 +3,7 @@ from django.conf.urls import url
 
 from . import views
 
+#make urls more dynamic check YouTube
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^checkIn/$', views.checkIn, name='checkIn'),
