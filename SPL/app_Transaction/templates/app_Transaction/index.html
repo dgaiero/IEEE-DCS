@@ -1,14 +1,17 @@
 <!--Import template base.html layout-->
 {% extends 'base.html' %}
-
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
+
     {% block head %}
     <title>Index Page</title>
+    <link rel="shortcut icon" type="image/jpg" href="{% static favicon.jpg %}"/>
     {% endblock %}
+
     <!--Needed for importing static files
-    {% load static %}
+
      <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
   </head>

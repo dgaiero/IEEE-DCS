@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 ####################################################
-#This is the master urls.py file for the SPL Project
+# This is the master urls.py file for the SPL Project
 ####################################################
 
 from django.urls import include, path
