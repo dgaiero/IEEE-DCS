@@ -6,6 +6,7 @@ from . import views
 #make urls more dynamic check YouTube
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^anotherAction/$', views.another_Action, name='another_Action'),
     url(r'^checkIn/$', views.checkIn, name='checkIn'),
     url(r'^checkInOrCheckOut/$', views.checkIn_Or_CheckOut, name='checkIn_Or_CheckOut'),
     url(r'^checkOut/$', views.checkOut, name='checkOut'),

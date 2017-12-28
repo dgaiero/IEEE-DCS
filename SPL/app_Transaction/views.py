@@ -7,7 +7,12 @@ from .models import User, Part
 from app_Transaction.forms import RegistrationForm, CheckPolyCardForm
 from app_Transaction.user_registration_scripts.polyCardData import getData
 
+# try to include error messages here
+
 # Define function-based views
+
+def another_Action(request):
+    return render(request, 'app_Transaction/anotherAction.html')
 
 def checkIn(request):
     return render(request, 'app_Transaction/checkIn.html')
@@ -24,10 +29,8 @@ def checkPolyCardData(request):
         if checkPolyCardForm.is_valid():
             raw_PolyCard_Data = checkPolyCardForm.cleaned_data['polyCard_Data']
             polyCardData = getData(raw_PolyCard_Data)
-            print (polyCardData)
 
             registeredStatus = None
-            validInput = None
 
             if polyCardData[1] == True:
                 all_Users = list(User.objects.all())
@@ -38,47 +41,32 @@ def checkPolyCardData(request):
                 while i < len(all_Users):
                     userInput = User.objects.values(model_Attribute)[i][model_Attribute]
                     if userInput == raw_PolyCard_Data:
-                        print ('\nYou are already registered!\n')
                         registeredStatus = True
                         break
                     i += 1
 
                 if registeredStatus == True:
-                    print ('\nYou will be redirected to the checkInOrCheckOut page!\n')
                     validInput = True
-                    #return render(request, 'app_Transaction/checkInOrCheckOut.html')
-                    #return redirect('/app_Transaction/checkInOrCheckOut.html')
-                    #return reverse('checkIn_Or_CheckOut')
                     return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
                 else:
-                    print ('\nYou will be redirected to the register page!\n')
                     validInput = True
-                    #return render(request, 'app_Transaction/registration.html')
-                    #return redirect('/app_Transaction/registration/')
-                    #return reverse('registration')
                     return HttpResponseRedirect('/app_Transaction/registration')
             else:
-                print ('\nInvalid PolyCard! Please swipe a valid PolyCard!\n')
-                validInput = False
-                #return redirect('/app_Transaction/checkPolyCard')
-                #return render(request, 'app_Transaction/checkPolyCard.html')
-                #return reverse('checkPolyCardData')
                 return HttpResponseRedirect('/app_Transaction/checkPolyCard')
+            '''
+            Dom's Code
+            if (polyCardData is not(None)):
+                ## This might need some fixing...
+                isoNumber = user.polyCardData['iso_Number']
+                libraryCodeNumber = user.polyCardData['libraryCodeNumber']
+                ## End fixing...
+            '''
 
-
-            #checkPolyCardForm.save()
-            #print (reverse('index'))
-            #return reverse('index').lstrip('/')
-            #return redirect('/app_Transaction')
     else:
         checkPolyCardForm = CheckPolyCardForm()
         args = {'checkPolyCardForm': checkPolyCardForm}
         return render(request, 'app_Transaction/checkPolyCard.html', args)
-    #numbers = [1,2,3,4,5]
-    #name = 'Bill Gates'
-    #args = {'myName' : name, 'numbers' : numbers}
-    #                       location of template
-    #return render(request, 'app_Transaction/checkPolyCard.html', args)
+
     return render(request, 'app_Transaction/checkPolyCard.html')
 
 def index(request):
@@ -116,7 +104,7 @@ def registration(request):
         registrationForm = RegistrationForm(request.POST)
         if registrationForm.is_valid():
             registrationForm.save()
-            return redirect('/app_Transaction')
+            return redirect('/app_Transaction/checkPolyCard/')
     else:
         registrationForm = RegistrationForm()
         args = {'registrationForm': registrationForm}
@@ -133,7 +121,4 @@ def regular_CheckOut(request):
 
 def express_CheckOut(request):
     return HttpResponse("Hello, world. You're at the express_CheckOut view.")
-
-def another_Action(request):
-    return HttpResponse("Hello, world. You're at the another_Action view.")
 '''

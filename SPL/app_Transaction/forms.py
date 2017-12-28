@@ -7,81 +7,14 @@ from .models import User
 from app_Transaction.user_registration_scripts.polyCardData import getData
 from app_Transaction.models import User
 
+# Define class-based model forms
 
 class CheckPolyCardForm(forms.ModelForm):
     polyCard_Data = forms.CharField(required=True)
 
-    #polycardData = getData(polyCard_Data)
-    #print(polycardData)
-
     class Meta:
         model = User
         fields = ('polyCard_Data',)
-
-    def save(self, commit=True):
-        user = super(CheckPolyCardForm, self).save(commit=False)
-        user.polyCardData = self.cleaned_data['polyCard_Data']
-        polyCardData = getData(user.polyCardData)
-
-        if commit:
-            user.save()
-
-        return User
-
-        '''
-        if (polyCardData is not(None)):
-            ## This might need some fixing...
-            isoNumber = user.polyCardData['iso_Number']
-            libraryCodeNumber = user.polyCardData['libraryCodeNumber']
-            ## End fixing...
-
-        registeredStatus = None
-        validInput = None
-
-        if polyCardData[1] == True:
-            all_Users = list(User.objects.all())
-
-            model_Attribute = 'polyCard_Data'
-
-            i = 0
-            while i < len(all_Users):
-                userInput = User.objects.values(model_Attribute)[i][model_Attribute]
-                if userInput == user.polyCardData:
-                    print ('\nYou are already registered!\n')
-                    registeredStatus = True
-                    break
-                i += 1
-
-            if registeredStatus == True:
-                print ('\nYou will be redirected to checkInOrCheckOut page\n')
-                validInput = True
-                return (validInput, registeredStatus)
-                # redirect to checkInOrCheckOut page
-            else:
-                print ('\nYou will be redirected to register page\n')
-                validInput = True
-                return (validInput, registeredStatus)
-        else:
-            print ('\nInvalid PolyCard! Please swipe a valid PolyCard\n')
-            validInput = False
-            return (validInput, registeredStatus)
-
-
-        Pseudo code for next steps:
-
-        #1 if get data returns useful info:
-            check if polyCardData is in user database
-             #2 if iso is in database:
-                redirect user to checkin or check out page
-             #3 else:
-                redirect user to register page
-                # Add dom stuff here
-        #4 else:
-            tell user invalid polycard and redirect them back to checkPolyCard page
-            client validation here
-        '''
-        #pass
-
 
 class RegistrationForm(forms.ModelForm):
     first_Name = forms.CharField(required=True)
