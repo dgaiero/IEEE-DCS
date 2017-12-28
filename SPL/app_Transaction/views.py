@@ -53,14 +53,6 @@ def checkPolyCardData(request):
                     return HttpResponseRedirect('/app_Transaction/registration')
             else:
                 return HttpResponseRedirect('/app_Transaction/checkPolyCard')
-            '''
-            Dom's Code
-            if (polyCardData is not(None)):
-                ## This might need some fixing...
-                isoNumber = user.polyCardData['iso_Number']
-                libraryCodeNumber = user.polyCardData['libraryCodeNumber']
-                ## End fixing...
-            '''
 
     else:
         checkPolyCardForm = CheckPolyCardForm()

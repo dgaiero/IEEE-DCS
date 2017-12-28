@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 
-# Import user model here
+# Import custom scripts here
 from .models import User
 #from phonenumber_field.modelfields import PhoneNumberField
 from app_Transaction.user_registration_scripts.polyCardData import getData
@@ -19,6 +19,7 @@ class CheckPolyCardForm(forms.ModelForm):
 class RegistrationForm(forms.ModelForm):
     first_Name = forms.CharField(required=True)
     last_Name = forms.CharField(required=True)
+    polyCard_Data = forms.CharField(required=True)
     # see if you can force @calpoly.edu on email field
     cal_Poly_Email = forms.EmailField(required=True)
     phone_Number = forms.IntegerField(
@@ -30,15 +31,28 @@ class RegistrationForm(forms.ModelForm):
         fields = (
             'first_Name',
             'last_Name',
+            'polyCard_Data',
             'cal_Poly_Email',
             'phone_Number',
+            'iso_Number',
+            'library_Code_Number',
         )
+        exclude = ('iso_Number', 'library_Code_Number',)
 
     # Create a function that saves data to the model
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.first_Name = self.cleaned_data['first_Name']
         user.last_Name = self.cleaned_data['last_Name']
+        user.polyCard_Data = self.cleaned_data['polyCard_Data']
+
+        raw_PolyCard_Data = user.polyCard_Data
+        polyCardData = getData(raw_PolyCard_Data)
+        library_Code_Number = polyCardData[0]['libraryCodeNumber']
+        iso_Number = polyCardData[0]['isoNumber']
+
+        user.library_Code_Number = library_Code_Number
+        user.iso_Number = iso_Number
         user.user_Email = self.cleaned_data['cal_Poly_Email']
         user.user_Phone_Number = self.cleaned_data['phone_Number']
 
