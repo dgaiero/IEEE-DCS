@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .models import User
 from app_Transaction.forms import RegistrationForm, CheckPolyCardForm
@@ -23,6 +24,8 @@ def checkPolyCardData(request):
         checkPolyCardForm = CheckPolyCardForm(request.POST)
         if checkPolyCardForm.is_valid():
             checkPolyCardForm.save()
+            #print (reverse('index'))
+            #return reverse('index').lstrip('/')
             return redirect('/app_Transaction')
     else:
         checkPolyCardForm = CheckPolyCardForm()

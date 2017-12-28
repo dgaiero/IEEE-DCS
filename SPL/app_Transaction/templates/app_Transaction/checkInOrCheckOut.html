@@ -23,8 +23,8 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
     <div class="container">
       <h1>CheckInOrCheckOut Page</h1>
       <p> Would you like to check in or check out? </p>
-      <a href="/app_Transaction/checkIn/" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check In</a>
-      <a href="/app_Transaction/checkOut/" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check Out</a>
+      <a href="{% url 'checkIn' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check In</a>
+      <a href="{% url 'checkOut' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check Out</a>
     </div>
     {% endblock %}
   </body>
