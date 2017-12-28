@@ -23,13 +23,18 @@ class CheckPolyCardForm(forms.ModelForm):
         user.polyCardData = self.cleaned_data['polyCard_Data']
         polyCardData = getData(user.polyCardData)
 
+        if commit:
+            user.save()
+
+        return User
+
         '''
         if (polyCardData is not(None)):
             ## This might need some fixing...
             isoNumber = user.polyCardData['iso_Number']
             libraryCodeNumber = user.polyCardData['libraryCodeNumber']
             ## End fixing...
-        '''
+
         registeredStatus = None
         validInput = None
 
@@ -61,7 +66,7 @@ class CheckPolyCardForm(forms.ModelForm):
             validInput = False
             return (validInput, registeredStatus)
 
-        '''
+
         Pseudo code for next steps:
 
         #1 if get data returns useful info:
