@@ -41,17 +41,31 @@ def checkPolyCardData(request):
 def index(request):
     return render(request, 'app_Transaction/index.html')
 
+def parts(request):
+    all_Parts = list(Part.objects.all())
+    i = 0
+    registered_Parts_List = []
+    total_Parts = len(all_Parts)
+    while i < total_Parts:
+        part = Part.objects.values('part')[i]['part']
+        registered_Parts_List.append(part)
+        i +=1
+    registered_Parts_List = sorted(registered_Parts_List)
+    args = {'registered_Parts_List': registered_Parts_List, 'total_Parts': total_Parts}
+    return render(request, 'app_Transaction/parts.html', args)
+
 def registered_Users(request):
     all_Users = list(User.objects.all())
     i = 0
     registered_Users_List = []
-    while i < len(all_Users):
+    total_Users = len(all_Users)
+    while i < total_Users:
         first_Name = User.objects.values('first_Name')[i]['first_Name']
         last_Name = User.objects.values('last_Name')[i]['last_Name']
         full_Name = first_Name + ' ' + last_Name
         registered_Users_List.append(full_Name)
         i += 1
-    args = {'registered_Users_List': registered_Users_List}
+    args = {'registered_Users_List': registered_Users_List, 'total_Users': total_Users}
     return render(request, 'app_Transaction/registeredUsers.html', args)
 
 def registration(request):

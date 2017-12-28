@@ -10,7 +10,7 @@ class Part(models.Model):
     quantity_Checked_Out = models.IntegerField(default=0)
     id_Number            = models.IntegerField(blank=True, null=True)
     def __str__(self):
-        return self.part_Name_Text
+        return self.part
 
 # Create User model with necessary attributes
 class User(models.Model):

@@ -17,10 +17,11 @@
     <br>
     <div class="container">
       <h1>Parts Page</h1>
-      <p>Below is a list of registered users:</p>
+      <h6>Number of items: {{ total_Parts }}</h6>
+      <p>Below is a list of registered parts:</p>
       <ul>
-        {% for user in registered_Users_List %}
-        <p>{{ user }}</p>
+        {% for part in registered_Parts_List %}
+        <p>{{ part }}</p>
         {% endfor %}
       </ul>
     </div>
