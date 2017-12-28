@@ -42,7 +42,17 @@ def index(request):
     return render(request, 'app_Transaction/index.html')
 
 def registered_Users(request):
-    return render(request, 'app_Transaction/registeredUsers.html')
+    all_Users = list(User.objects.all())
+    i = 0
+    registered_Users_List = []
+    while i < len(all_Users):
+        first_Name = User.objects.values('first_Name')[i]['first_Name']
+        last_Name = User.objects.values('last_Name')[i]['last_Name']
+        full_Name = first_Name + ' ' + last_Name
+        registered_Users_List.append(full_Name)
+        i += 1
+    args = {'registered_Users_List': registered_Users_List}
+    return render(request, 'app_Transaction/registeredUsers.html', args)
 
 def registration(request):
     if request.method =='POST':

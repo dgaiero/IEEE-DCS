@@ -17,7 +17,12 @@
     <br>
     <div class="container">
       <h1>Registered Users</h1>
-      <p>Below is a list of registered users</p>
+      <p>Below is a list of registered users:</p>
+      <ul>
+        {% for user in registered_Users_List %}
+        <p>{{ user }}</p>
+        {% endfor %}
+      </ul>
     </div>
     {% endblock %}
   </body>
