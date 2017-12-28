@@ -100,7 +100,7 @@ class RegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.first_Name = self.cleaned_data['first_Name']
-        user.last_Name_Text = self.cleaned_data['last_Name']
+        user.last_Name = self.cleaned_data['last_Name']
         user.user_Email = self.cleaned_data['cal_Poly_Email']
         user.user_Phone_Number = self.cleaned_data['phone_Number']
 

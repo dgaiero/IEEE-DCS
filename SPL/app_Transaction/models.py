@@ -5,10 +5,10 @@ import datetime
 
 # Create Part model with necessary attributes
 class Part(models.Model):
-    part_Name_Text              = models.CharField(max_length=100)
-    quantity_Number             = models.IntegerField(default=0)
-    quantity_Checked_Out_Number = models.IntegerField(default=0)
-    id_Number                   = models.IntegerField(blank=True, null=True)
+    part                 = models.CharField(max_length=100)
+    quantity             = models.IntegerField(default=0)
+    quantity_Checked_Out = models.IntegerField(default=0)
+    id_Number            = models.IntegerField(blank=True, null=True)
     def __str__(self):
         return self.part_Name_Text
 

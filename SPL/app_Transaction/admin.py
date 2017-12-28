@@ -5,12 +5,12 @@ from .models import Part, User
 
 # Create visual settings for Part class in Django admin
 class PartAdmin(admin.ModelAdmin):
-    list_display  = ('part_Name_Text',
-                     'quantity_Number',
-                     'quantity_Checked_Out_Number',
+    list_display  = ('part',
+                     'quantity',
+                     'quantity_Checked_Out',
                      'id_Number',)
-    list_filter   = ['part_Name_Text',]
-    search_fields = ['part_Name_Text',
+    list_filter   = ['part',]
+    search_fields = ['part',
                     'id_Number',]
 
 # Create visual settings for User class in Django admin

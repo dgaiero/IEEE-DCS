@@ -3,7 +3,7 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .models import User
+from .models import User, Part
 from app_Transaction.forms import RegistrationForm, CheckPolyCardForm
 
 # Define function-based views
