@@ -17,6 +17,8 @@ def checkOut(request):
     return render(request, 'app_Transaction/checkOut.html')
 
 def checkPolyCardData(request):
+    x = CheckPolyCardForm.save
+    print (x)
     if request.method =='POST':
         checkPolyCardForm = CheckPolyCardForm(request.POST)
         if checkPolyCardForm.is_valid():

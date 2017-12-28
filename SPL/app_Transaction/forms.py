@@ -30,12 +30,14 @@ class CheckPolyCardForm(forms.ModelForm):
             libraryCodeNumber = user.polyCardData['libraryCodeNumber']
             ## End fixing...
         '''
+        registeredStatus = None
+        validInput = None
 
         if polyCardData[1] == True:
             all_Users = list(User.objects.all())
 
             model_Attribute = 'polyCard_Data'
-            registeredStatus = None
+
             i = 0
             while i < len(all_Users):
                 userInput = User.objects.values(model_Attribute)[i][model_Attribute]
@@ -47,11 +49,17 @@ class CheckPolyCardForm(forms.ModelForm):
 
             if registeredStatus == True:
                 print ('\nYou will be redirected to checkInOrCheckOut page\n')
+                validInput = True
+                return (validInput, registeredStatus)
                 # redirect to checkInOrCheckOut page
             else:
                 print ('\nYou will be redirected to register page\n')
+                validInput = True
+                return (validInput, registeredStatus)
         else:
             print ('\nInvalid PolyCard! Please swipe a valid PolyCard\n')
+            validInput = False
+            return (validInput, registeredStatus)
 
         '''
         Pseudo code for next steps:
