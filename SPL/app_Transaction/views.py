@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import User, Part
-from app_Transaction.forms import RegistrationForm, CheckPolyCardForm
+from app_Transaction.forms import RegistrationForm, CheckPolyCardForm, CheckOutForm
 from app_Transaction.user_registration_scripts.polyCardData import getData
 
 # try to include error messages here
@@ -21,6 +21,16 @@ def checkIn_Or_CheckOut(request):
     return render(request, 'app_Transaction/CheckInOrCheckOut.html')
 
 def checkOut(request):
+    if request.method =='POST':
+        checkOutForm = CheckOutForm(request.POST)
+        if checkOutForm.is_valid():
+            checkOutForm.save()
+            return redirect('/app_Transaction/')
+    else:
+        checkOutForm = CheckOutForm()
+        args = {'checkOutForm': checkOutForm}
+        return render(request, 'app_Transaction/checkOut.html', args)
+    '''
     all_Parts = list(Part.objects.all())
     i = 0
     registered_Parts_List = []
@@ -37,6 +47,7 @@ def checkOut(request):
             'total_Parts': total_Parts,
             'quantity_List': quantity_List,}
     return render(request, 'app_Transaction/checkOut.html', args)
+    '''
 
 def checkPolyCardData(request):
     if request.method =='POST':

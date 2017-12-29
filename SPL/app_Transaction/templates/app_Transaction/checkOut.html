@@ -17,6 +17,20 @@
     <br>
     <div class="container">
       <h1>CheckOut Page</h1>
+      <form method="post">
+        {% csrf_token %}
+        <p>
+        Part:
+        {{ checkOutForm.part }}
+        Quantity:
+        {{ checkOutForm.quantity }}
+        Quantity Checked Out: --int/int--
+        Id_Number:
+        {{ checkOutForm.id_Number }}
+        </p>
+            <!--<button type="submit" class="btn btn-outline-secondary" role="button">Submit</a>-->
+      </form>
+      <!--Table test
       <table class="table table-bordered">
   <thead>
     <tr>
@@ -34,6 +48,13 @@
     {% endfor %}
   </tbody>
 </table>
+-->
+      <a href="#" class="btn btn-outline-secondary btn-lg btn-block" role="button">Add Item</a>
+      <br>
+      <h3>
+        Check Out Queue
+      </h3>
+      <br>
       <a href="{% url 'another_Action' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Finish Checking Out</a>
       <br>
     </div>

@@ -2,12 +2,44 @@ from django import forms
 from django.db import models
 
 # Import custom scripts here
-from .models import User
+from .models import User, Part
 #from phonenumber_field.modelfields import PhoneNumberField
 from app_Transaction.user_registration_scripts.polyCardData import getData
 from app_Transaction.models import User
 
 # Define class-based model forms
+
+all_Parts = list(Part.objects.all())
+i = 0
+PART_CHOICES =[]
+registered_Parts_List = []
+total_Parts = len(all_Parts)
+while i < total_Parts:
+    part = Part.objects.values('part')[i]['part']
+    PART_CHOICES.append(('{}'.format(part), '{}'.format(part)))
+    i += 1
+
+PART_CHOICES = sorted(PART_CHOICES)
+
+QUANTITY_CHOICES = []
+j = 1
+max_length = 101
+while j < max_length:
+    QUANTITY_CHOICES.append(('{}'.format(j), '{}'.format(j)))
+    j += 1
+
+class CheckOutForm(forms.ModelForm):
+    part = forms.CharField(widget=forms.Select(choices=PART_CHOICES))
+    quantity = forms.IntegerField(widget=forms.Select(choices=QUANTITY_CHOICES))
+    id_Number = forms.IntegerField()
+
+    class Meta:
+        model = Part
+        fields = ('part',
+                  'quantity',
+                  'quantity_Checked_Out',
+                  'id_Number',)
+        exclude = ('quantity_Checked_Out',)
 
 class CheckPolyCardForm(forms.ModelForm):
     polyCard_Data = forms.CharField(required=True)
