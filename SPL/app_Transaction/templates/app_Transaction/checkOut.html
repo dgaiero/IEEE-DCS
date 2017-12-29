@@ -17,7 +17,25 @@
     <br>
     <div class="container">
       <h1>CheckOut Page</h1>
+      <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Part</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Quantity Checked Out</th>
+      <th scope="col">Id Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for part in registered_Parts_List %}
+    <tr>
+      <td>{{ part }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
       <a href="{% url 'another_Action' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Finish Checking Out</a>
+      <br>
     </div>
     {% endblock %}
   </body>
