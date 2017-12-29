@@ -52,7 +52,8 @@ def checkPolyCardData(request):
                     validInput = True
                     return HttpResponseRedirect('/app_Transaction/registration')
             else:
-                return HttpResponseRedirect('/app_Transaction/checkPolyCard')
+                #return HttpResponseRedirect('/app_Transaction/checkPolyCard')
+                return HttpResponseRedirect('/app_Transaction/')
 
     else:
         checkPolyCardForm = CheckPolyCardForm()
@@ -61,8 +62,10 @@ def checkPolyCardData(request):
 
     return render(request, 'app_Transaction/checkPolyCard.html')
 
+'''
 def index(request):
     return render(request, 'app_Transaction/index.html')
+'''
 
 def parts(request):
     all_Parts = list(Part.objects.all())
@@ -96,7 +99,7 @@ def registration(request):
         registrationForm = RegistrationForm(request.POST)
         if registrationForm.is_valid():
             registrationForm.save()
-            return redirect('/app_Transaction/checkPolyCard/')
+            return redirect('/app_Transaction/')
     else:
         registrationForm = RegistrationForm()
         args = {'registrationForm': registrationForm}
