@@ -23,8 +23,9 @@ class User(models.Model):
     polyCard_Data         = models.CharField(max_length=100)
     library_Code_Number   = models.IntegerField(default=0)
     iso_Number            = models.IntegerField(default=0)
-    #parts                 = models.ManyToManyField(Part)
+    parts                 = models.ManyToManyField(Part)
     has_Items_Checked_Out = models.BooleanField(default=False)
+
     def __str__(self):
         return self.first_Name + ' ' + self.last_Name
 

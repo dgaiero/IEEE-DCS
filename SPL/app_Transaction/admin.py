@@ -18,7 +18,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display  = ('first_Name',
                      'last_Name',
                      'cal_Poly_Email',
-                     'phone_Number')
+                     'phone_Number',)
     list_filter   = ['first_Name',
                      'last_Name',
                      'cal_Poly_Email',]
