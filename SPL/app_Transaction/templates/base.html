@@ -11,12 +11,11 @@
      crossorigin="anonymous">
     {% block head %}
     <title>Base</title>
-    <!--Trying to incorporate favicon here-->
-    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
     {% endblock %}
-    <!--Needed for importing static files
+    <!--Needed for importing static files-->
     {% load static %}
-     <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.jpg' %}"/>
+    <!-- <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
   </head>
   <body>
