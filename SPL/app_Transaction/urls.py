@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^registration/users$',  views.registered_Users,    name='registered_Users'),
     url(r'^registration/$',       views.registration,        name='registration'),
     url(r'^transactionSummary/$', views.transaction_Summary, name='transaction_Summary'),
+    url(r'^logout/', views.Logout, name = 'logout'),
 ]

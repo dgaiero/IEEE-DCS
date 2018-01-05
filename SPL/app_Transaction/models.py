@@ -26,8 +26,9 @@ class User(models.Model):
     parts                 = models.ManyToManyField(Part)
     has_Items_Checked_Out = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.first_Name + ' ' + self.last_Name
+    # def __str__(self):
+    #     # return self.__dict__
+    #     return self.first_Name + ' ' + self.last_Name
 
 # Create Transaction model with necessary attributes
 # We'll worry about this later...

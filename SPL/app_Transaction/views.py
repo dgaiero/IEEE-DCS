@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core import serializers
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -8,7 +9,9 @@ from app_Transaction.forms import RegistrationForm, CheckPolyCardForm, CheckOutF
 from app_Transaction.user_registration_scripts.polyCardData import getData
 
 # try to include error messages here
-
+def getJSONofCurrentUser(sessionData):
+    currentUserData = User.objects.get(polyCard_Data=sessionData).__dict__
+    return currentUserData
 # Define function-based views
 
 def another_Action(request):
@@ -17,19 +20,35 @@ def another_Action(request):
 def checkIn(request):
     return render(request, 'app_Transaction/checkIn.html')
 
+def Logout(request):
+    try:
+        del request.session['polyCardData']
+    except:
+        print("Fail")
+        pass
+    return HttpResponse("<strong>You are logged out.</strong>")
+
 def checkIn_Or_CheckOut(request):
-    return render(request, 'app_Transaction/CheckInOrCheckOut.html')
+    if request.session.has_key('polyCardData'):
+        userData = getJSONofCurrentUser(request.session['polyCardData'])
+        args = {'userFirstName':userData['first_Name']}
+        return render(request, 'app_Transaction/CheckInOrCheckOut.html', args)
+    else:
+        return redirect('/app_Transaction/')
 
 def checkOut(request):
-    if request.method =='POST':
-        checkOutForm = CheckOutForm(request.POST)
-        if checkOutForm.is_valid():
-            checkOutForm.save()
-            return redirect('/app_Transaction/')
+    if request.session.has_key('polyCardData'):
+        if request.method =='POST':
+            checkOutForm = CheckOutForm(request.POST)
+            if checkOutForm.is_valid():
+                checkOutForm.save()
+                return redirect('/app_Transaction/')
+        else:
+            checkOutForm = CheckOutForm()
+            args = {'checkOutForm': checkOutForm}
+            return render(request, 'app_Transaction/checkOut.html', args)
     else:
-        checkOutForm = CheckOutForm()
-        args = {'checkOutForm': checkOutForm}
-        return render(request, 'app_Transaction/checkOut.html', args)
+        return redirect('/app_Transaction/')
     '''
     all_Parts = list(Part.objects.all())
     i = 0
@@ -50,42 +69,48 @@ def checkOut(request):
     '''
 
 def checkPolyCardData(request):
-    if request.method =='POST':
-        checkPolyCardForm = CheckPolyCardForm(request.POST)
-        if checkPolyCardForm.is_valid():
-            raw_PolyCard_Data = checkPolyCardForm.cleaned_data['polyCard_Data']
-            polyCardData = getData(raw_PolyCard_Data)
-
-            registeredStatus = None
-
-            if polyCardData[1] == True:
-                all_Users = list(User.objects.all())
-
-                model_Attribute = 'polyCard_Data'
-
-                i = 0
-                while i < len(all_Users):
-                    userInput = User.objects.values(model_Attribute)[i][model_Attribute]
-                    if userInput == raw_PolyCard_Data:
-                        registeredStatus = True
-                        break
-                    i += 1
-
-                if registeredStatus == True:
-                    validInput = True
-                    return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
-                else:
-                    validInput = True
-                    return HttpResponseRedirect('/app_Transaction/registration')
-            else:
-                return HttpResponseRedirect('/app_Transaction/')
-
+    if request.session.has_key('polyCardData'):
+        return redirect('/app_Transaction/checkInOrCheckOut')
     else:
-        checkPolyCardForm = CheckPolyCardForm()
-        args = {'checkPolyCardForm': checkPolyCardForm}
-        return render(request, 'app_Transaction/checkPolyCard.html', args)
+        if request.method =='POST':
+            checkPolyCardForm = CheckPolyCardForm(request.POST)
+            if checkPolyCardForm.is_valid():
+                raw_PolyCard_Data = checkPolyCardForm.cleaned_data['polyCard_Data']
+                polyCardData = getData(raw_PolyCard_Data)
 
-    return render(request, 'app_Transaction/checkPolyCard.html')
+
+                registeredStatus = None
+
+                if polyCardData[1] == True:
+                    all_Users = list(User.objects.all())
+
+                    model_Attribute = 'polyCard_Data'
+
+                    i = 0
+                    while i < len(all_Users):
+                        userInput = User.objects.values(model_Attribute)[i][model_Attribute]
+
+                        if userInput == raw_PolyCard_Data:
+                            registeredStatus = True
+                            break
+                        i += 1
+                    if registeredStatus == True:
+                        validInput = True
+                        #request.session['polyCardData'] = User.objects.get(polyCard_Data=raw_PolyCard_Data).__dict__['polyCard_Data'])
+                        request.session['polyCardData']=str(raw_PolyCard_Data)
+                        return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
+                    else:
+                        validInput = True
+                        return HttpResponseRedirect('/app_Transaction/registration')
+                else:
+                    return HttpResponseRedirect('/app_Transaction/')
+
+        else:
+            checkPolyCardForm = CheckPolyCardForm()
+            args = {'checkPolyCardForm': checkPolyCardForm}
+            return render(request, 'app_Transaction/checkPolyCard.html', args)
+
+        return render(request, 'app_Transaction/checkPolyCard.html')
 
 def parts(request):
     all_Parts = list(Part.objects.all())
@@ -126,7 +151,11 @@ def registration(request):
         return render(request, 'app_Transaction/registration.html', args)
 
 def transaction_Summary(request):
-    return render(request, 'app_Transaction/transactionSummary.html')
+    if request.session.has_key('polyCardData'):
+        userData = getJSONofCurrentUser(request.session['polyCardData'])
+        return render(request, 'app_Transaction/transactionSummary.html')
+    else:
+        return redirect('/app_Transaction/')
 
 # Views yet to be implemented
 '''
