@@ -3,10 +3,15 @@ from django.core import serializers
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from pprint import pprint
+import json
 from .models import User, Part
 from app_Transaction.forms import RegistrationForm, CheckPolyCardForm, CheckOutForm
 from app_Transaction.user_registration_scripts.polyCardData import getData
+
+# import os
+# os.environ['DJANGO_SETTINGS_MODULE']='SPL.settings'
+
 
 # try to include error messages here
 def getJSONofCurrentUser(sessionData):
@@ -31,6 +36,7 @@ def Logout(request):
 def checkIn_Or_CheckOut(request):
     if request.session.has_key('polyCardData'):
         userData = getJSONofCurrentUser(request.session['polyCardData'])
+
         args = {'userFirstName':userData['first_Name']}
         return render(request, 'app_Transaction/CheckInOrCheckOut.html', args)
     else:
@@ -39,10 +45,29 @@ def checkIn_Or_CheckOut(request):
 def checkOut(request):
     if request.session.has_key('polyCardData'):
         if request.method =='POST':
-            checkOutForm = CheckOutForm(request.POST)
-            if checkOutForm.is_valid():
-                checkOutForm.save()
-                return redirect('/app_Transaction/')
+            partData = json.loads(request.POST['partData'])
+            userData = User.objects.get(polyCard_Data=request.session['polyCardData'])
+
+            for i in range(len(partData)):
+                partName = partData[i][1]['Value']
+                partQty = partData[i][2]['Value']
+                part = Part.objects.get(part=partName)
+                part.quantity_Checked_Out += int(partQty)
+                part.save()
+                userData.parts.add(part)
+                print (userData.parts)
+                print(partName)
+                print(partQty)
+
+
+
+
+            print("Success")
+            return redirect('/app_Transaction/')
+            # checkOutForm = CheckOutForm(request.POST)
+            # if checkOutForm.is_valid():
+            #     checkOutForm.save()
+            #     return redirect('/app_Transaction/')
         else:
             checkOutForm = CheckOutForm()
             args = {'checkOutForm': checkOutForm}

@@ -3,34 +3,30 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    {% block head %}
-    <title>CheckOut Page</title>
-    {% endblock %}
-    <!--Needed for importing static files
+
+<head>
+  {% block head %}
+  <title>CheckOut Page</title>
+  {% endblock %}
+  <!--Needed for importing static files
     {% load static %}
      <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
-  </head>
-  <body>
-    {% block body %}
-    <br>
-    <div class="container">
-      <h1>CheckOut Page</h1>
-      <form method="post">
-        {% csrf_token %}
-        <p>
-        Part:
-        {{ checkOutForm.part }}
-        Quantity:
-        {{ checkOutForm.quantity }}
-        Quantity Checked Out: --int/int--
-        Id_Number:
-        {{ checkOutForm.id_Number }}
-        </p>
-            <!--<button type="submit" class="btn btn-outline-secondary" role="button">Submit</a>-->
-      </form>
-      <!--Table test
+</head>
+
+<body>
+  {% block body %}
+  <br>
+  <div class="container">
+    <h1>CheckOut Page</h1>
+    <form class="partSelect">
+      {% csrf_token %}
+      <p>
+        Part: {{ checkOutForm.part }} Quantity: {{ checkOutForm.quantity }}
+      </p>
+      <!--<button type="submit" class="btn btn-outline-secondary" role="button">Submit</a>-->
+    </form>
+    <!--Table test
       <table class="table table-bordered">
   <thead>
     <tr>
@@ -49,15 +45,77 @@
   </tbody>
 </table>
 -->
-      <a href="#" class="btn btn-outline-secondary btn-lg btn-block" role="button">Add Item</a>
-      <br>
-      <h3>
+    <button id="addItemButton" class="btn btn-outline-secondary btn-lg btn-block" onclick="handleFormSubmit()" type="submit">Add item</button>
+    <button id="submitButton" class="btn btn-outline-secondary btn-lg btn-block" onclick="sendPostData()" type="submit">Submit Query</button>
+    <!-- <input type="submit" class="btn btn-outline-secondary btn-lg btn-block" value="Submit Data"></submit> -->
+
+    <!-- <a href="#" class="btn btn-outline-secondary btn-lg btn-block" role="button">Add Item</a> -->
+    <br>
+    <h3>
         Check Out Queue
       </h3>
-      <br>
-      <a href="{% url 'another_Action' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Finish Checking Out</a>
-      <br>
+    <div class="result">
+      <ul class="list">
+      </ul>
     </div>
-    {% endblock %}
-  </body>
+    <pre id ="results__display"></pre>
+    <br>
+    <a href="{% url 'another_Action' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Finish Checking Out</a>
+    <br>
+  </div>
+
+  <script type="text/javascript">
+    "use strict";
+    var outerObj = [];
+
+    function handleFormSubmit(event) {
+      // Stop the form from submitting since we’re handling that with AJAX.
+      event.preventDefault();
+
+
+      var inputs = $(".partSelect :input");
+      var obj = $.map(inputs, function(x, y) {
+        if (x.type !== "submit") {
+          return {
+            Key: x.name,
+            Value: $(x).val()
+          };
+        };
+      });
+      outerObj.push(obj);
+
+      $('#result').append($('ul.list').append('<li>' + obj[1]["Value"] + ' , ' + obj[2]["Value"] + '</li>'));
+      console.log(obj);
+      <!-- $('#result').append(obj[1]["Value"]); -->
+
+
+
+
+      // ...this is where we’d actually do something with the form data...
+    };
+
+    function sendPostData(event) {
+      event.preventDefault();
+      document.getElementById("results__display").innerHTML = JSON.stringify(outerObj);
+      var partData = JSON.stringify(outerObj);
+      console.log(partData);
+      $.post("",
+        {
+          csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+          // outerObj
+          partData
+        });
+    };
+
+    var addPartButton = document.getElementById("addItemButton").addEventListener("click", handleFormSubmit);
+    var sendPostDataEvent = document.getElementById("submitButton").addEventListener("click", sendPostData);
+    document.addEventListener("submit", sendPostData);
+  </script>
+  {% endblock %}
+</body>
+
+
+
+
+
 </html>

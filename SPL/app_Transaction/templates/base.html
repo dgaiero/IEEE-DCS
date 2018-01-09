@@ -2,65 +2,65 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-     <!-- Obtataining the latest version of bootstrap from
+
+<head>
+  <!-- Obtataining the latest version of bootstrap from
      https://getbootstrap.com/docs/4.0/getting-started/download/ -->
-     <link rel="stylesheet"
-     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-     integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-     crossorigin="anonymous">
-     <!-- Obtaining the latest version of javascript from
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <!-- Obtaining the latest version of javascript from
      https://www.bootstrapcdn.com/
      Link to phone number bootstrap field:
      http://js.nicdn.de/bootstrap/formhelpers/docs/phone.html-->
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
-     integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
-     crossorigin="anonymous">
-     </script>
-    {% block head %}
-    <title>Base</title>
-    {% endblock %}
-    <!--Needed for importing static files-->
-    {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
-    <!-- <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous">
+  </script>
+
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+
+  {% block head %}
+  <title>Base</title>
+  {% endblock %}
+  <!--Needed for importing static files-->
+  {% load static %}
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}" />
+  <!-- <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
-  </head>
-  <body>
-    <br>
-    <div class="container">
-      <!--Sample navbar code taken from Bootstrap example-->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'checkPolyCardData' %}">SPL Digital CheckOut System</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+</head>
+
+<body>
+  <br>
+  <div class="container">
+    <!--Sample navbar code taken from Bootstrap example-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'checkPolyCardData' %}">SPL Digital CheckOut System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
           <!--<li class="nav-item active">-->
           <li class="nav-item">
-          <a class="nav-link" href="{% url 'checkPolyCardData' %}">Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'parts' %}">Parts</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About Us</a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
+            <a class="nav-link" href="{% url 'checkPolyCardData' %}">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'parts' %}">Parts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'registered_Users' %}">Registered Users</a>
-            </li>
-            <li class="nav-item">
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'registration' %}">Register</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    {% block body %}
-    <h1>Base</h1>
-    {% endblock %}
-  </body>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  {% block body %}
+  <h1>Base</h1> {% endblock %}
+</body>
+
 </html>
