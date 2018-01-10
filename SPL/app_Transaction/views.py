@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from pprint import pprint
 import json
-from .models import User, Part
+from .models import User, Part, userPart
 from app_Transaction.forms import RegistrationForm, CheckPolyCardForm, CheckOutForm
 from app_Transaction.user_registration_scripts.polyCardData import getData
 
@@ -47,6 +47,7 @@ def checkOut(request):
         if request.method =='POST':
             partData = json.loads(request.POST['partData'])
             userData = User.objects.get(polyCard_Data=request.session['polyCardData'])
+            print (userData.__dict__)
 
             for i in range(len(partData)):
                 partName = partData[i][1]['Value']
@@ -54,7 +55,11 @@ def checkOut(request):
                 part = Part.objects.get(part=partName)
                 part.quantity_Checked_Out += int(partQty)
                 part.save()
-                userData.parts.add(part)
+                #userData.parts.add(part)
+
+                newUserPart = userPart(userAssigned = userData.__dict__['cal_Poly_Email'],part = partName,quantity_Checked_Out = partQty)
+                newUserPart.save()
+
                 print (userData.parts)
                 print(partName)
                 print(partQty)
