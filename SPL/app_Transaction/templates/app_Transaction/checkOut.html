@@ -45,7 +45,7 @@
   </tbody>
 </table>
 -->
-    <button id="addItemButton" class="btn btn-outline-secondary btn-lg btn-block" onclick="handleFormSubmit()" type="submit">Add item</button>
+    <button id="addItemButton" class="btn btn-outline-secondary btn-lg btn-block" onclick="addPartToOrder()" type="submit">Add item</button>
     <button id="submitButton" class="btn btn-outline-secondary btn-lg btn-block" onclick="sendPostData()" type="submit">Submit Query</button>
     <!-- <input type="submit" class="btn btn-outline-secondary btn-lg btn-block" value="Submit Data"></submit> -->
 
@@ -68,7 +68,7 @@
     "use strict";
     var outerObj = [];
 
-    function handleFormSubmit(event) {
+    function addPartToOrder(event) {
       // Stop the form from submitting since we’re handling that with AJAX.
       event.preventDefault();
 
@@ -88,10 +88,6 @@
       console.log(obj);
       <!-- $('#result').append(obj[1]["Value"]); -->
 
-
-
-
-      // ...this is where we’d actually do something with the form data...
     };
 
     function sendPostData(event) {
@@ -107,7 +103,7 @@
         });
     };
 
-    var addPartButton = document.getElementById("addItemButton").addEventListener("click", handleFormSubmit);
+    var addPartButton = document.getElementById("addItemButton").addEventListener("click", addPartToOrder);
     var sendPostDataEvent = document.getElementById("submitButton").addEventListener("click", sendPostData);
     document.addEventListener("submit", sendPostData);
   </script>

@@ -12,6 +12,14 @@ class Part(models.Model):
     def __str__(self):
         return self.part
 
+class userPart(models.Model):
+    userAssigned         = models.EmailField(null=True, max_length=100)
+    part                 = models.CharField(max_length=100)
+    quantity_Checked_Out = models.IntegerField(default=0)
+    id_Number            = models.IntegerField(blank=True, null=True)
+    def __str__(self):
+        return self.part
+
 # Create User model with necessary attributes
 class User(models.Model):
     first_Name            = models.CharField(max_length=100)
@@ -23,7 +31,7 @@ class User(models.Model):
     polyCard_Data         = models.CharField(max_length=100)
     library_Code_Number   = models.IntegerField(default=0)
     iso_Number            = models.IntegerField(default=0)
-    parts                 = models.ManyToManyField(Part)
+    # parts                 = models.ManyToManyField(Part)
     has_Items_Checked_Out = models.BooleanField(default=False)
 
     # def __str__(self):
