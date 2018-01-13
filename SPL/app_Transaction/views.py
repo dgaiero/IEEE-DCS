@@ -6,6 +6,7 @@ from django.urls import reverse
 from pprint import pprint
 import json
 from .models import User, Part, userPart
+from django.core.exceptions import ObjectDoesNotExist
 from app_Transaction.forms import RegistrationForm, CheckPolyCardForm, CheckOutForm
 from app_Transaction.user_registration_scripts.polyCardData import getData
 
@@ -47,22 +48,26 @@ def checkOut(request):
         if request.method =='POST':
             partData = json.loads(request.POST['partData'])
             userData = User.objects.get(polyCard_Data=request.session['polyCardData'])
-            print (userData.__dict__)
+            for key, value in partData.items():
 
-            for i in range(len(partData)):
-                partName = partData[i][1]['Value']
-                partQty = partData[i][2]['Value']
+                partName = value['partName']
+                partQty = value['partQty']
+                partID = int(value['partID'])
+                print(partName)
+                print(partQty)
+                print(partID)
                 part = Part.objects.get(part=partName)
                 part.quantity_Checked_Out += int(partQty)
                 part.save()
                 #userData.parts.add(part)
 
-                newUserPart = userPart(userAssigned = userData.__dict__['cal_Poly_Email'],part = partName,quantity_Checked_Out = partQty)
-                newUserPart.save()
-
-                print (userData.parts)
-                print(partName)
-                print(partQty)
+                try:
+                    partsCheckedOut= userPart.objects.get(userAssigned=userData,part=partName,id_Number=partID)
+                    partsCheckedOut.quantity_Checked_Out += int(partQty)
+                    partsCheckedOut.save()
+                except:
+                    newUserPart = userPart(userAssigned = userData,part = partName,quantity_Checked_Out = partQty)
+                    newUserPart.save()
 
 
 
@@ -75,7 +80,8 @@ def checkOut(request):
             #     return redirect('/app_Transaction/')
         else:
             checkOutForm = CheckOutForm()
-            args = {'checkOutForm': checkOutForm}
+            userData = getJSONofCurrentUser(request.session['polyCardData'])
+            args = {'checkOutForm': checkOutForm,'userFirstName':userData['first_Name']}
             return render(request, 'app_Transaction/checkOut.html', args)
     else:
         return redirect('/app_Transaction/')

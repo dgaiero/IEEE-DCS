@@ -14,51 +14,58 @@
     -->
 </head>
 
-<body>
-  {% block body %}
-  <br>
-  <div class="container">
-    <h1>CheckOut Page</h1>
+
+{% block body %}
+
+<body onload="pageLoadScripts()">
+
+
+  <div class="container ">
+    <div class="jumbotron">
+      <h1>Checkout Equipment</h1>
+      <p class="lead">Hello {{ userFirstName }}, need to checkout equipment?</p>
+    </div>
+    <!-- <div class="alert alert-success" id="success-checkout" role="alert">
+        This is a success alert—check it out!
+      </div> -->
     <form class="partSelect">
       {% csrf_token %}
-      <p>
-        Part: {{ checkOutForm.part }} Quantity: {{ checkOutForm.quantity }}
-      </p>
-      <!--<button type="submit" class="btn btn-outline-secondary" role="button">Submit</a>-->
+      <div class="form-row">
+        <div class="form-group col-md-10">
+          <label for="username">Part</label> {{ checkOutForm.part }}
+        </div>
+        <div class="form-group col-md-2">
+          <label for="username">Quantity</label> {{ checkOutForm.quantity }}
+        </div>
+        <!-- Part: {{ checkOutForm.part }} Quantity: {{ checkOutForm.quantity }} ID: {{ checkOutForm.id_Number }} -->
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="">ID Number</label> {{ checkOutForm.id_Number }}
+        </div>
+        <div class="form-group col-md-3">
+          <label for="">&nbsp</label>
+          <button id="addItemButton" class="btn btn-outline-primary btn-large btn-block" onclick="addPartToOrder()" type="submit">Add item</button>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="">&nbsp</label>
+          <button id="submitButton" class="btn btn-outline-success btn-large btn-block" onclick="sendPostData()" type="submit">Submit Query</button>
+        </div>
+      </div>
     </form>
-    <!--Table test
-      <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Part</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Quantity Checked Out</th>
-      <th scope="col">Id Number</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for part in registered_Parts_List %}
-    <tr>
-      <td>{{ part }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
--->
-    <button id="addItemButton" class="btn btn-outline-secondary btn-lg btn-block" onclick="addPartToOrder()" type="submit">Add item</button>
-    <button id="submitButton" class="btn btn-outline-secondary btn-lg btn-block" onclick="sendPostData()" type="submit">Submit Query</button>
-    <!-- <input type="submit" class="btn btn-outline-secondary btn-lg btn-block" value="Submit Data"></submit> -->
 
-    <!-- <a href="#" class="btn btn-outline-secondary btn-lg btn-block" role="button">Add Item</a> -->
-    <br>
-    <h3>
-        Check Out Queue
-      </h3>
-    <div class="result">
-      <ul class="list">
-      </ul>
-    </div>
-    <pre id ="results__display"></pre>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Part</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">ID Number</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody class="result" id="result">
+      </tbody>
+    </table>
     <br>
     <a href="{% url 'another_Action' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Finish Checking Out</a>
     <br>
@@ -66,45 +73,71 @@
 
   <script type="text/javascript">
     "use strict";
-    var outerObj = [];
+    var outerObj = {};
+    var successMessage = document.getElementById("success-checkout");
+
+    function pageLoadScripts() {
+      successMessage.style.visibility = "hidden";
+    };
 
     function addPartToOrder(event) {
       // Stop the form from submitting since we’re handling that with AJAX.
       event.preventDefault();
 
-
-      var inputs = $(".partSelect :input");
-      var obj = $.map(inputs, function(x, y) {
-        if (x.type !== "submit") {
-          return {
-            Key: x.name,
-            Value: $(x).val()
-          };
-        };
-      });
-      outerObj.push(obj);
-
-      $('#result').append($('ul.list').append('<li>' + obj[1]["Value"] + ' , ' + obj[2]["Value"] + '</li>'));
-      console.log(obj);
-      <!-- $('#result').append(obj[1]["Value"]); -->
+      var _partName = document.getElementById("partName").value;
+      var _partQty = document.getElementById("partQty").value;
+      var _partID = document.getElementById("partID").value;
+      var obj = {
+        partName: _partName,
+        partQty: _partQty,
+        partID: _partID
+      };
+      console.log(outerObj)
+      var ElementExist = document.getElementById(obj.partName + '_partName');
+      console.log(ElementExist);
+      if (ElementExist == null) {
+        outerObj[_partName] = obj;
+        $('#result').append('<tr id="' + obj.partName + 'row"><th scope="row" id="' + obj.partName + '_partName">' + obj.partName + '</th><td id="' + obj.partName + '_qty">' + obj.partQty + '</td><td id="' + obj.partName + '_IDNumber">' + obj.partID +
+          '</td><td id="' + obj.partName + '_Delete"><button id="deleteEntryButton" class="btn btn-danger" onclick="deleteEntry(this)">Delete</button></td></tr>');
+        // $('#result').append($('ul.list').append('<li>' + obj[1]["Value"] + ' , ' + obj[2]["Value"] + '</li>'));
+        console.log(obj);
+      } else {
+        var totalQty = document.getElementById(obj.partName + '_qty').textContent;
+        document.getElementById(obj.partName + '_qty').innerHTML = parseInt(totalQty) + parseInt(obj.partQty);
+        outerObj[_partName].partQty = parseInt(obj.partQty) + parseInt(outerObj[_partName].partQty)
+        console.log(outerObj[_partName].partQty);
+      };
 
     };
 
+    function deleteEntry(btndel) {
+        if (typeof(btndel) == "object") {
+          console.log($(btndel).closest("tr")[0].cells[0].textContent);
+          delete outerObj[$(btndel).closest("tr")[0].cells[0].textContent];
+          console.log(outerObj);
+            $(btndel).closest("tr").remove();
+        } else {
+            return false;
+        }
+    }
+
     function sendPostData(event) {
       event.preventDefault();
-      document.getElementById("results__display").innerHTML = JSON.stringify(outerObj);
       var partData = JSON.stringify(outerObj);
       console.log(partData);
-      $.post("",
-        {
-          csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
-          // outerObj
-          partData
-        });
+      $.post("", {
+        csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+        partData
+      });
+
+
+      successMessage.style.visibility = "visible";
+      successMessage.innerHTML = "Your parts have been added to the database.";
     };
 
     var addPartButton = document.getElementById("addItemButton").addEventListener("click", addPartToOrder);
     var sendPostDataEvent = document.getElementById("submitButton").addEventListener("click", sendPostData);
+    var deleteEntryButton = document.getElementById("deleteEntryButton").addEventListener("click", deleteEntry);
     document.addEventListener("submit", sendPostData);
   </script>
   {% endblock %}

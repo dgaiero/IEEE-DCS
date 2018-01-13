@@ -1,12 +1,21 @@
 from django.contrib import admin
 
 # Register and make models modifiable in the admin
-from .models import Part, User
+from .models import userPart, Part, User
 
 # Create visual settings for Part class in Django admin
 class PartAdmin(admin.ModelAdmin):
     list_display  = ('part',
                      'quantity',
+                     'quantity_Checked_Out',
+                     'id_Number',)
+    list_filter   = ['part',]
+    search_fields = ['part',
+                    'id_Number',]
+
+class UserPartAdmin(admin.ModelAdmin):
+    list_display  = ('userAssigned',
+                     'part',
                      'quantity_Checked_Out',
                      'id_Number',)
     list_filter   = ['part',]
@@ -31,3 +40,4 @@ class UserAdmin(admin.ModelAdmin):
 # register() takes 2-3 arguments at one time
 admin.site.register(User, UserAdmin)
 admin.site.register(Part, PartAdmin)
+admin.site.register(userPart, UserPartAdmin)

@@ -11,7 +11,7 @@ from app_Transaction.models import User
 
 all_Parts = list(Part.objects.all())
 i = 0
-PART_CHOICES =[]
+PART_CHOICES = []
 registered_Parts_List = []
 total_Parts = len(all_Parts)
 while i < total_Parts:
@@ -28,10 +28,14 @@ while j < max_length:
     QUANTITY_CHOICES.append(('{}'.format(j), '{}'.format(j)))
     j += 1
 
+
 class CheckOutForm(forms.ModelForm):
-    part = forms.CharField(widget=forms.Select(choices=PART_CHOICES))
-    quantity = forms.IntegerField(widget=forms.Select(choices=QUANTITY_CHOICES))
-    id_Number = forms.IntegerField()
+    part = forms.CharField(widget=forms.Select(
+        choices=PART_CHOICES, attrs={'class': 'form-control', 'id': 'partName'}))
+    quantity = forms.IntegerField(
+        widget=forms.Select(choices=QUANTITY_CHOICES, attrs={'class': 'form-control', 'id': 'partQty'}))
+    id_Number = forms.IntegerField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'id': 'partID'}))
 
     class Meta:
         model = Part
@@ -41,12 +45,14 @@ class CheckOutForm(forms.ModelForm):
                   'id_Number',)
         exclude = ('quantity_Checked_Out',)
 
+
 class CheckPolyCardForm(forms.ModelForm):
     polyCard_Data = forms.CharField(required=True)
 
     class Meta:
         model = User
         fields = ('polyCard_Data',)
+
 
 class RegistrationForm(forms.ModelForm):
     first_Name = forms.CharField(required=True)

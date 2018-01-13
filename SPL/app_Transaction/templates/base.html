@@ -6,12 +6,15 @@
 <head>
   <!-- Obtataining the latest version of bootstrap from
      https://getbootstrap.com/docs/4.0/getting-started/download/ -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> -->
   <!-- Obtaining the latest version of javascript from
      https://www.bootstrapcdn.com/
      Link to phone number bootstrap field:
      http://js.nicdn.de/bootstrap/formhelpers/docs/phone.html-->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous">
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" integrity="sha256-0rguYS0qgS6L4qVzANq4kjxPLtvnp5nn2nB5G1lWRv4=" crossorigin="anonymous"></script>
+
   </script>
 
   <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
@@ -22,16 +25,13 @@
   <!--Needed for importing static files-->
   {% load static %}
   <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}" />
-  <!-- <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
-    -->
+  <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
 </head>
 
 <body>
-  <br>
-  <div class="container">
     <!--Sample navbar code taken from Bootstrap example-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'checkPolyCardData' %}">SPL Digital CheckOut System</a>
+      <a class="navbar-brand mb-0 h1" href="{% url 'checkPolyCardData' %}">SPL DCS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,7 +58,6 @@
         </ul>
       </div>
     </nav>
-  </div>
   {% block body %}
   <h1>Base</h1> {% endblock %}
 </body>
