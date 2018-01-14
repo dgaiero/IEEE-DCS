@@ -33,26 +33,69 @@ def another_Action(request):
 
 
 def checkIn(request):
-    userData = getJSONofCurrentUser(request.session['polyCardData'])
 
-    all_Parts = list(userPart.objects.filter(userAssigned=User.objects.get(
-        polyCard_Data=request.session['polyCardData'])))
-    print(all_Parts)
+    if request.session.has_key('polyCardData'):
+        if request.method == 'POST':
+            partData = json.loads(request.POST["partData"])
+            userData = User.objects.get(
+                polyCard_Data=request.session['polyCardData'])
+            # print(partData)
 
-    checkedOutPartsList = []
+            for key, value in partData.items():
+                partData = value
+                # pprint(partData)
+                partName = value['partName']
+                partID = value['partID']
+                partQty = int(value['partQty'])
+                # try:
+                #     print("TRYPART")
+                #     partQty = int(value['partQty'])
+                #     partCheckedOut_qty = partCheckedOut.quantity_Checked_Out
+                #     # partCheckedOut_qty = 1
+                #     print(partCheckedOut_qty)
+                #     # print(partCheckedOut_qty)
+                # except ValueError:
+                #     print("ValueError")
+                #     pass
+                try:
+                    partCheckedOut = userPart.objects.get(
+                        userAssigned=userData, part=partName, id_Number=partID)
 
-    for i in range(len(all_Parts)):
-        partName = all_Parts[i].part
-        partQty = all_Parts[i].quantity_Checked_Out
-        partID = all_Parts[i].id_Number
-        # partData = {"PartName": part, "PartQty": partQty}
-        registered_Parts_inner = [partName, partQty, partID]
-        checkedOutPartsList.append(registered_Parts_inner)
+                    if (int(partCheckedOut.quantity_Checked_Out) == partQty):
+                        print("SAME QTY")
+                        partCheckedOut.delete()
+                    else:
+                        print("DIFF QTY")
+                        partCheckedOut.quantity_Checked_Out = int(partCheckedOut.quantity_Checked_Out)-partQty
+                        partCheckedOut.save()
+                except ObjectDoesNotExist:
+                    pass
+
+            return redirect('/app_Transaction/')
+
+        else:
+            userData = getJSONofCurrentUser(request.session['polyCardData'])
+
+            all_Parts = list(userPart.objects.filter(userAssigned=User.objects.get(
+                polyCard_Data=request.session['polyCardData'])))
+            # print(all_Parts)
+
+            checkedOutPartsList = []
+
+            for i in range(len(all_Parts)):
+                partName = all_Parts[i].part
+                partQty = all_Parts[i].quantity_Checked_Out
+                partID = all_Parts[i].id_Number
+                # partData = {"PartName": part, "PartQty": partQty}
+                registered_Parts_inner = [partName, partQty, partID]
+                checkedOutPartsList.append(registered_Parts_inner)
 
 
-    args = {'registered_Parts_List': checkedOutPartsList,
-            'userFirstName': userData['first_Name']}
-    return render(request, 'app_Transaction/checkIn.html', args)
+            args = {'registered_Parts_List': checkedOutPartsList,
+                    'userFirstName': userData['first_Name']}
+            return render(request, 'app_Transaction/checkIn.html', args)
+    else:
+        return redirect('/app_Transaction/')
 
 
 def studentLogout(request):
