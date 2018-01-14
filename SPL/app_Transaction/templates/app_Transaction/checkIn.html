@@ -31,13 +31,14 @@
           </tr>
         </thead>
         <form>
+          {% csrf_token %}
         <tbody class="result" id="result">
           {% for part,quantity,ID in registered_Parts_List %}
           <tr>
           <th scope="row">{{ part }}</th>
           <td scope="row">{{ quantity }}</td>
           <td scope="row">{{ ID }}</td>
-          <td scope="row"><input type="number" class="form-control mb-1 mr-sm-1" id="quantity_to_remove_{{ part }}" max="{{ quantity }}" value="0" placeholder="MAX: {{ quantity }}" onchange="addPartToOrder("{{ part }}", "{{ quantity }}","{{ ID }}")"></td>
+          <td scope="row"><input type="number" class="form-control mb-1 mr-sm-1" id="quantity_to_remove_{{ part }}" max="{{ quantity }}" min=0 value="0" placeholder="MAX: {{ quantity }}" onchange="var _part = '{{ part }}';var _quantity = this.value; var _id = '{{ id }}';addPartToOrder(_part, _quantity,_id)"></td>
         </tr>
           {% endfor %}
         </tbody>
@@ -45,8 +46,9 @@
       </table>
     </div>
     <script type="text/javascript">
+    "use strict";
     var outerObj = {};
-    function addPartToOrder()
+    function addPartToOrder(_partName,_partQty,_partID)
     {
       var obj = {
         partName: _partName,
