@@ -6,7 +6,7 @@
 
 <head>
   {% block head %}
-  <title>CheckOut Page</title>
+  <title>CHECKOUT EQUIPMENT</title>
   {% endblock %}
   <!--Needed for importing static files
     {% load static %}
@@ -49,11 +49,11 @@
         </div>
         <div class="form-group col-md-3">
           <label for="">&nbsp</label>
-          <button id="submitButton" class="btn btn-outline-success btn-large btn-block" onclick="sendPostData()" type="submit">Submit Query</button>
+          <button id="submitButton" class="btn btn-success btn-large btn-block" onclick="sendPostData()" type="submit">Checkout</button>
         </div>
       </div>
     </form>
-
+    <!-- <a href="{% url 'another_Action' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Finish Checking Out</a> -->
     <table class="table table-hover">
       <thead>
         <tr>
@@ -67,7 +67,7 @@
       </tbody>
     </table>
     <br>
-    <a href="{% url 'another_Action' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Finish Checking Out</a>
+
     <br>
   </div>
 

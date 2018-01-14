@@ -46,13 +46,13 @@ class CheckOutForm(forms.ModelForm):
         exclude = ('quantity_Checked_Out',)
 
 
-class CheckPolyCardForm(forms.ModelForm):
-    polyCard_Data = forms.CharField(required=True)
+class studentLoginForm(forms.ModelForm):
+    polyCard_Data = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'id': 'polycardPasswordInput'}))
 
     class Meta:
         model = User
         fields = ('polyCard_Data',)
-
 
 class RegistrationForm(forms.ModelForm):
     first_Name = forms.CharField(required=True)

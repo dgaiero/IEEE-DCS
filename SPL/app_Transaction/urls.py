@@ -5,7 +5,8 @@ from . import views
 
 #make urls more dynamic check YouTube
 urlpatterns = [
-    url(r'^$',                    views.checkPolyCardData,   name='checkPolyCardData'),
+    url(r'^$',                    views.studentLogin,   name='studentLogin'),
+    url(r'^studentLogin/$',      views.studentLogin,      name='studentLogin'),
     url(r'^anotherAction/$',      views.another_Action,      name='another_Action'),
     url(r'^checkIn/$',            views.checkIn,             name='checkIn'),
     url(r'^checkInOrCheckOut/$',  views.checkIn_Or_CheckOut, name='checkIn_Or_CheckOut'),
@@ -14,5 +15,5 @@ urlpatterns = [
     url(r'^registration/users$',  views.registered_Users,    name='registered_Users'),
     url(r'^registration/$',       views.registration,        name='registration'),
     url(r'^transactionSummary/$', views.transaction_Summary, name='transaction_Summary'),
-    url(r'^logout/', views.Logout, name = 'logout'),
+    url(r'^studentLogout/', views.studentLogout, name = 'studentLogout'),
 ]

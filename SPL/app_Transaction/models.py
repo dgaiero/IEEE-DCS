@@ -1,10 +1,19 @@
 from django.db import models
 
+import jsonfield
+
 import datetime
 #from phonenumber_field.modelfields import PhoneNumberField
 
 # Create Part model with necessary attributes
 
+
+
+class eventLog(models.Model):
+    checkedOutTo = models.ForeignKey('User', null=True, related_name='checkedOutTo', on_delete=models.CASCADE)
+    checkedOutBy = models.ForeignKey('User', null=True, related_name='checkedOutBy', on_delete=models.CASCADE)
+    logType = models.CharField(null=False, max_length=200)
+    content = jsonfield.JSONField()
 
 class Part(models.Model):
     part = models.CharField(max_length=100)
@@ -34,11 +43,12 @@ class User(models.Model):
         return self.first_Name + ' ' + self.last_Name
 
 class userPart(models.Model):
-    userAssigned = models.EmailField(null=True, max_length=100)
+    # userAssigned = models.EmailField(null=True, max_length=100)
+    userAssigned = models.ForeignKey('User', null=True, related_name='userAssigned', on_delete=models.CASCADE)
     #userAssigned = User()
     part = models.CharField(max_length=100)
     quantity_Checked_Out = models.IntegerField(default=0)
-    id_Number = models.IntegerField(blank=True, null=True, default=0000)
+    id_Number = models.CharField(blank=True, null=True, default=0000, max_length=200)
 
     def __str__(self):
         return self.part
@@ -65,11 +75,11 @@ class Lab(models.Model):
 
 # Create Log model with necessary attributes
 
-
-class Log(models.Model):
-    #date_And_Time = models.DateTimeField(
-    #    default=datetime.datetime.now(), blank=True)
-    client_Name_Text = models.CharField(max_length=100)
-    tech_Name_Text = models.CharField(max_length=100)
-    parts = models.ManyToManyField(Part)
-    transaction_Complete = models.BooleanField(default=False)
+#
+# class Log(models.Model):
+#     #date_And_Time = models.DateTimeField(
+#     #    default=datetime.datetime.now(), blank=True)
+#     client_Name_Text = models.CharField(max_length=100)
+#     tech_Name_Text = models.CharField(max_length=100)
+#     parts = models.ManyToManyField(Part)
+#     transaction_Complete = models.BooleanField(default=False)

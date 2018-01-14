@@ -5,25 +5,38 @@
 <html>
   <head>
     {% block head %}
-    <title>Parts Page</title>
+    <title>PARTS INVENTORY</title>
     {% endblock %}
     <!--Needed for importing static files
     {% load static %}
      <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
   </head>
-  <body>
+
     {% block body %}
-    <br>
+  <body>
     <div class="container">
-      <h1>Parts Page</h1>
-      <h6>Number of items: {{ total_Parts }}</h6>
-      <p>Below is a list of registered parts:</p>
-      <ul>
-        {% for part in registered_Parts_List %}
-        <p>{{ part }}</p>
-        {% endfor %}
-      </ul>
+      <div class="jumbotron">
+        <h1>Current Parts Inventory</h1>
+        <p class="lead">Total Parts in database: {{ total_Parts }}</p>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Part</th>
+            <th scope="col">Quantity</th>
+          </tr>
+        </thead>
+        <tbody class="result" id="result">
+          {% for part,quantity in registered_Parts_List %}
+          <tr>
+          <th scope="row">{{ part }}</th>
+          <td scope="row">{{ quantity }}</td>
+        </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
     {% endblock %}
   </body>
