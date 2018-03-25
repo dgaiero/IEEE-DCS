@@ -23,29 +23,60 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
   {% block body %}
   <div class="container">
     <div class="jumbotron">
-      <h1>Welcome {{ userFirstName }}</h1>
-      <p class="lead">What would you like to do?</p>
+      <h1>{{ userFirstName }} {{ userLastName }} {% if memberType == 'MEMBER' or memberType == 'ADMIN' or memberType == 'OFFICER'%}
+		<span class="badge badge-success">{{memberType}}</span>
+	{% elif memberType == 'MEMBER_EXPIRED' %}
+		<span class="badge badge-warning">EXPIRED</span>
+    {% elif memberType == 'NON_MEMBER' %}
+		<span class="badge badge-danger">NON MEMBER</span>
+	{% endif %}</h1>
+      <span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ email }}</span>
+
+      {% if memberType == 'MEMBER' or memberType == 'ADMIN' or memberType == 'OFFICER' or memberType == 'MEMBER_EXPIRED' %}
+      <br> <span class="font-weight-bold text-left">Member Number: </span><span class="text-left">{{ ieee_member_number }}</span>
+      <br> <span class="font-weight-bold text-left">Member Expiration Date: </span><span class="text-left">{{ expireDate }}</span>
+	{% endif %}
+      <br> <span class="font-weight-bold text-left">Has items checked out: </span><span class="text-left">{{ itemsCheckedOut }}</span>
+
     </div>
 
     <div class="row">
+        {% if request.session.CustomerPolyCardData != None %}
       <div class="col-md-4">
-          <h2>Equipment Checkin</h2>
+          <h2>Equipment Return</h2>
           <p>
-              Do you have equipment checked out and need to return it?
+              Return equipment checked out to {{ userFirstName }}.
           </p>
-          <p><a href="{% url 'checkIn' %}" class="btn btn-outline-primary">Check in Equipment</a></p>
+          <p><a href="{% url 'checkIn' %}" class="btn btn-outline-primary">Return Equipment</a></p>
       </div>
           <div class="col-md-4">
               <h2>Equipment Checkout</h2>
               <p>
-                  Need to checkout equipment for a lab or project?
+                  Checkout equipment to {{ userFirstName }}.
               </p>
               <p><a href="{% url 'checkOut' %}" class="btn btn-outline-primary">Check out Equipment</a></p>
           </div>
-  </div>
+          {% endif %}
+          <div class="col-md-4">
+              <h2>Add New User</h2>
+              <p>
+                  Add a new user to the IEEE member database
+              </p>
+              <p><a href="{% url 'registration' %}" class="btn btn-outline-primary">Add User</a></p>
+          </div>
+  <!-- </div>
 
-    <!-- <a href="{% url 'checkIn' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check In</a>
-    <a href="{% url 'checkOut' %}" class="btn btn-outline-secondary btn-lg btn-block" role="button">Check Out</a> -->
+  <div class="row"> -->
+    <div class="col-md-4">
+        <h2>Login new user</h2>
+        <p>
+            Click here to login new user
+        </p>
+        <p><a href="{% url 'studentLogout' %}" class="btn btn-outline-primary">Login new Uesr</a></p>
+    </div>
+</div>
+
+
   </div>
   {% endblock %}
 </body>

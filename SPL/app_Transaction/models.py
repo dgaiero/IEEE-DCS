@@ -1,8 +1,8 @@
 from django.db import models
-
+from django.forms import ValidationError
 import jsonfield
 
-import datetime
+from datetime import date
 #from phonenumber_field.modelfields import PhoneNumberField
 
 # Create Part model with necessary attributes
@@ -26,17 +26,46 @@ class Part(models.Model):
 
 # Create User model with necessary attributes
 class User(models.Model):
+    MEMBER_TYPE = (
+        ('ADMIN', 'ADMIN'),
+        ('MEMBER', 'MEMBER'),
+        ('MEMBER_EXPIRED', 'MEMBER EXPIRED'),
+        ('NON_MEMBER', 'NON MEMBER'),
+        ('OFFICER', 'OFFICER'),
+    )
+    userType = models.CharField(
+        max_length=20,
+        choices=MEMBER_TYPE,
+        default='MEMBER',
+    )
     first_Name = models.CharField(max_length=100)
     last_Name = models.CharField(max_length=100)
-    user_Type = models.CharField(max_length=100, default="STUDENT")
+    # user_Type = models.CharField(max_length=100, default="STUDENT")
     cal_Poly_Email = models.EmailField(null=True, max_length=100)
-    #user_Phone_Number     = PhoneNumberField()
+    ieee_member_number = models.CharField(null=True, max_length=100)
+    ieee_member_expiration_date = models.DateField(null=True)
     phone_Number = models.IntegerField(default=0)
     polyCard_Data = models.CharField(max_length=100)
-    library_Code_Number = models.IntegerField(default=0)
-    iso_Number = models.IntegerField(default=0)
-    # parts                 = models.ManyToManyField(Part)
+    # library_Code_Number = models.IntegerField(default=0)
+    # iso_Number = models.IntegerField(default=0)
+    parts                 = models.ManyToManyField(Part)
     has_Items_Checked_Out = models.BooleanField(default=False)
+
+    def clean(self, *args, **kwargs):
+        super(User, self).clean(*args, **kwargs)
+        # print (email)
+        # if not email.endswith('@calpoly.edu'):
+        #     raise ValidationError('Domain of email is not valid')
+        # self.validate_email()
+
+    def validate_email(self):
+        print("test")
+        email = self.cal_Poly_Email
+
+        if not email.endswith('@calpoly.edu'):
+            raise ValidationError('Domain of email is not valid')
+
+        return email
 
     def __str__(self):
         # return self.__dict__

@@ -3,7 +3,8 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     {% block head %}
     <title>Registration Page</title>
     {% endblock %}
@@ -11,20 +12,65 @@
     {% load static %}
      <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
-  </head>
-  <body>
+</head>
+
+<body>
     {% block body %}
     <br>
-    <div class="container">
-      <h1>Register</h1>
-      <p>You can register here!</p>
-      <!--Registration form-->
-      <form method="post">
-        {% csrf_token %}
-        {{ registrationForm.as_p }}
-        <button type="submit" class="btn btn-outline-secondary" role="button">Submit</a>
-      </form>
+    <div class="container ">
+        <div class="jumbotron">
+            <h1>Add User</h1>
+            <p class="lead">Add a user to the IEEE Member Database. You are currently logged in as: </p>
+        </div>
+        <!-- {% if errors != None %}
+{{ errors }}
+{% endif %} -->
+        <!--Registration form-->
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="username">First Name</label>{% if registrationForm.first_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.first_Name }}
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="username">Last Name</label>{% if registrationForm.last_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.last_Name }}
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="username">Member Type</label>{% if registrationForm.userType.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.userType }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="username">Email (Cal Poly)</label>{% if registrationForm.cal_Poly_Email.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.cal_Poly_Email }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="username">Phone Number</label>{% if registrationForm.phone_Number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.phone_Number }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="username">Swipe Polycard</label>{% if registrationForm.polyCard_Data.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.polyCard_Data }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="username">IEEE Member Number</label>{% if registrationForm.ieee_member_number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.ieee_member_number }}
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="username">Expiration Date</label>{% if registrationForm.ieee_member_expiration_date.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.ieee_member_expiration_date }}
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="">&nbsp</label>
+                    <button class="btn btn-primary btn-large btn-block" type="submit">Add User</button>
+                </div>
+            </div>
+        </form>
     </div>
     {% endblock %}
-  </body>
+</body>
+
 </html>

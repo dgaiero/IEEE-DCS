@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django import forms
 from pprint import pprint
+from django.forms import ValidationError
+
 import json
 from .models import User, Part, userPart, eventLog
 from django.core.exceptions import ObjectDoesNotExist
@@ -34,11 +36,11 @@ def another_Action(request):
 
 def checkIn(request):
 
-    if request.session.has_key('polyCardData'):
+    if request.session.has_key('CustomerPolyCardData'):
         if request.method == 'POST':
             partData = json.loads(request.POST["partData"])
             userData = User.objects.get(
-                polyCard_Data=request.session['polyCardData'])
+                polyCard_Data=request.session['CustomerPolyCardData'])
             # print(partData)
 
             for key, value in partData.items():
@@ -74,10 +76,10 @@ def checkIn(request):
             return redirect('/app_Transaction/')
 
         else:
-            userData = getJSONofCurrentUser(request.session['polyCardData'])
+            userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
 
             all_Parts = list(userPart.objects.filter(userAssigned=User.objects.get(
-                polyCard_Data=request.session['polyCardData'])))
+                polyCard_Data=request.session['CustomerPolyCardData'])))
             # print(all_Parts)
 
             checkedOutPartsList = []
@@ -100,7 +102,7 @@ def checkIn(request):
 
 def studentLogout(request):
     try:
-        del request.session['polyCardData']
+        del request.session['CustomerPolyCardData']
     except:
         print("Fail")
         pass
@@ -110,21 +112,21 @@ def studentLogout(request):
 
 
 def checkIn_Or_CheckOut(request):
-    if request.session.has_key('polyCardData'):
-        userData = getJSONofCurrentUser(request.session['polyCardData'])
+    if request.session.has_key('CustomerPolyCardData'):
+        userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
 
-        args = {'userFirstName': userData['first_Name']}
+        args = {'userFirstName': userData['first_Name'],'userLastName': userData['last_Name'], 'memberType': userData['userType'], 'email': userData['cal_Poly_Email'], 'ieee_member_number': userData['ieee_member_number'], 'expireDate':userData['ieee_member_expiration_date'],'itemsCheckedOut': userData['has_Items_Checked_Out']}
         return render(request, 'app_Transaction/CheckInOrCheckOut.html', args)
     else:
         return redirect('/app_Transaction/')
 
 
 def checkOut(request):
-    if request.session.has_key('polyCardData'):
+    if request.session.has_key('CustomerPolyCardData'):
         if request.method == 'POST':
             partData = json.loads(request.POST['partData'])
             userData = User.objects.get(
-                polyCard_Data=request.session['polyCardData'])
+                polyCard_Data=request.session['CustomerPolyCardData'])
             for key, value in partData.items():
 
                 partName = value['partName']
@@ -161,7 +163,7 @@ def checkOut(request):
             #     return redirect('/app_Transaction/')
         else:
             checkOutForm = CheckOutForm()
-            userData = getJSONofCurrentUser(request.session['polyCardData'])
+            userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
             args = {'checkOutForm': checkOutForm,
                     'userFirstName': userData['first_Name']}
             return render(request, 'app_Transaction/checkOut.html', args)
@@ -188,7 +190,7 @@ def checkOut(request):
 
 
 def studentLogin(request):
-    if request.session.has_key('polyCardData'):
+    if request.session.has_key('CustomerPolyCardData'):
         return redirect('/app_Transaction/checkInOrCheckOut')
     else:
         if request.method == 'POST':
@@ -216,7 +218,7 @@ def studentLogin(request):
                     if registeredStatus == True:
                         validInput = True
                         # request.session['polyCardData'] = User.objects.get(polyCard_Data=raw_PolyCard_Data).__dict__['polyCard_Data'])
-                        request.session['polyCardData'] = str(
+                        request.session['CustomerPolyCardData'] = str(
                             raw_PolyCard_Data)
                         return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
                     else:
@@ -270,10 +272,16 @@ def registered_Users(request):
 
 def registration(request):
     if request.method == 'POST':
-        registrationForm = RegistrationForm(request.POST)
-        if registrationForm.is_valid():
-            registrationForm.save()
+        registrationFormData = RegistrationForm(request.POST)
+        if registrationFormData.is_valid():
+            print(registrationFormData)
+            registrationFormData.save()
             return redirect('/app_Transaction/')
+        else:
+            print (registrationFormData.errors)
+            args = {'registrationForm': registrationFormData, 'errors': registrationFormData.errors}
+            return render(request, 'app_Transaction/registration.html', args)
+            # return redirect('/app_Transaction/registration/?fail=True', args)
     else:
         registrationForm = RegistrationForm()
         args = {'registrationForm': registrationForm}
@@ -281,8 +289,8 @@ def registration(request):
 
 
 def transaction_Summary(request):
-    if request.session.has_key('polyCardData'):
-        userData = getJSONofCurrentUser(request.session['polyCardData'])
+    if request.session.has_key('CustomerPolyCardData'):
+        userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
         return render(request, 'app_Transaction/transactionSummary.html')
     else:
         return redirect('/app_Transaction/')
