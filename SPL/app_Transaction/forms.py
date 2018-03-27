@@ -52,7 +52,7 @@ class CheckOutForm(forms.ModelForm):
 
 class studentLoginForm(forms.ModelForm):
     polyCard_Data = forms.CharField(widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'id': 'polycardPasswordInput'}))
+        attrs={'class': 'form-control form-control-lg', 'id': 'polycardPasswordInput'}))
 
     class Meta:
         model = User

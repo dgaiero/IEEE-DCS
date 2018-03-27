@@ -23,40 +23,37 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
   {% block body %}
   <div class="container">
     <div class="jumbotron">
-      <h1>{{ userFirstName }} {{ userLastName }} {% if memberType == 'MEMBER' or memberType == 'ADMIN' or memberType == 'OFFICER'%}
-		<span class="badge badge-success">{{memberType}}</span>
-	{% elif memberType == 'MEMBER_EXPIRED' %}
+    <h1>{{ userData.first_Name }} {{ userData.last_Name }} {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER'%}
+		<span class="badge badge-success">{{userData.userType}}</span>
+	{% elif userData.userType == 'MEMBER_EXPIRED' %}
 		<span class="badge badge-warning">EXPIRED</span>
-    {% elif memberType == 'NON_MEMBER' %}
+    {% elif userData.userType == 'NON_MEMBER' %}
 		<span class="badge badge-danger">NON MEMBER</span>
 	{% endif %}</h1>
-      <span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ email }}</span>
+    <span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ userData.cal_Poly_Email }}</span> {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER' or userData.userType == 'MEMBER_EXPIRED' %}
+    <br> <span class="font-weight-bold text-left">Member Number: </span><span class="text-left">{{ userData.ieee_member_number }}</span>
+    <br> <span class="font-weight-bold text-left">Member Expiration Date: </span><span class="text-left">{{ userData.ieee_member_expiration_date }}</span> {% endif %}
+    <br> <span class="font-weight-bold text-left">Has items checked out: </span><span class="text-left">{{ userData.has_Items_Checked_Out }}</span>
 
-      {% if memberType == 'MEMBER' or memberType == 'ADMIN' or memberType == 'OFFICER' or memberType == 'MEMBER_EXPIRED' %}
-      <br> <span class="font-weight-bold text-left">Member Number: </span><span class="text-left">{{ ieee_member_number }}</span>
-      <br> <span class="font-weight-bold text-left">Member Expiration Date: </span><span class="text-left">{{ expireDate }}</span>
-	{% endif %}
-      <br> <span class="font-weight-bold text-left">Has items checked out: </span><span class="text-left">{{ itemsCheckedOut }}</span>
-
-    </div>
+</div>
 
     <div class="row">
-        {% if request.session.CustomerPolyCardData != None %}
+        {% if request.session.AdminPolyCardData != None %}
       <div class="col-md-4">
           <h2>Equipment Return</h2>
           <p>
-              Return equipment checked out to {{ userFirstName }}.
+              Return equipment checked out to {{ userData.last_Name }}.
           </p>
           <p><a href="{% url 'checkIn' %}" class="btn btn-outline-primary">Return Equipment</a></p>
       </div>
           <div class="col-md-4">
               <h2>Equipment Checkout</h2>
               <p>
-                  Checkout equipment to {{ userFirstName }}.
+                  Checkout equipment to {{ userData.first_Name }}.
               </p>
               <p><a href="{% url 'checkOut' %}" class="btn btn-outline-primary">Check out Equipment</a></p>
           </div>
-          {% endif %}
+
           <div class="col-md-4">
               <h2>Add New User</h2>
               <p>
@@ -64,6 +61,7 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
               </p>
               <p><a href="{% url 'registration' %}" class="btn btn-outline-primary">Add User</a></p>
           </div>
+          {% endif %}
   <!-- </div>
 
   <div class="row"> -->

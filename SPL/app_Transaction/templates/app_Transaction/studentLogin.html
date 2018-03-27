@@ -29,18 +29,22 @@
   </button>
     </div>
     {% endif %}
-
-    <div class="jumbotron">
-      <h1>Welcome to the SPL Digital CheckOut System <strong>(SPL DCS)</strong></h1>
-      <!-- <p class="lead">This page is for <strong>STUDENT</strong> login. If you are staff, please click the button below</p> <a href="#" class="btn btn-sm btn-outline-dark">Staff Login</a> -->
+    <div class="text-center">
+        <img class="d-block mx-auto mb-4" src="{% static 'ieee_logo.svg' %}" alt="" height="300em">
     </div>
+    <!-- <div class="jumbotron"> -->
+
+      <!-- <h1>Welcome to the SPL Digital CheckOut System <strong>(SPL DCS)</strong></h1> -->
+      <!-- <p class="lead">This page is for <strong>STUDENT</strong> login. If you are staff, please click the button below</p> <a href="#" class="btn btn-sm btn-outline-dark">Staff Login</a> -->
+    <!-- </div> -->
     <!--CheckPolyCard form-->
 
     <form method="post">
       {% csrf_token %}
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="polyCardInput">Swipe PolyCard</label> {{ checkPolyCardForm.polyCard_Data }}
+        <div class="form-group col-md-12">
+          {{ checkPolyCardForm.polyCard_Data }}
+          <small id="polyCardHelp" class="form-text text-muted">Swipe your polycard to login</small>
         </div>
       </div>
       <button type="submit" class="btn btn-primary" role="button">Submit</a>

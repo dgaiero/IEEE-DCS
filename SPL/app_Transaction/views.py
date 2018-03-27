@@ -36,11 +36,12 @@ def another_Action(request):
 
 def checkIn(request):
 
-    if request.session.has_key('CustomerPolyCardData'):
+    if request.session.has_key('AdminPolyCardData'):
         if request.method == 'POST':
             partData = json.loads(request.POST["partData"])
-            userData = User.objects.get(
-                polyCard_Data=request.session['CustomerPolyCardData'])
+            checkPolyCardData(request)
+            userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+            adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
             # print(partData)
 
             for key, value in partData.items():
@@ -76,7 +77,9 @@ def checkIn(request):
             return redirect('/app_Transaction/')
 
         else:
+            checkPolyCardData(request)
             userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+            adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
 
             all_Parts = list(userPart.objects.filter(userAssigned=User.objects.get(
                 polyCard_Data=request.session['CustomerPolyCardData'])))
@@ -94,7 +97,7 @@ def checkIn(request):
 
 
             args = {'registered_Parts_List': checkedOutPartsList,
-                    'userFirstName': userData['first_Name']}
+                    'userData': userData, 'adminData': adminData}
             return render(request, 'app_Transaction/checkIn.html', args)
     else:
         return redirect('/app_Transaction/')
@@ -108,21 +111,37 @@ def studentLogout(request):
         pass
     args = {'logoutFlag': "True"}
     return redirect('/app_Transaction/studentLogin/?logoutFlag=True', args)
-    # return HttpResponse("<strong>You are logged out.</strong>")
 
+def adminLogout(request):
+    try:
+        del request.session['AdminPolyCardData']
+    except:
+        print("Fail")
+        pass
+    args = {'logoutFlag': "True"}
+    return redirect('/app_Transaction/studentLogin/?logoutFlag=True', args)
+
+def checkPolyCardData(request):
+    if request.session.has_key('AdminPolyCardData'):
+        if not request.session.has_key('CustomerPolyCardData'):
+            request.session['CustomerPolyCardData'] = getJSONofCurrentUser(request.session['AdminPolyCardData'])['polyCard_Data']
 
 def checkIn_Or_CheckOut(request):
-    if request.session.has_key('CustomerPolyCardData'):
+    if request.session.has_key('AdminPolyCardData') or request.session.has_key('CustomerPolyCardData'):
+        checkPolyCardData(request)
         userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
-
-        args = {'userFirstName': userData['first_Name'],'userLastName': userData['last_Name'], 'memberType': userData['userType'], 'email': userData['cal_Poly_Email'], 'ieee_member_number': userData['ieee_member_number'], 'expireDate':userData['ieee_member_expiration_date'],'itemsCheckedOut': userData['has_Items_Checked_Out']}
+        try:
+            adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+            args = {'userData': userData, 'adminData': adminData}
+        except KeyError:
+            args = {'userData': userData}
         return render(request, 'app_Transaction/CheckInOrCheckOut.html', args)
     else:
         return redirect('/app_Transaction/')
 
 
 def checkOut(request):
-    if request.session.has_key('CustomerPolyCardData'):
+    if request.session.has_key('AdminPolyCardData'):
         if request.method == 'POST':
             partData = json.loads(request.POST['partData'])
             userData = User.objects.get(
@@ -163,9 +182,11 @@ def checkOut(request):
             #     return redirect('/app_Transaction/')
         else:
             checkOutForm = CheckOutForm()
+            checkPolyCardData(request)
             userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+            adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
             args = {'checkOutForm': checkOutForm,
-                    'userFirstName': userData['first_Name']}
+                    'userData': userData, 'adminData': adminData}
             return render(request, 'app_Transaction/checkOut.html', args)
     else:
         return redirect('/app_Transaction/')
@@ -190,49 +211,52 @@ def checkOut(request):
 
 
 def studentLogin(request):
-    if request.session.has_key('CustomerPolyCardData'):
-        return redirect('/app_Transaction/checkInOrCheckOut')
-    else:
-        if request.method == 'POST':
-            checkPolyCardForm = studentLoginForm(request.POST)
-            if checkPolyCardForm.is_valid():
-                raw_PolyCard_Data = checkPolyCardForm.cleaned_data['polyCard_Data']
-                polyCardData = getData(raw_PolyCard_Data)
+    # if request.session.has_key('CustomerPolyCardData') or request.session.has_key('OfficerPolyCardData'):
+    #     return redirect('/app_Transaction/checkInOrCheckOut')
+    # else:
+    if request.method == 'POST':
+        checkPolyCardForm = studentLoginForm(request.POST)
+        if checkPolyCardForm.is_valid():
+            raw_PolyCard_Data = checkPolyCardForm.cleaned_data['polyCard_Data']
+            polyCardData = getData(raw_PolyCard_Data)
 
-                registeredStatus = None
+            registeredStatus = None
 
-                if polyCardData[1] == True:
-                    all_Users = list(User.objects.all())
-
-                    model_Attribute = 'polyCard_Data'
-
-                    i = 0
-                    while i < len(all_Users):
-                        userInput = User.objects.values(model_Attribute)[
-                            i][model_Attribute]
-
-                        if userInput == raw_PolyCard_Data:
-                            registeredStatus = True
-                            break
-                        i += 1
-                    if registeredStatus == True:
-                        validInput = True
-                        # request.session['polyCardData'] = User.objects.get(polyCard_Data=raw_PolyCard_Data).__dict__['polyCard_Data'])
-                        request.session['CustomerPolyCardData'] = str(
-                            raw_PolyCard_Data)
-                        return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
-                    else:
-                        validInput = True
-                        return HttpResponseRedirect('/app_Transaction/registration')
-                else:
-                    return HttpResponseRedirect('/app_Transaction/')
-
+            try:
+                currentUser = User.objects.get(polyCard_Data=raw_PolyCard_Data)
+                print(currentUser.userType)
+                if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
+                    request.session['AdminPolyCardData'] = str(
+                        raw_PolyCard_Data)
+                if request.session.CustomerPolyCardData == None:
+                    request.session['CustomerPolyCardData'] = str(raw_PolyCard_Data)
+                return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
+            except ObjectDoesNotExist:
+                return HttpResponseRedirect('/app_Transaction/registration')
         else:
-            checkPolyCardForm = studentLoginForm()
-            args = {'checkPolyCardForm': checkPolyCardForm}
+            args = {'checkPolyCardForm': checkPolyCardForm, 'errors': checkPolyCardForm.errors}
             return render(request, 'app_Transaction/studentLogin.html', args)
 
-        return render(request, 'app_Transaction/checkPolyCard.html')
+    else:
+        checkPolyCardForm = studentLoginForm()
+        checkPolyCardData(request)
+        args = {'checkPolyCardForm': checkPolyCardForm}
+        # userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+        # args['userData'] = userData
+        try:
+            userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+            args['userData'] = userData
+        except:
+            print("No user data")
+        try:
+            adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+            args['adminData'] = adminData
+        except:
+            print("No admin data")
+
+        return render(request, 'app_Transaction/studentLogin.html', args)
+
+    return render(request, 'app_Transaction/checkPolyCard.html')
 
 
 def parts(request):
@@ -283,8 +307,11 @@ def registration(request):
             return render(request, 'app_Transaction/registration.html', args)
             # return redirect('/app_Transaction/registration/?fail=True', args)
     else:
-        registrationForm = RegistrationForm()
-        args = {'registrationForm': registrationForm}
+        registrationForm = RegistrationForm(initial=request.GET.dict())
+        checkPolyCardData(request)
+        userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+        adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+        args = {'registrationForm': registrationForm, 'userData':userData, 'adminData':adminData}
         return render(request, 'app_Transaction/registration.html', args)
 
 
@@ -294,13 +321,3 @@ def transaction_Summary(request):
         return render(request, 'app_Transaction/transactionSummary.html')
     else:
         return redirect('/app_Transaction/')
-
-
-# Views yet to be implemented
-'''
-def regular_CheckOut(request):
-    return HttpResponse("Hello, world. You're at the regular_CheckOut view.")
-
-def express_CheckOut(request):
-    return HttpResponse("Hello, world. You're at the express_CheckOut view.")
-'''

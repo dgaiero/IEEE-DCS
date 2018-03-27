@@ -15,10 +15,23 @@
   <body>
     {% block body %}
     <div class="container">
-      <div class="jumbotron">
-        <h1>Return Equipment</h1>
-        <p class="lead">Hello {{ userFirstName }}, do you have equipment checked out? If you want to retun equipment, find it in the list below, and click on how many items you want to return.</p>
-      </div>
+        <div class="jumbotron">
+          <h1>{{ userData.first_Name }} {{ userData.last_Name }} {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER'%}
+    		<span class="badge badge-success">{{userData.userType}}</span>
+    	{% elif userData.userType == 'MEMBER_EXPIRED' %}
+    		<span class="badge badge-warning">EXPIRED</span>
+        {% elif userData.userType == 'NON_MEMBER' %}
+    		<span class="badge badge-danger">NON MEMBER</span>
+    	{% endif %}</h1>
+          <span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ userData.cal_Poly_Email }}</span>
+
+          {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER' or userData.userType == 'MEMBER_EXPIRED' %}
+          <br> <span class="font-weight-bold text-left">Member Number: </span><span class="text-left">{{ userData.ieee_member_number }}</span>
+          <br> <span class="font-weight-bold text-left">Member Expiration Date: </span><span class="text-left">{{ userData.ieee_member_expiration_date }}</span>
+    	{% endif %}
+          <br> <span class="font-weight-bold text-left">Has items checked out: </span><span class="text-left">{{ userData.has_Items_Checked_Out }}</span>
+
+        </div>
       <!-- <a href="{% url 'another_Action' %}" class="btn btn-outline-success btn-lg btn-block" role="button">Return Selected Equipment</a> -->
       <button id="submitButton" class="btn btn-outline-success btn-lg btn-block" onclick="sendPostData()" type="submit">Return Selected Equipment</button>
       <table class="table table-striped">
