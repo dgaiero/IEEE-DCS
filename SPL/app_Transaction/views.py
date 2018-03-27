@@ -228,7 +228,7 @@ def studentLogin(request):
                 if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
                     request.session['AdminPolyCardData'] = str(
                         raw_PolyCard_Data)
-                if request.session.CustomerPolyCardData == None:
+                if not request.session.has_key('CustomerPolyCardData'):
                     request.session['CustomerPolyCardData'] = str(raw_PolyCard_Data)
                 return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
             except ObjectDoesNotExist:
