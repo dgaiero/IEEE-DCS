@@ -28,7 +28,7 @@
         <!--Registration form-->
         <form method="post">
             {% csrf_token %}
-
+            {{ registrationForm.mode.as_hidden }}
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="username">First Name</label>{% if registrationForm.first_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.first_Name }}

@@ -228,7 +228,13 @@ def studentLogin(request):
                 if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
                     request.session['AdminPolyCardData'] = str(
                         raw_PolyCard_Data)
-                if not request.session.has_key('CustomerPolyCardData'):
+                if request.session.has_key('CustomerPolyCardData'):
+                    try:
+                        if getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'ADMIN' or getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'OFFICER' :
+                            request.session['CustomerPolyCardData'] = str(raw_PolyCard_Data)
+                    except:
+                        pass
+                else:
                     request.session['CustomerPolyCardData'] = str(raw_PolyCard_Data)
                 return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
             except ObjectDoesNotExist:
@@ -295,24 +301,30 @@ def registered_Users(request):
 
 
 def registration(request):
-    if request.method == 'POST':
-        registrationFormData = RegistrationForm(request.POST)
-        if registrationFormData.is_valid():
-            print(registrationFormData)
-            registrationFormData.save()
-            return redirect('/app_Transaction/')
+    if request.session.has_key('AdminPolyCardData'):
+        if request.method == 'POST':
+            registrationFormData = RegistrationForm(request.POST)
+            if registrationFormData.is_valid():
+                if registrationFormData['mode'] == "create":
+                    print(registrationFormData)
+                    registrationFormData.save()
+                    return redirect('/app_Transaction/')
+                else:
+                    return HttpResponse("Updating users is not yet supported.")
+            else:
+                print (registrationFormData.errors)
+                args = {'registrationForm': registrationFormData, 'errors': registrationFormData.errors}
+                return render(request, 'app_Transaction/registration.html', args)
+                # return redirect('/app_Transaction/registration/?fail=True', args)
         else:
-            print (registrationFormData.errors)
-            args = {'registrationForm': registrationFormData, 'errors': registrationFormData.errors}
+            registrationForm = RegistrationForm(initial=request.GET.dict())
+            checkPolyCardData(request)
+            userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+            adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+            args = {'registrationForm': registrationForm, 'userData':userData, 'adminData':adminData}
             return render(request, 'app_Transaction/registration.html', args)
-            # return redirect('/app_Transaction/registration/?fail=True', args)
     else:
-        registrationForm = RegistrationForm(initial=request.GET.dict())
-        checkPolyCardData(request)
-        userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
-        adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
-        args = {'registrationForm': registrationForm, 'userData':userData, 'adminData':adminData}
-        return render(request, 'app_Transaction/registration.html', args)
+        return redirect('/app_Transaction/')
 
 
 def transaction_Summary(request):

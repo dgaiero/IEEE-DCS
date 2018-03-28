@@ -34,10 +34,14 @@ body {
     padding-top: 80px;
 }
 
-/* .container-footer {
+.container-footer {
   width: auto;
   padding-bottom: 15px;
-} */
+}
+
+.polyCardDataFieldMask {
+    -webkit-text-security: square;
+}
 
 /* Override the default bootstrap behavior where horizontal description lists
    will truncate terms that are too long to fit in the left column

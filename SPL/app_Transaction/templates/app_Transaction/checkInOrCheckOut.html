@@ -10,73 +10,76 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
 <html>
 
 <head>
-  {% block head %}
-  <title>WELCOME PAGE</title>
-  {% endblock %}
-  <!--Needed for importing static files
+    {% block head %}
+    <title>WELCOME PAGE</title>
+    {% endblock %}
+    <!--Needed for importing static files
     {% load static %}
      <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
 </head>
 
 <body>
-  {% block body %}
-  <div class="container">
-    <div class="jumbotron">
-    <h1>{{ userData.first_Name }} {{ userData.last_Name }} {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER'%}
+    {% block body %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ userData.first_Name }} {{ userData.last_Name }} {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER'%}
 		<span class="badge badge-success">{{userData.userType}}</span>
 	{% elif userData.userType == 'MEMBER_EXPIRED' %}
 		<span class="badge badge-warning">EXPIRED</span>
     {% elif userData.userType == 'NON_MEMBER' %}
 		<span class="badge badge-danger">NON MEMBER</span>
 	{% endif %}</h1>
-    <span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ userData.cal_Poly_Email }}</span> {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER' or userData.userType == 'MEMBER_EXPIRED' %}
-    <br> <span class="font-weight-bold text-left">Member Number: </span><span class="text-left">{{ userData.ieee_member_number }}</span>
-    <br> <span class="font-weight-bold text-left">Member Expiration Date: </span><span class="text-left">{{ userData.ieee_member_expiration_date }}</span> {% endif %}
-    <br> <span class="font-weight-bold text-left">Has items checked out: </span><span class="text-left">{{ userData.has_Items_Checked_Out }}</span>
+            <span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ userData.cal_Poly_Email }}</span> {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER' or userData.userType == 'MEMBER_EXPIRED' %}
+            <br> <span class="font-weight-bold text-left">Member Number: </span><span class="text-left">{{ userData.ieee_member_number }}</span>
+            <br> <span class="font-weight-bold text-left">Member Expiration Date: </span><span class="text-left">{{ userData.ieee_member_expiration_date }}</span> {% endif %}
+            <br> <span class="font-weight-bold text-left">Has items checked out: </span><span class="text-left">{{ userData.has_Items_Checked_Out }}</span>
+            {% if request.session.AdminPolyCardData != None %}
+            <br><a href="{% url 'registration'%}?first_Name={{ userData.first_Name }}&last_Name={{ userData.last_Name }}&userType={{userData.userType}}&cal_Poly_Email={{ userData.cal_Poly_Email }}&phone_Number={{ userData.phone_Number }}&polyCard_Data={{ userData.polyCard_Data }}&ieee_member_number={{ userData.ieee_member_number }}&ieee_member_expiration_date={{ userData.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update {{userData.first_Name}}'s profile</a>
+            {% endif %}
 
-</div>
+        </div>
 
-    <div class="row">
-        {% if request.session.AdminPolyCardData != None %}
-      <div class="col-md-4">
-          <h2>Equipment Return</h2>
-          <p>
-              Return equipment checked out to {{ userData.last_Name }}.
-          </p>
-          <p><a href="{% url 'checkIn' %}" class="btn btn-outline-primary">Return Equipment</a></p>
-      </div>
-          <div class="col-md-4">
-              <h2>Equipment Checkout</h2>
-              <p>
-                  Checkout equipment to {{ userData.first_Name }}.
-              </p>
-              <p><a href="{% url 'checkOut' %}" class="btn btn-outline-primary">Check out Equipment</a></p>
-          </div>
+        <div class="row">
+            {% if request.session.AdminPolyCardData != None %}
+            <div class="col-md-4">
+                <h2>Equipment Return</h2>
+                <p>
+                    Return equipment checked out to {{ userData.first_Name }}.
+                </p>
+                <p><a href="{% url 'checkIn' %}" class="btn btn-outline-primary">Return Equipment</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Equipment Checkout</h2>
+                <p>
+                    Checkout equipment to {{ userData.first_Name }}.
+                </p>
+                <p><a href="{% url 'checkOut' %}" class="btn btn-outline-primary">Check out Equipment</a></p>
+            </div>
 
-          <div class="col-md-4">
-              <h2>Add New User</h2>
-              <p>
-                  Add a new user to the IEEE member database
-              </p>
-              <p><a href="{% url 'registration' %}" class="btn btn-outline-primary">Add User</a></p>
-          </div>
-          {% endif %}
-  <!-- </div>
+            <div class="col-md-4">
+                <h2>Add New User</h2>
+                <p>
+                    Add a new user to the IEEE member database
+                </p>
+                <p><a href="{% url 'registration' %}" class="btn btn-outline-primary">Add User</a></p>
+            </div>
+            {% endif %}
+            <!-- </div>
 
   <div class="row"> -->
-    <div class="col-md-4">
-        <h2>Login new user</h2>
-        <p>
-            Click here to login new user
-        </p>
-        <p><a href="{% url 'studentLogout' %}" class="btn btn-outline-primary">Login new Uesr</a></p>
+            <div class="col-md-4">
+                <h2>Login new user</h2>
+                <p>
+                    Click here to login new user
+                </p>
+                <p><a href="{% url 'studentLogout' %}" class="btn btn-outline-primary">Login new Uesr</a></p>
+            </div>
+        </div>
+
+
     </div>
-</div>
-
-
-  </div>
-  {% endblock %}
+    {% endblock %}
 </body>
 
 </html>
