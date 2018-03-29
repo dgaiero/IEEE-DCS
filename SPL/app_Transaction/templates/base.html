@@ -50,7 +50,7 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'registration' %}active{% endif %}" href="{% url 'registration' %}">Register New User</a>
+                    <a class="nav-link {% if url_name == 'registration' %}active{% endif %}" href="{% url 'registration' %}">{% if request.GET.mode == "update" %}Update {{userData.first_Name}}'s profile{% else %}Register new User{% endif %}</a>
                 </li>
                 {% endif %}
             </ul>

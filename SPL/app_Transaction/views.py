@@ -8,7 +8,11 @@ from pprint import pprint
 from django.forms import ValidationError
 
 import json
+import urllib.parse
+from datetime import datetime
+
 from .models import User, Part, userPart, eventLog
+from .filters import UserFilter
 from django.core.exceptions import ObjectDoesNotExist
 from app_Transaction.forms import RegistrationForm, studentLoginForm, CheckOutForm
 from app_Transaction.user_registration_scripts.polyCardData import getData
@@ -19,9 +23,15 @@ from app_Transaction.user_registration_scripts.polyCardData import getData
 
 # try to include error messages here
 def getJSONofCurrentUser(sessionData):
-    currentUserData = User.objects.get(polyCard_Data=sessionData).__dict__
+    currentUserData = User.objects.get(cal_Poly_Email=sessionData).__dict__
     return currentUserData
 # Define function-based views
+
+
+def searchUser(request):
+    user_list = User.objects.all()
+    user_filter = UserFilter(request.GET, queryset=user_list)
+    return render(request, 'app_Transaction/search_user.html', {'filter': user_filter})
 
 
 def logEventData(checkedOutTo, checkedOutBy, logType, content):
@@ -82,7 +92,7 @@ def checkIn(request):
             adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
 
             all_Parts = list(userPart.objects.filter(userAssigned=User.objects.get(
-                polyCard_Data=request.session['CustomerPolyCardData'])))
+                cal_Poly_Email=request.session['CustomerPolyCardData'])))
             # print(all_Parts)
 
             checkedOutPartsList = []
@@ -130,11 +140,14 @@ def checkIn_Or_CheckOut(request):
     if request.session.has_key('AdminPolyCardData') or request.session.has_key('CustomerPolyCardData'):
         checkPolyCardData(request)
         userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+        updateUserData = userData
+        updateUserData["polyCard_Data"] =  urllib.parse.quote(userData["polyCard_Data"], safe="")
+        updateUserData["ieee_member_expiration_date"] = userData['ieee_member_expiration_date'].strftime('%m/%d/%Y')
         try:
             adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
             args = {'userData': userData, 'adminData': adminData}
         except KeyError:
-            args = {'userData': userData}
+            args = {'userData': updateUserData}
         return render(request, 'app_Transaction/CheckInOrCheckOut.html', args)
     else:
         return redirect('/app_Transaction/')
@@ -145,7 +158,7 @@ def checkOut(request):
         if request.method == 'POST':
             partData = json.loads(request.POST['partData'])
             userData = User.objects.get(
-                polyCard_Data=request.session['CustomerPolyCardData'])
+                cal_Poly_Email=request.session['CustomerPolyCardData'])
             for key, value in partData.items():
 
                 partName = value['partName']
@@ -227,15 +240,15 @@ def studentLogin(request):
                 print(currentUser.userType)
                 if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
                     request.session['AdminPolyCardData'] = str(
-                        raw_PolyCard_Data)
+                        currentUser.cal_Poly_Email)
                 if request.session.has_key('CustomerPolyCardData'):
                     try:
                         if getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'ADMIN' or getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'OFFICER' :
-                            request.session['CustomerPolyCardData'] = str(raw_PolyCard_Data)
+                            request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)
                     except:
                         pass
                 else:
-                    request.session['CustomerPolyCardData'] = str(raw_PolyCard_Data)
+                    request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)
                 return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
             except ObjectDoesNotExist:
                 return HttpResponseRedirect('/app_Transaction/registration')
@@ -305,12 +318,24 @@ def registration(request):
         if request.method == 'POST':
             registrationFormData = RegistrationForm(request.POST)
             if registrationFormData.is_valid():
+                print(registrationFormData.cleaned_data['mode'])
                 if registrationFormData['mode'] == "create":
                     print(registrationFormData)
                     registrationFormData.save()
                     return redirect('/app_Transaction/')
                 else:
-                    return HttpResponse("Updating users is not yet supported.")
+                    userToUpdate = User.objects.get(cal_Poly_Email=getJSONofCurrentUser(request.session['CustomerPolyCardData'])["cal_Poly_Email"])
+                    userToUpdate.first_Name=registrationFormData.cleaned_data['first_Name']
+                    userToUpdate.last_Name=registrationFormData.cleaned_data['last_Name']
+                    userToUpdate.cal_Poly_Email=registrationFormData.cleaned_data['cal_Poly_Email']
+                    userToUpdate.ieee_member_number=registrationFormData.cleaned_data['ieee_member_number']
+                    userToUpdate.ieee_member_expiration_date=registrationFormData.cleaned_data['ieee_member_expiration_date']
+                    userToUpdate.phone_Number=registrationFormData.cleaned_data['phone_Number']
+                    userToUpdate.polyCard_Data=registrationFormData.cleaned_data['polyCard_Data']
+                    userToUpdate.user_Type=registrationFormData.cleaned_data['userType']
+                    userToUpdate.save()
+
+                    return redirect('/app_Transaction/')
             else:
                 print (registrationFormData.errors)
                 args = {'registrationForm': registrationFormData, 'errors': registrationFormData.errors}

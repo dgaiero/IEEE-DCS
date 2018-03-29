@@ -1,0 +1,77 @@
+<!--Import template base.html layout-->
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+    <title>PARTS INVENTORY</title>
+    {% endblock %}
+    <!--Needed for importing static files
+    {% load static %}
+     <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
+    -->
+  </head>
+
+    {% block body %}
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Search Users in database</h1>
+        <!-- <p class="lead">Total Parts in database: {{ total_Parts }}</p> -->
+      </div>
+
+      <form method="get">
+        {{ render_field filter.form.as_p }}
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="username">First Name</label>{% if render_field filter.form.first_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.first_Name }}
+            </div>
+            <div class="form-group col-md-5">
+                <label for="username">Last Name</label>{% if render_field filter.form.last_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.last_Name }}
+            </div>
+            <div class="form-group col-md-2">
+                <label for="username">Member Type</label>{% if render_field filter.form.userType.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.userType }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="username">Email (Cal Poly)</label>{% if render_field filter.form.cal_Poly_Email.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.cal_Poly_Email }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="username">Phone Number</label>{% if render_field filter.form.phone_Number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.phone_Number }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="username">Swipe Polycard</label>{% if render_field filter.form.polyCard_Data.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.polyCard_Data }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="username">IEEE Member Number</label>{% if render_field filter.form.ieee_member_number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.ieee_member_number }}
+            </div>
+            <div class="form-group col-md-5">
+                <label for="username">Expiration Date</label>{% if render_field filter.form.ieee_member_expiration_date.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.ieee_member_expiration_date }}
+            </div>
+            <div class="form-group col-md-2">
+                <label for="">&nbsp</label>
+                <button class="btn btn-primary btn-large btn-block" type="submit">Submit Query</button>
+            </div>
+        </div>
+
+        <button type="submit">Search</button>
+      </form>
+      <ul>
+      {% for user in filter.qs %}
+        <li>{{ user.first_Name }} {{ user.last_Name }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endblock %}
+  </body>
+</html>

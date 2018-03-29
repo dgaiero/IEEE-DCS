@@ -59,7 +59,7 @@ class studentLoginForm(forms.ModelForm):
         fields = ('polyCard_Data',)
 
 class RegistrationForm(forms.ModelForm):
-    mode = forms.ChoiceField(required=False, choices=(("create","create"),("update","update")))
+    mode = forms.ChoiceField(required=False, choices=(("create","create"),("update","update")),initial=("create","create"))
     first_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     polyCard_Data = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control polyCardDataFieldMask'}))
