@@ -64,7 +64,7 @@
 
       </form>
 
-      <table class="table table-striped">
+      <table class="table table-striped table-bordered dt-responsive nowrap" id="searchTable">
   <thead>
     <tr>
       <th>Name</th>
@@ -107,6 +107,15 @@
 </table>
 
     </div>
+        <script>
+        $(document).ready( function () {
+            $('#searchTable').DataTable(
+                {
+                    "searching": false
+                }
+            );
+        } );
+        </script>
     {% endblock %}
   </body>
 </html>

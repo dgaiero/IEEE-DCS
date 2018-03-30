@@ -27,8 +27,8 @@ class Part(models.Model):
 # Create User model with necessary attributes
 class User(models.Model):
     MEMBER_TYPE = (
-        ('ADMIN', 'ADMIN'),
         ('MEMBER', 'MEMBER'),
+        ('ADMIN', 'ADMIN'),
         ('MEMBER_EXPIRED', 'MEMBER EXPIRED'),
         ('NON_MEMBER', 'NON MEMBER'),
         ('OFFICER', 'OFFICER'),
