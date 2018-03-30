@@ -29,9 +29,15 @@ def getJSONofCurrentUser(sessionData):
 
 
 def searchUser(request):
-    user_list = User.objects.all()
-    user_filter = UserFilter(request.GET, queryset=user_list)
-    return render(request, 'app_Transaction/search_user.html', {'filter': user_filter})
+    if request.session.has_key('AdminPolyCardData'):
+        user_list = User.objects.all()
+        user_filter = UserFilter(request.GET, queryset=user_list)
+        checkPolyCardData(request)
+        userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+        adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+        return render(request, 'app_Transaction/search_user.html', {'filter': user_filter, 'userData': userData, 'adminData': adminData})
+    else:
+        return redirect('/app_Transaction/')
 
 
 def logEventData(checkedOutTo, checkedOutBy, logType, content):
@@ -142,7 +148,10 @@ def checkIn_Or_CheckOut(request):
         userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
         updateUserData = userData
         updateUserData["polyCard_Data"] =  urllib.parse.quote(userData["polyCard_Data"], safe="")
-        updateUserData["ieee_member_expiration_date"] = userData['ieee_member_expiration_date'].strftime('%m/%d/%Y')
+        try:
+            updateUserData["ieee_member_expiration_date"] = userData['ieee_member_expiration_date'].strftime('%m/%d/%Y')
+        except AttributeError:
+            pass
         try:
             adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
             args = {'userData': userData, 'adminData': adminData}
@@ -231,33 +240,39 @@ def studentLogin(request):
         checkPolyCardForm = studentLoginForm(request.POST)
         if checkPolyCardForm.is_valid():
             raw_PolyCard_Data = checkPolyCardForm.cleaned_data['polyCard_Data']
-            polyCardData = getData(raw_PolyCard_Data)
-
-            registeredStatus = None
-
             try:
                 currentUser = User.objects.get(polyCard_Data=raw_PolyCard_Data)
-                print(currentUser.userType)
-                if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
-                    request.session['AdminPolyCardData'] = str(
-                        currentUser.cal_Poly_Email)
-                if request.session.has_key('CustomerPolyCardData'):
-                    try:
-                        if getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'ADMIN' or getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'OFFICER' :
-                            request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)
-                    except:
-                        pass
-                else:
-                    request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)
-                return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
+                loginStatus = loginUser(currentUser, request)
             except ObjectDoesNotExist:
-                return HttpResponseRedirect('/app_Transaction/registration')
+                loginStatus = 2
+
+            if loginStatus == 1:
+                return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
+            if loginStatus == 2:
+                polyCardData = urllib.parse.quote(raw_PolyCard_Data, safe="")
+                return HttpResponseRedirect('/app_Transaction/registration/?polyCard_Data={}'.format(polyCardData))
         else:
             args = {'checkPolyCardForm': checkPolyCardForm, 'errors': checkPolyCardForm.errors}
             return render(request, 'app_Transaction/studentLogin.html', args)
 
+    # elif request.method == 'GET':
+    #     print("GET")
+    #     return HttpResponse("Login as new user is not yet fully operational.")
     else:
-        checkPolyCardForm = studentLoginForm()
+        if request.session.has_key('AdminPolyCardData'):
+            if 'mode' in request.GET:
+                if request.GET['mode'] == 'passthrough':
+                    print("testtest")
+                    currentUser = User.objects.get(cal_Poly_Email=request.GET['email'])
+                    loginUser(currentUser,request)
+
+                    if 'service' in request.GET:
+
+                        print(request.GET['service'])
+                        return HttpResponseRedirect(request.GET['service'])
+        else:
+            pass
+        checkPolyCardForm = studentLoginForm(initial=request.GET.dict())
         checkPolyCardData(request)
         args = {'checkPolyCardForm': checkPolyCardForm}
         # userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
@@ -276,6 +291,27 @@ def studentLogin(request):
         return render(request, 'app_Transaction/studentLogin.html', args)
 
     return render(request, 'app_Transaction/checkPolyCard.html')
+
+
+def loginUser(currentUser, request):
+    try:
+
+        print(currentUser.userType)
+        if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
+            request.session['AdminPolyCardData'] = str(
+                currentUser.cal_Poly_Email)
+        if request.session.has_key('CustomerPolyCardData'):
+            try:
+                if getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'ADMIN' or \
+                        getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'OFFICER':
+                    request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)
+            except:
+                pass
+        else:
+            request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)
+        return 1
+    except ObjectDoesNotExist:
+        return 2
 
 
 def parts(request):

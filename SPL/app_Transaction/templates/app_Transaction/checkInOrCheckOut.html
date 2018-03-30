@@ -22,6 +22,17 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
 <body>
     {% block body %}
     <div class="container">
+
+    {%if request.GET.userUpdate == "True" %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Update Successful</h4>
+      <p>You have been successfully updated the users profile.</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    {% endif %}
+
         <div class="jumbotron">
             <h1>{{ userData.first_Name }} {{ userData.last_Name }} {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER'%}
 		<span class="badge badge-success">{{userData.userType}}</span>
@@ -42,7 +53,7 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
 
         <div class="row">
             {% if request.session.AdminPolyCardData != None %}
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <h2>Equipment Return</h2>
                 <p>
                     Return equipment checked out to {{ userData.first_Name }}.
@@ -55,6 +66,14 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
                     Checkout equipment to {{ userData.first_Name }}.
                 </p>
                 <p><a href="{% url 'checkOut' %}" class="btn btn-outline-primary">Check out Equipment</a></p>
+            </div> -->
+
+            <div class="col-md-4">
+                <h2>Search User Database</h2>
+                <p>
+                    Search for users in the database.
+                </p>
+                <p><a href="{% url 'checkOut' %}" class="btn btn-outline-primary">Search</a></p>
             </div>
 
             <div class="col-md-4">

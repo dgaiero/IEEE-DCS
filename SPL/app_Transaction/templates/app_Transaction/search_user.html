@@ -1,11 +1,13 @@
 <!--Import template base.html layout-->
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html>
   <head>
     {% block head %}
-    <title>PARTS INVENTORY</title>
+    <title>USER SEARCH</title>
     {% endblock %}
     <!--Needed for importing static files
     {% load static %}
@@ -22,41 +24,37 @@
       </div>
 
       <form method="get">
-        {{ render_field filter.form.as_p }}
 
         <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="username">First Name</label>{% if render_field filter.form.first_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.first_Name }}
+            <div class="form-group col-md-6">
+                <label for="username">First Name</label>{% render_field filter.form.first_Name class="form-control" %}
             </div>
-            <div class="form-group col-md-5">
-                <label for="username">Last Name</label>{% if render_field filter.form.last_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.last_Name }}
-            </div>
-            <div class="form-group col-md-2">
-                <label for="username">Member Type</label>{% if render_field filter.form.userType.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.userType }}
+            <div class="form-group col-md-6">
+                <label for="username">Last Name</label>{% render_field filter.form.last_Name class="form-control" %}
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="username">Email (Cal Poly)</label>{% if render_field filter.form.cal_Poly_Email.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.cal_Poly_Email }}
+                <label for="username">Email (Cal Poly)</label>{% render_field filter.form.cal_Poly_Email class="form-control" %}
             </div>
             <div class="form-group col-md-6">
-                <label for="username">Phone Number</label>{% if render_field filter.form.phone_Number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.phone_Number }}
+                <label for="username">Phone Number</label>{% render_field filter.form.phone_Number class="form-control" %}
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label for="username">Swipe Polycard</label>{% if render_field filter.form.polyCard_Data.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.polyCard_Data }}
+                <label for="username">Swipe Polycard</label>{% render_field filter.form.polyCard_Data class="form-control" %}
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="username">IEEE Member Number</label>{% if render_field filter.form.ieee_member_number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.ieee_member_number }}
+                <label for="username">IEEE Member Number</label>{% render_field filter.form.ieee_member_number class="form-control" %}
             </div>
             <div class="form-group col-md-5">
-                <label for="username">Expiration Date</label>{% if render_field filter.form.ieee_member_expiration_date.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ render_field filter.form.ieee_member_expiration_date }}
+                <label for="username">Expiration Date</label>{% render_field filter.form.ieee_member_expiration_date class="form-control" %}
             </div>
             <div class="form-group col-md-2">
                 <label for="">&nbsp</label>
@@ -64,13 +62,50 @@
             </div>
         </div>
 
-        <button type="submit">Search</button>
       </form>
-      <ul>
-      {% for user in filter.qs %}
-        <li>{{ user.first_Name }} {{ user.last_Name }}</li>
-      {% endfor %}
-      </ul>
+
+      <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone No.</th>
+      <th>User Type</th>
+      <th>Member No.</th>
+      <th>Expiration Date</th>
+      <th>User Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in filter.qs %}
+      <tr>
+        <td>{{ user.first_Name }} {{ user.last_Name }}</td>
+        <td>{{ user.cal_Poly_Email }}</td>
+        <td>{{ user.phone_Number }}</td>
+        <td>{% if user.userType == 'MEMBER' or user.userType == 'ADMIN' or user.userType == 'OFFICER'%}
+    <span class="badge badge-success">{{user.userType}}</span>
+{% elif user.userType == 'MEMBER_EXPIRED' %}
+    <span class="badge badge-warning">EXPIRED</span>
+{% elif user.userType == 'NON_MEMBER' %}
+    <span class="badge badge-danger">NON MEMBER</span>
+{% endif %}</td>
+        <td>{{ user.ieee_member_number }}</td>
+        <td>{{ user.ieee_member_expiration_date }}</td>
+        <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="{% url 'registration'%}?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary disabled">Update profile</a>
+                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/checkInOrCheckOut" class="btn btn-outline-primary">Login User</a>
+            </div>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="5">No data</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
     </div>
     {% endblock %}
   </body>
