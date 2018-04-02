@@ -10,15 +10,15 @@ from django.forms import ValidationError
 import json
 import urllib.parse
 from datetime import datetime
-
-from .models import User, Part, userPart, eventLog
+from datetime import date
+from .models import User, Part, userPart
 from .filters import UserFilter
 from django.core.exceptions import ObjectDoesNotExist
 from app_Transaction.forms import RegistrationForm, studentLoginForm, CheckOutForm
 from app_Transaction.user_registration_scripts.polyCardData import getData
 
-# import os
-# os.environ['DJANGO_SETTINGS_MODULE']='SPL.settings'
+import os
+os.environ['DJANGO_SETTINGS_MODULE']='SPL.settings'
 
 
 # try to include error messages here
@@ -29,21 +29,28 @@ def getJSONofCurrentUser(sessionData):
 
 
 def searchUser(request):
+    print(request.session['AdminPolyCardData'])
     if request.session.has_key('AdminPolyCardData'):
         user_list = User.objects.all()
         user_filter = UserFilter(request.GET, queryset=user_list)
         checkPolyCardData(request)
-        userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
         adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
-        return render(request, 'app_Transaction/search_user.html', {'filter': user_filter, 'userData': userData, 'adminData': adminData})
+        args = {'filter': user_filter, 'adminData': adminData}
+        try:
+            userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+            args['adminData'] = userData
+        except ObjectDoesNotExist:
+            pass
+
+        return render(request, 'app_Transaction/search_user.html', args)
     else:
         return redirect('/app_Transaction/')
 
 
-def logEventData(checkedOutTo, checkedOutBy, logType, content):
-    newLogEvent = eventLog(checkedOutTo=checkedOutTo,
-                           checkedOutBy=checkedOutBy, logType=logType, content=content)
-    newLogEvent.save()
+# def logEventData(checkedOutTo, checkedOutBy, logType, content):
+#     newLogEvent = eventLog(checkedOutTo=checkedOutTo,
+#                            checkedOutBy=checkedOutBy, logType=logType, content=content)
+#     newLogEvent.save()
 
 
 def another_Action(request):
@@ -139,8 +146,10 @@ def adminLogout(request):
 
 def checkPolyCardData(request):
     if request.session.has_key('AdminPolyCardData'):
+        print(request.session['AdminPolyCardData'])
         if not request.session.has_key('CustomerPolyCardData'):
-            request.session['CustomerPolyCardData'] = getJSONofCurrentUser(request.session['AdminPolyCardData'])['polyCard_Data']
+            # print(request.session['CustomerPolyCardData'])
+            request.session['CustomerPolyCardData'] = getJSONofCurrentUser(request.session['AdminPolyCardData'])['cal_Poly_Email']
 
 def checkIn_Or_CheckOut(request):
     if request.session.has_key('AdminPolyCardData') or request.session.has_key('CustomerPolyCardData'):
@@ -242,6 +251,7 @@ def studentLogin(request):
             raw_PolyCard_Data = checkPolyCardForm.cleaned_data['polyCard_Data']
             try:
                 currentUser = User.objects.get(polyCard_Data=raw_PolyCard_Data)
+                print(currentUser)
                 loginStatus = loginUser(currentUser, request)
             except ObjectDoesNotExist:
                 loginStatus = 2
@@ -297,6 +307,7 @@ def loginUser(currentUser, request):
     try:
 
         print(currentUser.userType)
+        currentUser.createUserType()
         if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
             request.session['AdminPolyCardData'] = str(
                 currentUser.cal_Poly_Email)
@@ -351,16 +362,25 @@ def registered_Users(request):
 
 def registration(request):
     if request.session.has_key('AdminPolyCardData'):
+        print("HAS_ADMIN")
         if request.method == 'POST':
+            print("POST")
             registrationFormData = RegistrationForm(request.POST)
             if registrationFormData.is_valid():
                 print(registrationFormData.cleaned_data['mode'])
-                if registrationFormData['mode'] == "create":
+                if registrationFormData.cleaned_data['mode'] == "create":
+                    print("MODE_CREATE")
                     print(registrationFormData)
                     registrationFormData.save()
-                    return redirect('/app_Transaction/')
+                    # registrationFormData.createUserType()
+                    # return redirect('/app_Transaction/')
+
+                    User.objects.get(cal_Poly_Email=registrationFormData.cleaned_data['cal_Poly_Email']).createUserType()
+                    return redirect('/app_Transaction/studentLogin/?mode=passthrough&email={}&service=/app_Transaction/checkInOrCheckOut'.format(registrationFormData.cleaned_data['cal_Poly_Email']))
+
                 else:
                     userToUpdate = User.objects.get(cal_Poly_Email=getJSONofCurrentUser(request.session['CustomerPolyCardData'])["cal_Poly_Email"])
+                    print("DONE MODE UPDATE WITH USER: {}".format(getJSONofCurrentUser(request.session['CustomerPolyCardData'])["cal_Poly_Email"]))
                     userToUpdate.first_Name=registrationFormData.cleaned_data['first_Name']
                     userToUpdate.last_Name=registrationFormData.cleaned_data['last_Name']
                     userToUpdate.cal_Poly_Email=registrationFormData.cleaned_data['cal_Poly_Email']
@@ -368,16 +388,23 @@ def registration(request):
                     userToUpdate.ieee_member_expiration_date=registrationFormData.cleaned_data['ieee_member_expiration_date']
                     userToUpdate.phone_Number=registrationFormData.cleaned_data['phone_Number']
                     userToUpdate.polyCard_Data=registrationFormData.cleaned_data['polyCard_Data']
-                    userToUpdate.user_Type=registrationFormData.cleaned_data['userType']
-                    userToUpdate.save()
 
-                    return redirect('/app_Transaction/')
+                    userToUpdate.save()
+                    print("Test")
+                    userToUpdate.createUserType()
+
+                    # loginUser(userToUpdate, request)
+
+                    # return redirect('/app_Transaction/')
+                    print("test")
+                    return redirect('/app_Transaction/studentLogin/?mode=passthrough&email={}&service=/app_Transaction/checkInOrCheckOut'.format(userToUpdate.cal_Poly_Email))
             else:
                 print (registrationFormData.errors)
                 args = {'registrationForm': registrationFormData, 'errors': registrationFormData.errors}
                 return render(request, 'app_Transaction/registration.html', args)
                 # return redirect('/app_Transaction/registration/?fail=True', args)
         else:
+            print("GET")
             registrationForm = RegistrationForm(initial=request.GET.dict())
             checkPolyCardData(request)
             userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])

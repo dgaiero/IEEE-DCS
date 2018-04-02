@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ValidationError
-import jsonfield
+from datetime import date
+# import jsonfield
 
 from datetime import date
 #from phonenumber_field.modelfields import PhoneNumberField
@@ -9,11 +10,11 @@ from datetime import date
 
 
 
-class eventLog(models.Model):
-    checkedOutTo = models.ForeignKey('User', null=True, related_name='checkedOutTo', on_delete=models.CASCADE)
-    checkedOutBy = models.ForeignKey('User', null=True, related_name='checkedOutBy', on_delete=models.CASCADE)
-    logType = models.CharField(null=False, max_length=200)
-    content = jsonfield.JSONField()
+# class eventLog(models.Model):
+#     checkedOutTo = models.ForeignKey('User', null=True, related_name='checkedOutTo', on_delete=models.CASCADE)
+#     checkedOutBy = models.ForeignKey('User', null=True, related_name='checkedOutBy', on_delete=models.CASCADE)
+#     logType = models.CharField(null=False, max_length=200)
+#     content = jsonfield.JSONField()
 
 class Part(models.Model):
     part = models.CharField(max_length=100)
@@ -26,6 +27,17 @@ class Part(models.Model):
 
 # Create User model with necessary attributes
 class User(models.Model):
+
+    # def __init__(self, *args, **kwargs):
+    #     super(User, self).__init__(*args, **kwargs)
+    #
+    #     self.createUserType()
+
+    # def save(self, *args, **kwargs):
+    #     super(User, self).__init__(*args, **kwargs)
+    #
+    #     self.createUserType()
+
     MEMBER_TYPE = (
         ('MEMBER', 'MEMBER'),
         ('ADMIN', 'ADMIN'),
@@ -34,22 +46,47 @@ class User(models.Model):
         ('OFFICER', 'OFFICER'),
     )
     userType = models.CharField(
-        max_length=20,
+        max_length=50,
         choices=MEMBER_TYPE,
-        default='MEMBER',
+        default=('MEMBER', 'MEMBER'),
     )
-    first_Name = models.CharField(max_length=100)
-    last_Name = models.CharField(max_length=100)
+    first_Name = models.CharField(max_length=500)
+    last_Name = models.CharField(max_length=500)
     # user_Type = models.CharField(max_length=100, default="STUDENT")
-    cal_Poly_Email = models.EmailField(null=True, max_length=100)
-    ieee_member_number = models.CharField(null=True, max_length=100)
-    ieee_member_expiration_date = models.DateField(null=True)
-    phone_Number = models.IntegerField(default=0)
-    polyCard_Data = models.CharField(max_length=100)
+    cal_Poly_Email = models.EmailField(null=False, max_length=500)
+    ieee_member_number = models.CharField(null=True, max_length=500, blank=True)
+    ieee_member_expiration_date = models.DateField(null=True, blank=True)
+    phone_Number = models.CharField(max_length= 100, null=True, blank=True)
+    polyCard_Data = models.CharField(max_length=500, null=True)
     # library_Code_Number = models.IntegerField(default=0)
     # iso_Number = models.IntegerField(default=0)
-    parts                 = models.ManyToManyField(Part)
-    has_Items_Checked_Out = models.BooleanField(default=False)
+    parts                 = models.ManyToManyField(Part, blank=True)
+    has_Items_Checked_Out = models.BooleanField(default=False, blank=True)
+    is_super = models.BooleanField(default=False, blank=True)
+
+    # createUserType()
+
+    def createUserType(self, *args, **kwargs):
+        if self.is_super is False:
+            print("NON ADMIN ACCOUNT")
+            if self.ieee_member_number is not "":
+                try:
+                    print(date.today())
+                    if date.today() > self.ieee_member_expiration_date:
+                        print("Change membership to expired")
+                        self.userType = 'MEMBER_EXPIRED'
+
+                    else:
+                        print("Change membership to MEMBER")
+                        self.userType = 'MEMBER'
+                except TypeError:
+                    print("Could not compute time delta")
+                    pass
+            else:
+                self.userType = 'NON_MEMBER'
+            print("SAVE USER")
+            self.save(update_fields=["userType"])
+
 
     def clean(self, *args, **kwargs):
         super(User, self).clean(*args, **kwargs)
@@ -86,20 +123,20 @@ class userPart(models.Model):
 # Create Transaction model with necessary attributes
 # We'll worry about this later...
 # What is the difference between transaction and log
-class Transaction(models.Model):
-    # userid
-    # part
-    # date
-    pass
+# class Transaction(models.Model):
+#     # userid
+#     # part
+#     # date
+#     pass
 
 # Create Lab model with necessary attributes
 
 
-class Lab(models.Model):
-    course_Name_Text = models.CharField(max_length=100)
-    section_Number = models.IntegerField(default=0)
-    experiment_Number = models.IntegerField(default=0)
-    parts = models.ManyToManyField(Part)
+# class Lab(models.Model):
+#     course_Name_Text = models.CharField(max_length=100)
+#     section_Number = models.IntegerField(default=0)
+#     experiment_Number = models.IntegerField(default=0)
+#     parts = models.ManyToManyField(Part)
     # possible things to add: professor name
 
 # Create Log model with necessary attributes

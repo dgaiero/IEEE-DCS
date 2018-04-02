@@ -13,31 +13,31 @@ from app_Transaction.models import User
 
 # Define class-based model forms
 
-all_Parts = list(Part.objects.all())
-i = 0
-PART_CHOICES = []
-registered_Parts_List = []
-total_Parts = len(all_Parts)
-while i < total_Parts:
-    part = Part.objects.values('part')[i]['part']
-    PART_CHOICES.append(('{}'.format(part), '{}'.format(part)))
-    i += 1
-
-PART_CHOICES = sorted(PART_CHOICES)
-
-QUANTITY_CHOICES = []
-j = 1
-max_length = 101
-while j < max_length:
-    QUANTITY_CHOICES.append(('{}'.format(j), '{}'.format(j)))
-    j += 1
+# all_Parts = list(Part.objects.all())
+# i = 0
+# PART_CHOICES = []
+# registered_Parts_List = []
+# total_Parts = len(all_Parts)
+# while i < total_Parts:
+#     part = Part.objects.values('part')[i]['part']
+#     PART_CHOICES.append(('{}'.format(part), '{}'.format(part)))
+#     i += 1
+#
+# PART_CHOICES = sorted(PART_CHOICES)
+#
+# QUANTITY_CHOICES = []
+# j = 1
+# max_length = 101
+# while j < max_length:
+#     QUANTITY_CHOICES.append(('{}'.format(j), '{}'.format(j)))
+#     j += 1
 
 
 class CheckOutForm(forms.ModelForm):
     part = forms.CharField(widget=forms.Select(
-        choices=PART_CHOICES, attrs={'class': 'form-control', 'id': 'partName'}))
+        choices=("test","test"), attrs={'class': 'form-control', 'id': 'partName'}))
     quantity = forms.IntegerField(
-        widget=forms.Select(choices=QUANTITY_CHOICES, attrs={'class': 'form-control', 'id': 'partQty'}))
+        widget=forms.Select(choices=("test","test"), attrs={'class': 'form-control', 'id': 'partQty'}))
     id_Number = forms.IntegerField(widget=forms.TextInput(
         attrs={'class': 'form-control', 'id': 'partID'}))
 
@@ -65,12 +65,12 @@ class RegistrationForm(forms.ModelForm):
     polyCard_Data = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control polyCardDataFieldMask'}))
     # see if you can force @calpoly.edu on email field
     cal_Poly_Email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}),validators=[validate_domainonly_email])
-    phone_Number = forms.IntegerField(
+    phone_Number = forms.CharField(
         required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'partName'}))
-    ieee_member_number = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    ieee_member_expiration_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy'}))
-    userType = forms.CharField(widget=forms.Select(
-        choices=User.MEMBER_TYPE, attrs={'class': 'form-control'}))
+    ieee_member_number = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    ieee_member_expiration_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy'}))
+    # userType = forms.CharField(widget=forms.Select(
+    #     choices=User.MEMBER_TYPE, attrs={'class': 'form-control'}))
     # user_Phone_Number = PhoneNumberField()
 
 
@@ -85,7 +85,7 @@ class RegistrationForm(forms.ModelForm):
             'phone_Number',
             'ieee_member_number',
             'ieee_member_expiration_date',
-            'userType'
+            # 'userType'
         )
         exclude = ('iso_Number', 'library_Code_Number',)
 

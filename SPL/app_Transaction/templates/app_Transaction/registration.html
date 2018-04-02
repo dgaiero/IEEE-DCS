@@ -28,17 +28,17 @@
         <!--Registration form-->
         <form method="post">
             {% csrf_token %}
-            {{ registrationForm.mode.as_hidden }}
+            {{ registrationForm.mode }}
             <div class="form-row">
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-6">
                     <label for="username">First Name</label>{% if registrationForm.first_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.first_Name }}
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-6">
                     <label for="username">Last Name</label>{% if registrationForm.last_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.last_Name }}
                 </div>
-                <div class="form-group col-md-2">
-                    <label for="username">Member Type</label>{% if registrationForm.userType.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.userType }}
-                </div>
+{#                <div class="form-group col-md-2">#}
+{#                    <label for="username">Member Type</label>{% if registrationForm.userType.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.userType }}#}
+{#                </div>#}
             </div>
 
             <div class="form-row">
@@ -46,7 +46,8 @@
                     <label for="username">Email (Cal Poly)</label>{% if registrationForm.cal_Poly_Email.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.cal_Poly_Email }}
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="username">Phone Number</label>{% if registrationForm.phone_Number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.phone_Number }}
+                    <label for="phone">Phone Number</label>{% if registrationForm.phone_Number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.phone_Number }}
+                    <small id="phoneHelp" class="form-text text-muted">Enter in format with ##########.</small>
                 </div>
             </div>
 
