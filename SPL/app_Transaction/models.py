@@ -53,11 +53,11 @@ class User(models.Model):
     first_Name = models.CharField(max_length=500)
     last_Name = models.CharField(max_length=500)
     # user_Type = models.CharField(max_length=100, default="STUDENT")
-    cal_Poly_Email = models.EmailField(null=False, max_length=500)
-    ieee_member_number = models.CharField(null=True, max_length=500, blank=True)
+    cal_Poly_Email = models.EmailField(null=False, max_length=500, unique=True)
+    ieee_member_number = models.CharField(null=True, max_length=500, blank=True, unique=True)
     ieee_member_expiration_date = models.DateField(null=True, blank=True)
     phone_Number = models.CharField(max_length= 100, null=True, blank=True)
-    polyCard_Data = models.CharField(max_length=500, null=True)
+    polyCard_Data = models.CharField(max_length=500, null=True, unique=True)
     # library_Code_Number = models.IntegerField(default=0)
     # iso_Number = models.IntegerField(default=0)
     parts                 = models.ManyToManyField(Part, blank=True)
@@ -81,8 +81,10 @@ class User(models.Model):
                         self.userType = 'MEMBER'
                 except TypeError:
                     print("Could not compute time delta")
+                    self.userType = 'NON_MEMBER'
                     pass
             else:
+                print("userTypeTTest")
                 self.userType = 'NON_MEMBER'
             print("SAVE USER")
             self.save(update_fields=["userType"])

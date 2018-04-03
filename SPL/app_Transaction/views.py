@@ -270,11 +270,13 @@ def studentLogin(request):
     #     return HttpResponse("Login as new user is not yet fully operational.")
     else:
         if request.session.has_key('AdminPolyCardData'):
+            # print(request.GET['mode'])
             if 'mode' in request.GET:
                 if request.GET['mode'] == 'passthrough':
                     print("testtest")
-                    currentUser = User.objects.get(cal_Poly_Email=request.GET['email'])
-                    loginUser(currentUser,request)
+                    currentPassthroughUser = User.objects.get(cal_Poly_Email=request.GET['email'])
+                    print(currentPassthroughUser)
+                    loginUser(currentPassthroughUser, request)
 
                     if 'service' in request.GET:
 
@@ -305,18 +307,24 @@ def studentLogin(request):
 
 def loginUser(currentUser, request):
     try:
-
+        print("LOGIN USER")
+        print(currentUser)
         print(currentUser.userType)
-        currentUser.createUserType()
+        # currentUser.createUserType()
         if currentUser.userType == 'ADMIN' or currentUser.userType == 'OFFICER':
+
             request.session['AdminPolyCardData'] = str(
                 currentUser.cal_Poly_Email)
         if request.session.has_key('CustomerPolyCardData'):
             try:
-                if getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'ADMIN' or \
-                        getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] == 'OFFICER':
+                print("check polycard data")
+                print(getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'])
+                if getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] != 'ADMIN' or \
+                        getJSONofCurrentUser(request.session['CustomerPolyCardData'])['userType'] != 'OFFICER':
+                    print("UPDATE USER")
                     request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)
             except:
+                print("loginUserExcept")
                 pass
         else:
             request.session['CustomerPolyCardData'] = str(currentUser.cal_Poly_Email)

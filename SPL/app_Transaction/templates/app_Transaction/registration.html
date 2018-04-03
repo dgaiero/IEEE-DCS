@@ -28,7 +28,7 @@
         <!--Registration form-->
         <form method="post">
             {% csrf_token %}
-            {{ registrationForm.mode }}
+            {{ registrationForm.mode.as_hidden }}
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="username">First Name</label>{% if registrationForm.first_Name.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.first_Name }}
@@ -51,24 +51,27 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="username">Swipe Polycard</label>{% if registrationForm.polyCard_Data.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.polyCard_Data }}
+                    <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="username">IEEE Member Number</label>{% if registrationForm.ieee_member_number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.ieee_member_number }}
                 </div>
+                <div class="form-group col-md-6">
+                    <label for="username">Expiration Date</label>{% if registrationForm.ieee_member_expiration_date.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.ieee_member_expiration_date }}
+                </div>
+
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="username">IEEE Member Number</label>{% if registrationForm.ieee_member_number.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.ieee_member_number }}
+                <div class="form-group col-md-10">
+                    <label for="username">Swipe Polycard</label>{% if registrationForm.polyCard_Data.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.polyCard_Data }}
                 </div>
-                <div class="form-group col-md-5">
-                    <label for="username">Expiration Date</label>{% if registrationForm.ieee_member_expiration_date.errors %} <span class="badge badge-danger">Error</span> {% endif %} {{ registrationForm.ieee_member_expiration_date }}
-                </div>
-                <div class="form-group col-md-2">
+             <div class="form-group col-md-2">
                     <label for="">&nbsp</label>
                     <button class="btn btn-primary btn-large btn-block" type="submit">{% if request.GET.mode == "update" %}Update User{% else %}Add User{% endif %}</button>
                 </div>
             </div>
+
+
         </form>
     </div>
     {% endblock %}

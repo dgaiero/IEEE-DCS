@@ -59,16 +59,16 @@ class studentLoginForm(forms.ModelForm):
         fields = ('polyCard_Data',)
 
 class RegistrationForm(forms.ModelForm):
-    mode = forms.ChoiceField(required=False, choices=(("create","create"),("update","update")),initial=("create","create"))
+    mode = forms.CharField(required=False, initial="create")
     first_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     polyCard_Data = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control polyCardDataFieldMask'}))
     # see if you can force @calpoly.edu on email field
-    cal_Poly_Email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}),validators=[validate_domainonly_email])
+    cal_Poly_Email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}), validators=[validate_domainonly_email])
     phone_Number = forms.CharField(
         required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'partName'}))
     ieee_member_number = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    ieee_member_expiration_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy'}))
+    ieee_member_expiration_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'mm/dd/yyyy'}))
     # userType = forms.CharField(widget=forms.Select(
     #     choices=User.MEMBER_TYPE, attrs={'class': 'form-control'}))
     # user_Phone_Number = PhoneNumberField()
