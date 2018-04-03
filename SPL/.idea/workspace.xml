@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c609fed0-8bcb-4d6b-9358-6efc1076cb47" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app_Transaction/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPL/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SPL/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -278,7 +275,7 @@
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32987747" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.22525918" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.22525918" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14739583" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
