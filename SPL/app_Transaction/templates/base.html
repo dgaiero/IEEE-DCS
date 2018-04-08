@@ -31,7 +31,10 @@
     <!--Sample navbar code taken from Bootstrap example-->
     {% with url_name=request.resolver_match.url_name %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand mb-0 h1" href="{% url 'studentLogin' %}"><img src="{% static 'ieee_header.svg' %}" height="30" class="d-inline-block align-top" alt=""></a>
+        <a class="navbar-brand mb-0 h1" href="{% url 'studentLogin' %}"><img src="{% static 'ieee_header.svg' %}"
+                                                                             height="50"
+                                                                             class="d-inline-block align-top"
+                                                                             alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -95,9 +98,21 @@
 
                 <li class="nav-item">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        {% if request.session.AdminPolyCardData != None %}<a class="btn btn-outline-primary" href="{% url 'adminLogout' %}">Logout {{ adminData.first_Name }}</a> {% endif %} {% if userData.polyCard_Data != adminData.polyCard_Data %} {% if request.session.CustomerPolyCardData != None %}
-                        <a class="btn btn-outline-primary" href="{% url 'studentLogout' %}">Logout {{ userData.first_Name }}</a> {% endif %} {% endif %} {% if request.session.AdminPolyCardData == None or request.session.AdminPolyCardData == None%}
-                        <a class="btn btn-outline-primary" href="{% url 'studentLogin' %}">Login</a>
+                        {% if request.session.AdminPolyCardData != None %}
+                            <a class="btn btn-outline-primary" href="{% url 'adminLogout' %}"><strong>OFFICER
+                                LOGOUT</strong><br>
+                                <small>Logout {{ adminData.first_Name }}</small>
+                            </a> {% endif %} {% if userData.polyCard_Data != adminData.polyCard_Data %}
+                        {% if request.session.CustomerPolyCardData != None %}
+                            <a class="btn btn-outline-primary" href="{% url 'studentLogout' %}"><strong>CUSTOMER
+                                LOGOUT</strong><br>
+                                <small>Logout {{ userData.first_Name }}</small>
+                            </a> {% endif %} {% endif %}
+                        {% if request.session.AdminPolyCardData == None or request.session.AdminPolyCardData == None %}
+                            <a class="btn btn-outline-primary"
+                               href="{% url 'studentLogin' %}"><strong>LOGIN</strong><br>
+                                <small>Authenticate a new user</small>
+                            </a>
                     </div>
                 </li>
                 {% endif %}

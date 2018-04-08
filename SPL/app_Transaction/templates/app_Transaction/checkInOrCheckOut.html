@@ -11,7 +11,7 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
 
 <head>
     {% block head %}
-    <title>WELCOME PAGE</title>
+        <title>WELCOME PAGE</title>
     {% endblock %}
     <!--Needed for importing static files
     {% load static %}
@@ -20,40 +20,31 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
 </head>
 
 <body>
-    {% block body %}
+{% block body %}
     <div class="container">
 
-    {%if request.GET.userUpdate == "True" %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <h4 class="alert-heading">Update Successful</h4>
-      <p>You have been successfully updated the users profile.</p>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    </div>
-    {% endif %}
+        {% if request.GET.userUpdate == "True" %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Update Successful</h4>
+                <p>You have been successfully updated the users profile.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
 
         <div class="jumbotron">
-            <h1>{{ userData.first_Name }} {{ userData.last_Name }} {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER'%}
-		<span class="badge badge-success">{{userData.userType}}</span>
-	{% elif userData.userType == 'MEMBER_EXPIRED' %}
-		<span class="badge badge-warning">EXPIRED</span>
-    {% elif userData.userType == 'NON_MEMBER' %}
-		<span class="badge badge-danger">NON MEMBER</span>
-	{% endif %}</h1>
-            <span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ userData.cal_Poly_Email }}</span> {% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER' or userData.userType == 'MEMBER_EXPIRED' %}
-            <br> <span class="font-weight-bold text-left">Member Number: </span><span class="text-left">{{ userData.ieee_member_number }}</span>
-            <br> <span class="font-weight-bold text-left">Member Expiration Date: </span><span class="text-left">{{ userData.ieee_member_expiration_date }}</span> {% endif %}
-            <br> <span class="font-weight-bold text-left">Has items checked out: </span><span class="text-left">{{ userData.has_Items_Checked_Out }}</span>
+            {% include "app_Transaction/userHeader.html" %}
             {% if request.session.AdminPolyCardData != None %}
-            <br><a href="{% url 'registration'%}?mode=update&first_Name={{ userData.first_Name }}&last_Name={{ userData.last_Name }}&userType={{userData.userType}}&cal_Poly_Email={{ userData.cal_Poly_Email }}&phone_Number={{ userData.phone_Number }}&polyCard_Data={{ userData.polyCard_Data }}&ieee_member_number={{ userData.ieee_member_number }}&ieee_member_expiration_date={{ userData.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update {{userData.first_Name}}'s profile</a>
+                <br>
+                <a href="{% url 'registration' %}?mode=update&first_Name={{ userData.first_Name }}&last_Name={{ userData.last_Name }}&userType={{ userData.userType }}&cal_Poly_Email={{ userData.cal_Poly_Email }}&phone_Number={{ userData.phone_Number }}&polyCard_Data={{ userData.polyCard_Data }}&ieee_member_number={{ userData.ieee_member_number }}&ieee_member_expiration_date={{ userData.ieee_member_expiration_date }}"
+                   class="btn btn-outline-primary">Update {{ userData.first_Name }}'s profile</a>
             {% endif %}
-
         </div>
 
         <div class="row">
             {% if request.session.AdminPolyCardData != None %}
-            <!-- <div class="col-md-4">
+                <!-- <div class="col-md-4">
                 <h2>Equipment Return</h2>
                 <p>
                     Return equipment checked out to {{ userData.first_Name }}.
@@ -68,21 +59,21 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
                 <p><a href="{% url 'checkOut' %}" class="btn btn-outline-primary">Check out Equipment</a></p>
             </div> -->
 
-            <div class="col-md-4">
-                <h2>Search User Database</h2>
-                <p>
-                    Search for users in the database.
-                </p>
-                <p><a href="{% url 'searchUser' %}" class="btn btn-outline-primary">Search</a></p>
-            </div>
+                <div class="col-md-4">
+                    <h2>Search User Database</h2>
+                    <p>
+                        Search for users in the database.
+                    </p>
+                    <p><a href="{% url 'searchUser' %}" class="btn btn-outline-primary">Search</a></p>
+                </div>
 
-            <div class="col-md-4">
-                <h2>Add New User</h2>
-                <p>
-                    Add a new user to the IEEE member database
-                </p>
-                <p><a href="{% url 'registration' %}" class="btn btn-outline-primary">Add User</a></p>
-            </div>
+                <div class="col-md-4">
+                    <h2>Add New User</h2>
+                    <p>
+                        Add a new user to the IEEE member database
+                    </p>
+                    <p><a href="{% url 'registration' %}" class="btn btn-outline-primary">Add User</a></p>
+                </div>
             {% endif %}
             <!-- </div>
 
@@ -98,7 +89,7 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
 
 
     </div>
-    {% endblock %}
+{% endblock %}
 </body>
 
 </html>

@@ -5,123 +5,129 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     {% block head %}
-    <title>USER SEARCH</title>
+        <title>USER SEARCH</title>
     {% endblock %}
     <!--Needed for importing static files
     {% load static %}
      <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
-  </head>
+</head>
 
-    {% block body %}
-  <body>
+{% block body %}
+    <body>
     <div class="container">
-      <div class="jumbotron">
-        <h1>Search Users in database</h1>
-          <p class="lead">Export Result as CSV: <a href="{% url 'csvExport' %}?{{ csvExportData }}"
-                                                   class="btn btn-outline-dark btn-sm">Export Current Query as CSV</a>
-          </p>
-      </div>
-
-      <form method="get">
-
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="username">First Name</label>{% render_field filter.form.first_Name class="form-control" %}
-            </div>
-            <div class="form-group col-md-5">
-                <label for="username">Last Name</label>{% render_field filter.form.last_Name class="form-control" %}
-            </div>
-            <div class="form-group col-md-2">
-                <label for="username">User Type</label>{% render_field filter.form.userType class="form-control" %}
-            </div>
+        <div class="jumbotron">
+            <h1>Search Users in database</h1>
+            <a href="{% url 'csvExport' %}?{{ csvExportData }}" class="btn btn-outline-dark btn-sm">Export Results as
+                CSV</a>
         </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="username">Email (Cal Poly)</label>{% render_field filter.form.cal_Poly_Email class="form-control" %}
-            </div>
-            <div class="form-group col-md-6">
-                <label for="username">Phone Number</label>{% render_field filter.form.phone_Number class="form-control" %}
-            </div>
-        </div>
+        <form method="get">
 
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <label for="username">Swipe Polycard</label>{% render_field filter.form.polyCard_Data class="form-control" %}
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="username">First
+                        Name</label>{% render_field filter.form.first_Name class="form-control" %}
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="username">Last Name</label>{% render_field filter.form.last_Name class="form-control" %}
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="username">User Type</label>{% render_field filter.form.userType class="form-control" %}
+                </div>
             </div>
-        </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="username">IEEE Member Number</label>{% render_field filter.form.ieee_member_number class="form-control" %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="username">Email (Cal
+                        Poly)</label>{% render_field filter.form.cal_Poly_Email class="form-control" %}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="username">Phone
+                        Number</label>{% render_field filter.form.phone_Number class="form-control" %}
+                </div>
             </div>
-            <div class="form-group col-md-5">
-                <label for="username">Expiration Date</label>{% render_field filter.form.ieee_member_expiration_date class="form-control" %}
-            </div>
-            <div class="form-group col-md-2">
-                <label for="">&nbsp</label>
-                <button class="btn btn-primary btn-large btn-block" type="submit">Submit Query</button>
-            </div>
-        </div>
 
-      </form>
-
-      <table class="table table-striped table-bordered dt-responsive nowrap" id="searchTable">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone No.</th>
-      <th>User Type</th>
-      <th>Member No.</th>
-      <th>Expiration Date</th>
-      <th>User Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for user in filter.qs %}
-        <pre>{{ userDataQueryString }}</pre>
-      <tr>
-        <td>{{ user.first_Name }} {{ user.last_Name }}</td>
-        <td>{{ user.cal_Poly_Email }}</td>
-        <td>{{ user.phone_Number }}</td>
-        <td>{% if user.userType == 'MEMBER' or user.userType == 'ADMIN' or user.userType == 'OFFICER'%}
-    <span class="badge badge-success">{{user.userType}}</span>
-{% elif user.userType == 'MEMBER_EXPIRED' %}
-    <span class="badge badge-warning">EXPIRED</span>
-{% elif user.userType == 'NON_MEMBER' %}
-    <span class="badge badge-danger">NON MEMBER</span>
-{% endif %}</td>
-        <td>{{ user.ieee_member_number }}</td>
-        <td>{{ user.ieee_member_expiration_date }}</td>
-        <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                {#                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/registration?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update profile</a>#}
-                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/checkInOrCheckOut" class="btn btn-outline-primary">Login User</a>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="username">Swipe
+                        Polycard</label>{% render_field filter.form.polyCard_Data class="form-control" %}
+                </div>
             </div>
-        </td>
-      </tr>
-    {% empty %}
-      <tr>
-        <td colspan="5">No data</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="username">IEEE Member
+                        Number</label>{% render_field filter.form.ieee_member_number class="form-control" %}
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="username">Expiration
+                        Date</label>{% render_field filter.form.ieee_member_expiration_date class="form-control" %}
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="">&nbsp</label>
+                    <button class="btn btn-primary btn-large btn-block" type="submit">Submit</button>
+                </div>
+            </div>
+
+        </form>
+
+        <table class="table table-striped table-bordered dt-responsive nowrap" id="searchTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone No.</th>
+                <th>User Type</th>
+                <th>Member No.</th>
+                <th>Expiration Date</th>
+                <th>User Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in filter.qs %}
+                <pre>{{ userDataQueryString }}</pre>
+                <tr>
+                    <td>{{ user.first_Name }} {{ user.last_Name }}</td>
+                    <td>{{ user.cal_Poly_Email }}</td>
+                    <td>{{ user.phone_Number }}</td>
+                    <td>{% if user.userType == 'MEMBER' or user.userType == 'ADMIN' or user.userType == 'OFFICER' %}
+                        <span class="badge badge-success">{{ user.userType }}</span>
+                    {% elif user.userType == 'MEMBER_EXPIRED' %}
+                        <span class="badge badge-warning">EXPIRED</span>
+                    {% elif user.userType == 'NON_MEMBER' %}
+                        <span class="badge badge-danger">NON MEMBER</span>
+                    {% endif %}</td>
+                    <td>{{ user.ieee_member_number }}</td>
+                    <td>{{ user.ieee_member_expiration_date }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            {#                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/registration?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update profile</a> #}
+                            <a href="{% url 'studentLogin' %}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/checkInOrCheckOut"
+                               class="btn btn-outline-primary">Login User</a>
+                        </div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No data</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
     </div>
-        <script>
-        $(document).ready( function () {
+    <script>
+        $(document).ready(function () {
             $('#searchTable').DataTable(
                 {
                     "searching": false
                 }
             );
-        } );
-        </script>
-    {% endblock %}
-  </body>
+        });
+    </script>
+{% endblock %}
+</body>
 </html>

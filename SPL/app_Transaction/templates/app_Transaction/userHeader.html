@@ -1,0 +1,18 @@
+<h1>{{ userData.first_Name }} {{ userData.last_Name }}
+    {% if userData.userType == 'MEMBER' %}
+        <span class="badge badge-success">MEMBER</span>
+    {% elif userData.userType == 'ADMIN' or userData.userType == 'OFFICER' %}
+        <span class="badge badge-info">{{ userData.userType }}</span>
+    {% elif userData.userType == 'MEMBER_EXPIRED' %}
+        <span class="badge badge-warning">EXPIRED</span>
+    {% elif userData.userType == 'NON_MEMBER' %}
+        <span class="badge badge-danger">NON MEMBER</span>
+    {% endif %}</h1>
+<span class="font-weight-bold text-left">Email: </span><span class="text-left">{{ userData.cal_Poly_Email }}</span>
+{% if userData.userType == 'MEMBER' or userData.userType == 'ADMIN' or userData.userType == 'OFFICER' or userData.userType == 'MEMBER_EXPIRED' %}
+    <br> <span class="font-weight-bold text-left">Member Number: </span>
+    <span class="text-left">{{ userData.ieee_member_number }}</span>
+    <br> <span class="font-weight-bold text-left">Member Expiration Date: </span>
+    <span class="text-left">{{ userData.ieee_member_expiration_date }}</span> {% endif %}
+<br> <span class="font-weight-bold text-left">Has items checked out: </span><span
+        class="text-left">{{ userData.has_Items_Checked_Out }}</span>

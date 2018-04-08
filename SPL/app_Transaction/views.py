@@ -1,25 +1,17 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core import serializers
-from django.template import loader
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django import forms
-from pprint import pprint
-from django.forms import ValidationError
-
-import json
 import csv
-import urllib.parse
-from io import StringIO
-from datetime import datetime
-from datetime import date
-from .models import User, Part, userPart
-from .filters import UserFilter
-from django.core.exceptions import ObjectDoesNotExist
-from app_Transaction.forms import RegistrationForm, studentLoginForm, CheckOutForm
-from app_Transaction.user_registration_scripts.polyCardData import getData
-
+import json
 import os
+import urllib.parse
+from datetime import datetime
+from io import StringIO
+
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+
+from app_Transaction.forms import RegistrationForm, studentLoginForm, CheckOutForm
+from .filters import UserFilter
+from .models import User, Part, userPart
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'SPL.settings'
 
@@ -317,7 +309,7 @@ def studentLogin(request):
             # print(request.GET['mode'])
             if 'mode' in request.GET:
                 if request.GET['mode'] == 'passthrough':
-                    print("testtest")
+                    print(request.GET['service'])
                     currentPassthroughUser = User.objects.get(cal_Poly_Email=request.GET['email'])
                     print(currentPassthroughUser)
                     loginUser(currentPassthroughUser, request)
@@ -415,7 +407,12 @@ def registration(request):
         print("HAS_ADMIN")
         if request.method == 'POST':
             print("POST")
-            registrationFormData = RegistrationForm(request.POST)
+            print(request.POST['mode'])
+            if request.POST['mode'] == 'MODE_CREATE':
+                registrationFormData = RegistrationForm(request.POST, instance=User.objects.get(
+                    cal_Poly_Email=getJSONofCurrentUser(request.session['CustomerPolyCardData'])["cal_Poly_Email"]))
+            else:
+                registrationFormData = RegistrationForm(request.POST)
             if registrationFormData.is_valid():
                 print(registrationFormData.cleaned_data['mode'])
                 if registrationFormData.cleaned_data['mode'] == "create":
@@ -458,7 +455,11 @@ def registration(request):
                             userToUpdate.cal_Poly_Email))
             else:
                 print(registrationFormData.errors)
-                args = {'registrationForm': registrationFormData, 'errors': registrationFormData.errors}
+                checkPolyCardData(request)
+                userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+                adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+                args = {'registrationForm': registrationFormData, 'errors': registrationFormData.errors,
+                        'userData': userData, 'adminData': adminData}
                 return render(request, 'app_Transaction/registration.html', args)
                 # return redirect('/app_Transaction/registration/?fail=True', args)
         else:

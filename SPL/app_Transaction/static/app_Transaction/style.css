@@ -50,5 +50,34 @@ body {
     white-space: normal;
 }
 
+/*** Works on common browsers ***/
+::selection {
+    background-color: #006699;
+    color: #fff;
+}
+
+/*** Mozilla based browsers ***/
+::-moz-selection {
+    background-color: #006699;
+    color: #fff;
+}
+
+/***For Other Browsers ***/
+::-o-selection {
+    background-color: #006699;
+    color: #fff;
+}
+
+::-ms-selection {
+    background-color: #006699;
+    color: #fff;
+}
+
+/*** For Webkit ***/
+::-webkit-selection {
+    background-color: #006699;
+    color: #fff;
+}
+
 /* .officerLogout:hover span {display:none}
 .officerLogout:hover:before {content:"Logout!"} */
