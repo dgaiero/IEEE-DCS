@@ -20,17 +20,22 @@
     <div class="container">
       <div class="jumbotron">
         <h1>Search Users in database</h1>
-        <!-- <p class="lead">Total Parts in database: {{ total_Parts }}</p> -->
+          <p class="lead">Export Result as CSV: <a href="{% url 'csvExport' %}?{{ csvExportData }}"
+                                                   class="btn btn-outline-dark btn-sm">Export Current Query as CSV</a>
+          </p>
       </div>
 
       <form method="get">
 
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5">
                 <label for="username">First Name</label>{% render_field filter.form.first_Name class="form-control" %}
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5">
                 <label for="username">Last Name</label>{% render_field filter.form.last_Name class="form-control" %}
+            </div>
+            <div class="form-group col-md-2">
+                <label for="username">User Type</label>{% render_field filter.form.userType class="form-control" %}
             </div>
         </div>
 
@@ -78,6 +83,7 @@
   </thead>
   <tbody>
     {% for user in filter.qs %}
+        <pre>{{ userDataQueryString }}</pre>
       <tr>
         <td>{{ user.first_Name }} {{ user.last_Name }}</td>
         <td>{{ user.cal_Poly_Email }}</td>
@@ -93,7 +99,7 @@
         <td>{{ user.ieee_member_expiration_date }}</td>
         <td>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="{% url 'registration'%}?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary disabled">Update profile</a>
+                {#                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/registration?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update profile</a>#}
                 <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/checkInOrCheckOut" class="btn btn-outline-primary">Login User</a>
             </div>
         </td>

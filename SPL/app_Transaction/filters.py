@@ -1,8 +1,8 @@
 from .models import User
 import django_filters
 
-class UserFilter(django_filters.FilterSet):
 
+class UserFilter(django_filters.FilterSet):
     first_Name = django_filters.CharFilter(lookup_expr='icontains')
     last_Name = django_filters.CharFilter(lookup_expr='icontains')
     cal_Poly_Email = django_filters.CharFilter(lookup_expr='icontains')
@@ -10,4 +10,5 @@ class UserFilter(django_filters.FilterSet):
 
     class Meta:
         model = User
-        fields = ['first_Name','last_Name','cal_Poly_Email','ieee_member_number','ieee_member_expiration_date','phone_Number','polyCard_Data']
+        fields = ['first_Name', 'last_Name', 'userType', 'cal_Poly_Email', 'ieee_member_number',
+                  'ieee_member_expiration_date', 'phone_Number', 'polyCard_Data']
