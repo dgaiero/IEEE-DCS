@@ -42,7 +42,7 @@ def searchUser(request):
         print(urllib.parse.urlparse(request.get_raw_uri()).query)
         return render(request, 'app_Transaction/search_user.html', args)
     else:
-        return redirect('/app_Transaction/')
+        return redirect('/')
 
 
 def csvExport(request):
@@ -78,7 +78,7 @@ def csvExport(request):
         response['Content-Disposition'] = 'inline; filename=' + fileName
         return response
     else:
-        return redirect('/app_Transaction/')
+        return redirect('/')
 
 
 # def logEventData(checkedOutTo, checkedOutBy, logType, content):
@@ -130,7 +130,7 @@ def checkIn(request):
                 except ObjectDoesNotExist:
                     pass
 
-            return redirect('/app_Transaction/')
+            return redirect('/')
 
         else:
             checkPolyCardData(request)
@@ -155,7 +155,7 @@ def checkIn(request):
                     'userData': userData, 'adminData': adminData}
             return render(request, 'app_Transaction/checkIn.html', args)
     else:
-        return redirect('/app_Transaction/')
+        return redirect('/')
 
 
 def studentLogout(request):
@@ -165,7 +165,7 @@ def studentLogout(request):
         print("Fail")
         pass
     args = {'logoutFlag': "True"}
-    return redirect('/app_Transaction/studentLogin/?logoutFlag=True', args)
+    return redirect('/studentLogin/?logoutFlag=True', args)
 
 
 def adminLogout(request):
@@ -175,7 +175,7 @@ def adminLogout(request):
         print("Fail")
         pass
     args = {'logoutFlag': "True"}
-    return redirect('/app_Transaction/studentLogin/?logoutFlag=True', args)
+    return redirect('/studentLogin/?logoutFlag=True', args)
 
 
 def checkPolyCardData(request):
@@ -204,7 +204,7 @@ def checkIn_Or_CheckOut(request):
             args = {'userData': updateUserData}
         return render(request, 'app_Transaction/checkInOrCheckOut.html', args)
     else:
-        return redirect('/app_Transaction/')
+        return redirect('/')
 
 
 def checkOut(request):
@@ -256,7 +256,7 @@ def checkOut(request):
                     'userData': userData, 'adminData': adminData}
             return render(request, 'app_Transaction/checkOut.html', args)
     else:
-        return redirect('/app_Transaction/')
+        return redirect('/')
     '''
     all_Parts = list(Part.objects.all())
     i = 0
@@ -296,10 +296,10 @@ def studentLogin(request):
             loginStatus = 2
 
         if loginStatus == 1:
-            return HttpResponseRedirect('/app_Transaction/checkInOrCheckOut')
+            return HttpResponseRedirect('/checkInOrCheckOut')
         if loginStatus == 2:
             polyCardData = urllib.parse.quote(raw_PolyCard_Data, safe="")
-            return HttpResponseRedirect('/app_Transaction/registration/?polyCard_Data={}'.format(polyCardData))
+            return HttpResponseRedirect('/registration/?polyCard_Data={}'.format(polyCardData))
 
     # elif request.method == 'GET':
     #     print("GET")
@@ -451,7 +451,7 @@ def registration(request):
                     # return redirect('/app_Transaction/')
                     print("test")
                     return redirect(
-                        '/app_Transaction/studentLogin/?mode=passthrough&email={}&service=/app_Transaction/checkInOrCheckOut'.format(
+                        '/studentLogin/?mode=passthrough&email={}&service=/app_Transaction/checkInOrCheckOut'.format(
                             userToUpdate.cal_Poly_Email))
             else:
                 print(registrationFormData.errors)
@@ -479,4 +479,4 @@ def transaction_Summary(request):
         userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
         return render(request, 'app_Transaction/transactionSummary.html')
     else:
-        return redirect('/app_Transaction/')
+        return redirect('/')

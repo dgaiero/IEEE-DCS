@@ -18,15 +18,13 @@ Including another URLconf
 # This is the master urls.py file for the SPL Project
 ####################################################
 
-from django.urls import include, path
-from django.contrib import admin
 from django.conf.urls import url
-
-from SPL import views
+from django.contrib import admin
+from django.urls import include, path
 
 # Link apps/views to project
 urlpatterns = [
-    url(r'^$', views.home_redirect, name='home_redirect'),
-    path('app_Transaction/', include('app_Transaction.urls')),
+    # url(r'^$', views.home_redirect, name='home_redirect'),
+    url(r'^', include('app_Transaction.urls')),
     path('admin/', admin.site.urls),
 ]
