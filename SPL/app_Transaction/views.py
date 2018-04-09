@@ -202,7 +202,7 @@ def checkIn_Or_CheckOut(request):
             args = {'userData': userData, 'adminData': adminData}
         except KeyError:
             args = {'userData': updateUserData}
-        return render(request, 'app_Transaction/CheckInOrCheckOut.html', args)
+        return render(request, 'app_Transaction/checkInOrCheckOut.html', args)
     else:
         return redirect('/app_Transaction/')
 
