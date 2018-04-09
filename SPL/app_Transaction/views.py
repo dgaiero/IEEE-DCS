@@ -286,7 +286,7 @@ def studentLogin(request):
         print("isValid")
         print(checkPolyCardForm)
         raw_PolyCard_Data = checkPolyCardForm
-        print(User.objects.get(polyCard_Data=raw_PolyCard_Data))
+        # print(User.objects.get(polyCard_Data=raw_PolyCard_Data))
         try:
             print(raw_PolyCard_Data)
             currentUser = User.objects.get(polyCard_Data=raw_PolyCard_Data)
