@@ -242,7 +242,7 @@ def checkOut(request):
                     partName, partQty, partID)
 
             print("Success")
-            return redirect('/app_Transaction/')
+            return redirect('/')
             # checkOutForm = CheckOutForm(request.POST)
             # if checkOutForm.is_valid():
             #     checkOutForm.save()
@@ -425,7 +425,7 @@ def registration(request):
                     User.objects.get(
                         cal_Poly_Email=registrationFormData.cleaned_data['cal_Poly_Email']).createUserType()
                     return redirect(
-                        '/app_Transaction/studentLogin/?mode=passthrough&email={}&service=/app_Transaction/checkInOrCheckOut'.format(
+                        '/studentLogin/?mode=passthrough&email={}&service=/checkInOrCheckOut'.format(
                             registrationFormData.cleaned_data['cal_Poly_Email']))
 
                 else:
@@ -451,7 +451,7 @@ def registration(request):
                     # return redirect('/app_Transaction/')
                     print("test")
                     return redirect(
-                        '/studentLogin/?mode=passthrough&email={}&service=/app_Transaction/checkInOrCheckOut'.format(
+                        '/studentLogin/?mode=passthrough&email={}&service=/checkInOrCheckOut'.format(
                             userToUpdate.cal_Poly_Email))
             else:
                 print(registrationFormData.errors)
@@ -471,7 +471,7 @@ def registration(request):
             args = {'registrationForm': registrationForm, 'userData': userData, 'adminData': adminData}
             return render(request, 'app_Transaction/registration.html', args)
     else:
-        return redirect('/app_Transaction/')
+        return redirect('/')
 
 
 def transaction_Summary(request):

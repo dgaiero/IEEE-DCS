@@ -104,7 +104,7 @@
                     <td>{{ user.ieee_member_expiration_date }}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            {#                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/registration?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update profile</a> #}
+                            {#                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/registration?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update profile</a> #}
                             <a href="{% url 'studentLogin' %}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/checkInOrCheckOut"
                                class="btn btn-outline-primary">Login User</a>
                         </div>
