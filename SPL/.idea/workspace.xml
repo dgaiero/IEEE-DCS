@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c609fed0-8bcb-4d6b-9358-6efc1076cb47" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SPL/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SPL/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="577">
-              <caret line="437" column="101" lean-forward="true" selection-start-line="437" selection-start-column="101" selection-end-line="437" selection-end-column="101" />
+              <caret line="437" column="101" selection-start-line="437" selection-start-column="101" selection-end-line="437" selection-end-column="101" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -36,15 +37,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1224">
               <caret line="72" column="18" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_Transaction/static/app_Transaction/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="70" column="17" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -71,7 +63,7 @@
         <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+              <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -88,8 +80,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SPL/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
+            <state relative-caret-position="509">
+              <caret line="146" column="76" selection-start-line="146" selection-start-column="76" selection-end-line="146" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -98,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -188,19 +180,6 @@
               <item name="SPL" type="462c0819:PsiDirectoryNode" />
               <item name="app_Transaction" type="462c0819:PsiDirectoryNode" />
               <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SPL" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SPL" type="462c0819:PsiDirectoryNode" />
-              <item name="app_Transaction" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SPL" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SPL" type="462c0819:PsiDirectoryNode" />
-              <item name="app_Transaction" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="app_Transaction" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SPL" type="b2602c69:ProjectViewProjectNode" />
@@ -336,7 +315,28 @@
       <option name="project" value="LOCAL" />
       <updated>1523231849721</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update static dir">
+      <created>1523232001377</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1523232001377</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update static dir">
+      <created>1523232176012</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1523232176012</updated>
+    </task>
+    <task id="LOCAL-00007" summary="update static dir">
+      <created>1523232347707</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1523232347707</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -400,7 +400,8 @@
     <MESSAGE value="Fixed user update and registration&#10;Updated logout button for readability&#10;Stylistic changes for text selection" />
     <MESSAGE value="Updated REQUIREMENTS.TXT" />
     <MESSAGE value="update allowed hosts" />
-    <option name="LAST_COMMIT_MESSAGE" value="update allowed hosts" />
+    <MESSAGE value="update static dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="update static dir" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -762,7 +763,7 @@
     <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+          <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -783,7 +784,7 @@
     <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="577">
-          <caret line="437" column="101" lean-forward="true" selection-start-line="437" selection-start-column="101" selection-end-line="437" selection-end-column="101" />
+          <caret line="437" column="101" selection-start-line="437" selection-start-column="101" selection-end-line="437" selection-end-column="101" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -793,14 +794,14 @@
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SPL/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
+        <state relative-caret-position="509">
+          <caret line="146" column="76" selection-start-line="146" selection-start-column="76" selection-end-line="146" selection-end-column="76" />
         </state>
       </provider>
     </entry>
