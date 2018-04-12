@@ -1,15 +1,11 @@
 from django import forms
-from .validators import validate_domainonly_email
-from datetime import date
-from django.forms import widgets
-from django.db import models
-from django.forms import ValidationError
 
-# Import custom scripts here
-from .models import User, Part
-#from phonenumber_field.modelfields import PhoneNumberField
-from app_Transaction.user_registration_scripts.polyCardData import getData
+# from phonenumber_field.modelfields import PhoneNumberField
 from app_Transaction.models import User
+# Import custom scripts here
+from .models import Part
+from .validators import validate_domainonly_email, validate_polyCard
+
 
 # Define class-based model forms
 
@@ -62,7 +58,9 @@ class RegistrationForm(forms.ModelForm):
     mode = forms.CharField(required=False, initial="create")
     first_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    polyCard_Data = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control polyCardDataFieldMask'}))
+    polyCard_Data = forms.CharField(required=True,
+                                    widget=forms.TextInput(attrs={'class': 'form-control polyCardDataFieldMask'}),
+                                    validators=[validate_polyCard])
     # see if you can force @calpoly.edu on email field
     cal_Poly_Email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}), validators=[validate_domainonly_email])
     phone_Number = forms.CharField(

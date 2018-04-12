@@ -1,9 +1,10 @@
+from datetime import date
+
 from django.db import models
 from django.forms import ValidationError
-from datetime import date
-# import jsonfield
 
-from datetime import date
+
+# import jsonfield
 #from phonenumber_field.modelfields import PhoneNumberField
 
 # Create Part model with necessary attributes
