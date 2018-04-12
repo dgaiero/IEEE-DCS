@@ -70,7 +70,7 @@
                 </div>
                 <div class="form-group col-md-5">
                     <label for="username">Expiration
-                        Date</label>{% render_field filter.form.ieee_member_expiration_date class="form-control" %}
+                        Year</label>{% render_field filter.form.ieee_member_expiration_date class="form-control" %}
                 </div>
                 <div class="form-group col-md-2">
                     <label for="">&nbsp</label>
@@ -129,10 +129,9 @@
                 });
 
             </script>
-
         </form>
 
-        <table class="table table-striped table-bordered dt-responsive nowrap" id="searchTable">
+        <table class="table table-striped dt-responsive nowrap" id="searchTable">
             <thead>
             <tr>
                 <th>Name</th>
@@ -146,7 +145,6 @@
             </thead>
             <tbody>
             {% for user in filter.qs %}
-                <pre>{{ userDataQueryString }}</pre>
                 <tr>
                     <td>{{ user.first_Name }} {{ user.last_Name }}</td>
                     <td>{{ user.cal_Poly_Email }}</td>
@@ -187,6 +185,7 @@
             );
         });
     </script>
+    </body>
 {% endblock %}
-</body>
+
 </html>
