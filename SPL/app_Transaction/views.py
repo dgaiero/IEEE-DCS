@@ -257,24 +257,6 @@ def checkOut(request):
             return render(request, 'app_Transaction/checkOut.html', args)
     else:
         return redirect('/')
-    '''
-    all_Parts = list(Part.objects.all())
-    i = 0
-    registered_Parts_List = []
-    quantity_List = []
-    total_Parts = len(all_Parts)
-    while i < total_Parts:
-        part = Part.objects.values('part')[i]['part']
-        quantity = Part.objects.values('quantity')[i]['quantity']
-        registered_Parts_List.append(part)
-        quantity_List.append(quantity)
-        i += 1
-    registered_Parts_List = sorted(registered_Parts_List)
-    args = {'registered_Parts_List': registered_Parts_List,
-            'total_Parts': total_Parts,
-            'quantity_List': quantity_List,}
-    return render(request, 'app_Transaction/checkOut.html', args)
-    '''
 
 
 def studentLogin(request):

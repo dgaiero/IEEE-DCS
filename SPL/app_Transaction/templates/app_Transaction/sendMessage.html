@@ -22,12 +22,6 @@
             <h1>Search Users in database</h1>
             <a href="{% url 'csvExport' %}?{{ csvExportData }}" class="btn btn-outline-dark btn-sm">Export Results as
                 CSV</a>
-            {#            <a href="{% url 'csvExport' %}?{{ csvExportData }}" class="btn btn-outline-dark btn-sm">Send Message to#}
-            {#                Query</a>#}
-            {#            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" style="cursor: pointer;"#}
-            {#                    data-target="#sendMessageQueryModel">#}
-            {#                Send Message to Query#}
-            {#            </button>#}
         </div>
 
         <form method="get">
@@ -77,58 +71,6 @@
                     <button class="btn btn-primary btn-large btn-block" type="submit">Submit</button>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade bd-example-modal-lg" id="sendMessageQueryModel" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Send Message to Query</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            If you would like to send a message to the users in the query, fill out the form below.
-                            Merge tags are supported.
-                            <div class="form-row">
-                                <div class="form-group col-md-10">
-                                    <textarea class="form-control" id="sendMessageArea" rows="3"></textarea>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                                id="dropdownMenuButton"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Tags
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item mergeTagInsert" style="cursor: pointer;">|*USER_FRIST_NAME*|</a>
-                                            <a class="dropdown-item mergeTagInsert" style="cursor: pointer;">|*USER_LAST_NAME*|</a>
-                                            <a class="dropdown-item mergeTagInsert" style="cursor: pointer;">Something
-                                                else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                $(".mergeTagInsert").click(function () {
-                    var insertText = $(this).text();
-                    $('#sendMessageArea').append(" " + insertText);
-                });
-
-            </script>
 
         </form>
 
@@ -163,7 +105,7 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             {#                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/registration?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update profile</a> #}
-                            <a href="{% url 'studentLogin' %}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/checkInOrCheckOut"
+                            <a href="{% url 'studentLogin' %}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/checkInOrCheckOut"
                                class="btn btn-outline-primary">Login User</a>
                         </div>
                     </td>
@@ -177,7 +119,6 @@
         </table>
 
     </div>
-
     <script>
         $(document).ready(function () {
             $('#searchTable').DataTable(
