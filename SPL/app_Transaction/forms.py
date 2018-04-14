@@ -64,7 +64,7 @@ class RegistrationForm(forms.ModelForm):
     # see if you can force @calpoly.edu on email field
     cal_Poly_Email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}), validators=[validate_domainonly_email])
     phone_Number = forms.CharField(
-        required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'partName'}))
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'partName'}))
     ieee_member_number = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     ieee_member_expiration_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'mm/dd/yyyy'}))
     # userType = forms.CharField(widget=forms.Select(

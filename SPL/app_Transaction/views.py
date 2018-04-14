@@ -390,7 +390,8 @@ def registration(request):
         if request.method == 'POST':
             print("POST")
             print(request.POST['mode'])
-            if request.POST['mode'] == 'MODE_CREATE':
+            if request.POST['mode'] == 'update':
+                print("update")
                 registrationFormData = RegistrationForm(request.POST, instance=User.objects.get(
                     cal_Poly_Email=getJSONofCurrentUser(request.session['CustomerPolyCardData'])["cal_Poly_Email"]))
             else:
@@ -446,7 +447,13 @@ def registration(request):
                 # return redirect('/app_Transaction/registration/?fail=True', args)
         else:
             print("GET")
-            registrationForm = RegistrationForm(initial=request.GET.dict())
+            print(request.GET.dict())
+            GetData = request.GET.dict()
+            for key, value in request.GET.dict().items():
+                if value == 'None':
+                    GetData[key] = ''
+            print(GetData)
+            registrationForm = RegistrationForm(initial=GetData)
             checkPolyCardData(request)
             userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
             adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
