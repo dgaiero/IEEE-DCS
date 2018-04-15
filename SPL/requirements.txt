@@ -7,3 +7,5 @@ django-user-accounts==2.0.3
 django-widget-tweaks==1.4.1
 jsonfield==2.0.2
 psycopg2==2.7.3.2
+markdown2==2.3.5
+sendgrid==5.3.0
