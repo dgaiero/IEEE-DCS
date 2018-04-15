@@ -1,4 +1,3 @@
-from django.urls import path
 from django.conf.urls import url
 
 from . import views
@@ -19,4 +18,5 @@ urlpatterns = [
     url(r'^studentLogout/',       views.studentLogout,       name = 'studentLogout'),
     url(r'^adminLogout/', views.adminLogout, name='adminLogout'),
     url(r'^csvExport/', views.csvExport, name='csvExport'),
+    url(r'^sendMessage/', views.sendMessage, name='sendMessage'),
 ]

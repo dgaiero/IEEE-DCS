@@ -1,15 +1,19 @@
 import csv
 import json
 import os
+import re
 import urllib.parse
 from datetime import datetime
 from io import StringIO
 
+import sendgrid
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from markdown2 import Markdown
+from sendgrid.helpers.mail import *
 
-from app_Transaction.forms import RegistrationForm, studentLoginForm, CheckOutForm
+from app_Transaction.forms import RegistrationForm, studentLoginForm, CheckOutForm, messageForm
 from .filters import UserFilter
 from .models import User, Part, userPart
 
@@ -77,6 +81,126 @@ def csvExport(request):
         print(fileName)
         response['Content-Disposition'] = 'inline; filename=' + fileName
         return response
+    else:
+        return redirect('/')
+
+
+def sendMessage(request):
+    if request.session.has_key('AdminPolyCardData'):
+        if request.method == 'POST':
+            sendEmailData = messageForm(request.POST)
+            if sendEmailData.is_valid():
+                sg = sendgrid.SendGridAPIClient(
+                    apikey='***REMOVED***')
+                sendEmailData = sendEmailData.cleaned_data
+
+                users_to = re.findall(r"([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", sendEmailData['users_to'])
+                sendEmailData['users_to'] = users_to
+                print(sendEmailData)
+                if sendEmailData['users_from_name'] is not None:
+                    sendEmailData['user_from_complete'] = '{} <{}@calpolyieee.com>'.format(
+                        sendEmailData['users_from_name'], sendEmailData['users_from_email'])
+                else:
+                    sendEmailData['user_from_complete'] = '{}@calpolyieee.com'.format(sendEmailData['users_from_email'])
+
+                print(sendEmailData['user_from_complete'])
+                from_email = Email(sendEmailData['user_from_complete'])
+                for user in sendEmailData['users_to']:
+                    print(user)
+                    try:
+                        userData = User.objects.get(cal_Poly_Email=user).__dict__
+                        to_email = Email('{} {} <{}>'.format(userData['first_Name'], userData['last_Name'],
+                                                             userData['cal_Poly_Email']))
+                        print(userData)
+                        subject = sendEmailData['subject']
+                        try:
+                            subject = subject.replace('|*USER_FIRST_NAME*|', userData['first_Name'])
+                        except TypeError:
+                            pass
+                        try:
+                            subject = subject.replace('|*USER_LAST_NAME*|', userData['last_Name'])
+                        except TypeError:
+                            pass
+                        try:
+                            subject = subject.replace('|*USER_EMAIL*|', userData['cal_Poly_Email'])
+                        except TypeError:
+                            pass
+                        try:
+                            subject = subject.replace('|*USER_PHONE_NUMBER*|', userData['phone_Number'])
+                        except TypeError:
+                            pass
+                        try:
+                            subject = subject.replace('|*USER_MEMBER_NUMBER*|',
+                                                      userData['ieee_member_number'])
+                        except TypeError:
+                            pass
+                        try:
+                            subject = subject.replace('|*USER_EXPIRE_DATE*|', '{:%m/%d/%Y}'.format(
+                                userData['ieee_member_expiration_date']))
+                        except TypeError:
+                            pass
+
+                        body = sendEmailData['message']
+                        try:
+                            body = body.replace('|*USER_FIRST_NAME*|', userData['first_Name'])
+                        except TypeError:
+                            pass
+                        try:
+                            body = body.replace('|*USER_LAST_NAME*|', userData['last_Name'])
+                        except TypeError:
+                            pass
+                        try:
+                            body = body.replace('|*USER_EMAIL*|', userData['cal_Poly_Email'])
+                        except TypeError:
+                            pass
+                        try:
+                            body = body.replace('|*USER_PHONE_NUMBER*|', userData['phone_Number'])
+                        except TypeError:
+                            pass
+                        try:
+                            body = body.replace('|*USER_MEMBER_NUMBER*|',
+                                                userData['ieee_member_number'])
+                        except TypeError:
+                            pass
+                        try:
+                            body = body.replace('|*USER_EXPIRE_DATE*|', '{:%m/%d/%Y}'.format(
+                                userData['ieee_member_expiration_date']))
+                        except TypeError:
+                            pass
+                        print(body)
+                        MessageBody = Markdown()
+                        mailBody = MessageBody.convert(body)
+                        print(mailBody)
+                        html_body = Content("text/html", mailBody)
+                        mailData = Mail(from_email, subject, to_email, html_body)
+                        response = sg.client.mail.send.post(request_body=mailData.get())
+                        print(response.status_code)
+                        print(response.body)
+                        print(response.headers)
+                    except ObjectDoesNotExist:
+                        print("User does not exist: " + user)
+                        pass
+                return redirect('sendMessage')
+            else:
+                print(sendEmailData.errors)
+                checkPolyCardData(request)
+                userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+                adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+                args = {'messageForm': sendEmailData, 'errors': sendEmailData.errors,
+                        'userData': userData, 'adminData': adminData}
+                return render(request, 'app_Transaction/sendMessage.html', args)
+        else:
+
+            checkPolyCardData(request)
+            adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
+            sendMessageForm = messageForm(initial=request.GET.dict())
+            args = {'messageForm': sendMessageForm, 'adminData': adminData}
+            try:
+                userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
+                args['userData'] = userData
+            except ObjectDoesNotExist:
+                pass
+            return render(request, 'app_Transaction/sendMessage.html', args)
     else:
         return redirect('/')
 

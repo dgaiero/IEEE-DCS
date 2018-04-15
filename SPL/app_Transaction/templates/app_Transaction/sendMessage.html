@@ -7,7 +7,7 @@
 <html>
 <head>
     {% block head %}
-        <title>USER SEARCH</title>
+        <title>WEB MAIL CLIENT</title>
     {% endblock %}
     <!--Needed for importing static files
     {% load static %}
@@ -18,116 +18,165 @@
 {% block body %}
     <body>
     <div class="container">
-        <div class="jumbotron">
-            <h1>Search Users in database</h1>
-            <a href="{% url 'csvExport' %}?{{ csvExportData }}" class="btn btn-outline-dark btn-sm">Export Results as
-                CSV</a>
-        </div>
 
-        <form method="get">
-
+        <form method="post">
+            {% csrf_token %}
             <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="username">First
-                        Name</label>{% render_field filter.form.first_Name class="form-control" %}
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="username">Last Name</label>{% render_field filter.form.last_Name class="form-control" %}
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="username">User Type</label>{% render_field filter.form.userType class="form-control" %}
+                <div class="form-label-group col-md-12">
+                    {% render_field messageForm.users_to class="form-control" id="inputTo" placeholder="To" %}
+                    <label for="inputTo">To</label>
                 </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="username">Email (Cal
-                        Poly)</label>{% render_field filter.form.cal_Poly_Email class="form-control" %}
+                <div class="form-label-group col-md-6">
+                    {% render_field messageForm.users_from_email class="form-control" id="inputFrom" placeholder="From Email" %}
+                    <label for="inputFrom">From Email</label>
+                    <small id="messageHelp" class="form-text text-muted">Type email prefix before @calpolyieee.com
+                    </small>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="username">Phone
-                        Number</label>{% render_field filter.form.phone_Number class="form-control" %}
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="username">Swipe
-                        Polycard</label>{% render_field filter.form.polyCard_Data class="form-control" %}
+                <div class="form-label-group col-md-6">
+                    {% render_field messageForm.users_from_name class="form-control" id="inputFromName" placeholder="From Name" %}
+                    <label for="inputFromName">From Name</label>
+                    {#                    <small id="messageHelp" class="form-text text-muted">Type email prefix before @calpolyieee.com#}
+                    </small>
                 </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="username">IEEE Member
-                        Number</label>{% render_field filter.form.ieee_member_number class="form-control" %}
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="username">Expiration
-                        Date</label>{% render_field filter.form.ieee_member_expiration_date class="form-control" %}
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="">&nbsp</label>
-                    <button class="btn btn-primary btn-large btn-block" type="submit">Submit</button>
+                <div class="form-label-group col-md-12">
+                    {% render_field messageForm.subject class="form-control" id="inputSubject" placeholder="Subject" %}
+                    <label for="inputSubject">Subject</label>
                 </div>
             </div>
-
+            <div class="form-group col-md-12">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-dark" onclick="insertText('inputMessage', '# ');">H1</button>
+                    <button type="button" class="btn btn-dark" onclick="insertText('inputMessage', '## ');">H2</button>
+                    <button type="button" class="btn btn-dark" onclick="insertText('inputMessage', '### ');">H3</button>
+                    <button type="button" class="btn btn-dark" onclick="insertText('inputMessage', '* ');">
+                        <strong>B</strong></button>
+                    <button type="button" class="btn btn-dark" onclick="insertText('inputMessage', '_ ');"><em>I</em>
+                    </button>
+                    <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Merge Tags
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <button type="button" class="btn btn-light dropdown-item"
+                                onclick="insertText('inputMessage', '|*USER_FIRST_NAME*|');">First Name
+                        </button>
+                        <button type="button" class="btn btn-light dropdown-item"
+                                onclick="insertText('inputMessage', '|*USER_LAST_NAME*|');">Last Name
+                        </button>
+                        <button type="button" class="btn btn-light dropdown-item"
+                                onclick="insertText('inputMessage', '|*USER_EMAIL*|');">Email
+                        </button>
+                        <button type="button" class="btn btn-light dropdown-item"
+                                onclick="insertText('inputMessage', '|*USER_PHONE_NUMBER*|');">Phone Number
+                        </button>
+                        <button type="button" class="btn btn-light dropdown-item"
+                                onclick="insertText('inputMessage', '|*USER_MEMBER_NUMBER*|');">Member Number
+                        </button>
+                        <button type="button" class="btn btn-light dropdown-item"
+                                onclick="insertText('inputMessage', '|*USER_EXPIRE_DATE*|');">Expiration Date
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="label-group col-md-12">
+                    {% render_field messageForm.message class="form-control messageSendMessageInput" id="inputMessage" placeholder="Message" %}
+                    {#                    <label for="inputMessage">Message</label>#}
+                    <small id="messageHelp" class="form-text text-muted">Supports <a
+                            href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">full
+                        markdown</a> and merge tags. For
+                        a
+                        list of merge tags, <a href="" data-toggle="modal" data-target="#mergeTagModel">click here.</a>
+                    </small>
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="">&nbsp</label>
+                <button class="btn btn-primary btn-large btn-block" type="submit">Submit</button>
+            </div>
+            {#            <input type="button" value="Insert some text" onclick="insertText('inputMessage', 'Hello');">#}
         </form>
 
-        <table class="table table-striped table-bordered dt-responsive nowrap" id="searchTable">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone No.</th>
-                <th>User Type</th>
-                <th>Member No.</th>
-                <th>Expiration Date</th>
-                <th>User Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in filter.qs %}
-                <pre>{{ userDataQueryString }}</pre>
-                <tr>
-                    <td>{{ user.first_Name }} {{ user.last_Name }}</td>
-                    <td>{{ user.cal_Poly_Email }}</td>
-                    <td>{{ user.phone_Number }}</td>
-                    <td>{% if user.userType == 'MEMBER' or user.userType == 'ADMIN' or user.userType == 'OFFICER' %}
-                        <span class="badge badge-success">{{ user.userType }}</span>
-                    {% elif user.userType == 'MEMBER_EXPIRED' %}
-                        <span class="badge badge-warning">EXPIRED</span>
-                    {% elif user.userType == 'NON_MEMBER' %}
-                        <span class="badge badge-danger">NON MEMBER</span>
-                    {% endif %}</td>
-                    <td>{{ user.ieee_member_number }}</td>
-                    <td>{{ user.ieee_member_expiration_date }}</td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            {#                <a href="{% url 'studentLogin'%}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/registration?mode=update&first_Name={{ user.first_Name }}&last_Name={{ user.last_Name }}&userType={{user.userType}}&cal_Poly_Email={{ user.cal_Poly_Email }}&phone_Number={{ user.phone_Number }}&polyCard_Data={{ user.polyCard_Data }}&ieee_member_number={{ user.ieee_member_number }}&ieee_member_expiration_date={{ user.ieee_member_expiration_date }}" class="btn btn-outline-primary">Update profile</a> #}
-                            <a href="{% url 'studentLogin' %}?mode=passthrough&email={{ user.cal_Poly_Email }}&service=/app_Transaction/checkInOrCheckOut"
-                               class="btn btn-outline-primary">Login User</a>
-                        </div>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="5">No data</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#searchTable').DataTable(
-                {
-                    "searching": false
-                }
-            );
-        });
+
+    <!-- Modal -->
+    <div class="modal fade" id="mergeTagModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Merge Tags</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="alert alert-dark" role="alert">
+                        Please note, merge tags will only work on users in the database. If a user is not in the
+                        database, you'll have to send an email individually. To generate an email set for the system,
+                        visit the user search page <a href="{% url 'searchUser' %}" target="_blank">here.</a>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">|*USER_FIRST_NAME*|</th>
+                            <td>Inserts User's first name</td>
+                        </tr>
+                        <tr>
+                            <th sceop="row">|*USER_LAST_NAME*|</th>
+                            <td>Inserts User's last name</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">|*USER_EMAIL*|</th>
+                            <td>Inserts User's email address on file.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">|*USER_PHONE_NUMBER*|</th>
+                            <td>Inserts User's phone number</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">|*USER_MEMBER_NUMBER*|</th>
+                            <td>Inserts User's IEEE member number</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">|*USER_EXPIRE_DATE*|</th>
+                            <td>Inserts User's IEEE member expiration date</td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    {#                    <button type="button" class="btn btn-primary">Save changes</button>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        function insertText(elemID, text) {
+            var elem = document.getElementById(elemID);
+            elem.value += text;
+        }
     </script>
+
 {% endblock %}
 </body>
 </html>

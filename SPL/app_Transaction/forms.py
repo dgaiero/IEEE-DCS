@@ -54,6 +54,14 @@ class studentLoginForm(forms.ModelForm):
         model = User
         fields = ('polyCard_Data',)
 
+
+class messageForm(forms.Form):
+    users_to = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    users_from_email = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    users_from_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    subject = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    message = forms.CharField(required=True, widget=forms.Textarea(attrs={'class': 'form-control'}))
+
 class RegistrationForm(forms.ModelForm):
     mode = forms.CharField(required=False, initial="create")
     first_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
