@@ -5,54 +5,64 @@
 <html>
 
 <head>
-  {% block head %}
-  <title>LOGIN</title>
-  {% endblock %}
-  <!--Needed for importing static files
+    {% block head %}
+        <title>LOGIN</title>
+    {% endblock %}
+    <!--Needed for importing static files
     {% load static %}
      <link rel="stylesheet" href="{% static 'app_Transaction/style.css' %}" type="text/css">
     -->
 </head>
 {% block body %}
-<div class="container">
 
 
-  <body onload="javascript:document.getElementById('polycardPasswordInput').focus();">
-  {%if request.GET.logoutFlag == "True" %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <h4 class="alert-heading">Logout Successful</h4>
-      <p>You have been successfully logged out of the IEEE DCS system</p>
-      <hr>
-      <p class="mb-0">If you would like to login again, swipe your polycard below.</p>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    </div>
-    {% endif %}
-    <div class="text-center">
-        <img class="d-block mx-auto mb-4" src="{% static 'ieee_logo.svg' %}" alt="" height="300em">
-    </div>
-    <!-- <div class="jumbotron"> -->
 
-      <!-- <h1>Welcome to the SPL Digital CheckOut System <strong>(SPL DCS)</strong></h1> -->
-      <!-- <p class="lead">This page is for <strong>STUDENT</strong> login. If you are staff, please click the button below</p> <a href="#" class="btn btn-sm btn-outline-dark">Staff Login</a> -->
-    <!-- </div> -->
-    <!--CheckPolyCard form-->
-
-    <form method="post">
-      {% csrf_token %}
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          {{ checkPolyCardForm.polyCard_Data }}
-          <small id="polyCardHelp" class="form-text text-muted">Swipe your polycard to login</small>
-
+    <body onload="javascript:document.getElementById('polycardPasswordInput').focus();">
+    <div class="container">
+        {% if request.GET.logoutFlag == "True" %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Logout Successful</h4>
+                <p>You have been successfully logged out of the IEEE DCS system</p>
+                <hr>
+                <p class="mb-0">If you would like to login again, swipe your polycard below.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+        <div class="text-center">
+            <img class="d-block mx-auto mb-4" src="{% static 'ieee_logo.svg' %}" alt="" height="300em">
         </div>
-      </div>
-      <button type="submit" class="btn btn-primary" role="button">Submit</button>
-      </form>
+        <!-- <div class="jumbotron"> -->
+
+        <!-- <h1>Welcome to the SPL Digital CheckOut System <strong>(SPL DCS)</strong></h1> -->
+        <!-- <p class="lead">This page is for <strong>STUDENT</strong> login. If you are staff, please click the button below</p> <a href="#" class="btn btn-sm btn-outline-dark">Staff Login</a> -->
+        <!-- </div> -->
+        <!--CheckPolyCard form-->
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                {#        <div class="form-group col-md-12">#}
+                {#          {{ checkPolyCardForm.polyCard_Data }}#}
+                {#          <small id="polyCardHelp" class="form-text text-muted">Swipe your polycard to login</small>#}
+                {##}
+                {#        </div>#}
+
+                <div class="input-group md-12">
+                    {{ checkPolyCardForm.polyCard_Data }}
+                    <div class="input-group-append">
+                        <button class="btn btn-lg btn-outline-primary" type="submit" role="button">Submit</button>
+                    </div>
+
+                </div>
+                <small id="polyCardHelp" class="form-text text-muted">Swipe your polycard to login</small>
+            </div>
+            {#      <button type="submit" class="btn btn-primary" role="button">Submit</button>#}
+        </form>
     </div>
-    {% endblock %}
-  </body>
+{% endblock %}
+</body>
 </html>
 
 <!--Error message to be implemented later saying that PolyCard is not valid
