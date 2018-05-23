@@ -595,7 +595,8 @@ def registration(request):
             checkPolyCardData(request)
             userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
             adminData = getJSONofCurrentUser(request.session['AdminPolyCardData'])
-            args = {'registrationForm': registrationForm, 'userData': userData, 'adminData': adminData}
+            args = {'registrationForm': registrationForm, 'userData': userData, 'adminData': adminData,
+                    'update_Data': GetData}
             return render(request, 'app_Transaction/registration.html', args)
     else:
         return redirect('/')

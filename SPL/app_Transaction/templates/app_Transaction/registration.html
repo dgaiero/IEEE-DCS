@@ -32,7 +32,7 @@
 {{ errors }}
 {% endif %} -->
         <!--Registration form-->
-        {% if userData.userType != "ADMIN" %}
+        {% if update_Data.userType != "ADMIN" %}
 
         <form method="post">
             {% csrf_token %}
