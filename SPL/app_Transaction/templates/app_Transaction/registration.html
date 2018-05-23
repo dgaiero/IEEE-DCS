@@ -32,6 +32,8 @@
 {{ errors }}
 {% endif %} -->
         <!--Registration form-->
+        {% if userData.userType != "ADMIN" %}
+
         <form method="post">
             {% csrf_token %}
             {{ registrationForm.mode.as_hidden }}
@@ -87,6 +89,9 @@
 
 
         </form>
+        {% else %}
+            <span>This user cannot be edited as it is a service account or administartor.</span>
+        {% endif %}
     </div>
     {% endblock %}
 </body>

@@ -427,7 +427,18 @@ def studentLogin(request):
                         print(request.GET['service'])
                         return HttpResponseRedirect(request.GET['service'])
         else:
-            pass
+            if request.GET['mode'] == 'kisok':
+                print(request.GET['service'])
+                currentPassthroughUser = User.objects.get(polyCard_Data=request.GET['service_auth_key'])
+                if currentPassthroughUser.cal_Poly_Email == "kisk_officer@calpolyieee.com":
+                    print(currentPassthroughUser)
+                    loginUser(currentPassthroughUser, request)
+                else:
+                    pass
+
+                if 'service' in request.GET:
+                    print(request.GET['service'])
+                    return HttpResponseRedirect(request.GET['service'])
         checkPolyCardForm = studentLoginForm(initial=request.GET.dict())
         checkPolyCardData(request)
         args = {'checkPolyCardForm': checkPolyCardForm}

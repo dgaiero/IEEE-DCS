@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c609fed0-8bcb-4d6b-9358-6efc1076cb47" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/checkInOrCheckOut.html" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/checkInOrCheckOut.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/validators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_Transaction/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readCSV.py" beforeDir="false" afterPath="$PROJECT_DIR$/readCSV.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,6 +16,21 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/SPL$supportClasses.coverage" NAME="supportClasses Coverage Results" MODIFIED="1523161852588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app_Transaction" />
+    <SUITE FILE_PATH="coverage/SPL$readCSV.coverage" NAME="readCSV Coverage Results" MODIFIED="1527052675509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
@@ -25,35 +40,17 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SPL/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2516">
-              <caret line="148" selection-start-line="148" selection-end-line="148" />
+            <state relative-caret-position="425">
+              <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_Transaction/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="studentLogin.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/studentLogin.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1054">
-              <caret line="62" column="10" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_Transaction/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="60" column="88" lean-forward="true" selection-start-line="60" selection-start-column="88" selection-end-line="60" selection-end-column="88" />
+            <state relative-caret-position="323">
+              <caret line="73" column="50" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -61,17 +58,29 @@
       <file leaf-file-name="userHeader.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/userHeader.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="76" lean-forward="true" selection-start-line="16" selection-start-column="76" selection-end-line="17" selection-end-column="69" />
+            <state relative-caret-position="187">
+              <caret line="11" column="126" selection-start-line="11" selection-start-column="126" selection-end-line="11" selection-end-column="126" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="checkInOrCheckOut.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_Transaction/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="55" column="18" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="checkInOrCheckOut.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/checkInOrCheckOut.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+            <state relative-caret-position="153">
+              <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -80,16 +89,7 @@
         <entry file="file://$PROJECT_DIR$/app_Transaction/validators.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="8" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sendMessage.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/sendMessage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2924">
-              <caret line="172" column="26" selection-start-line="172" selection-start-column="26" selection-end-line="172" selection-end-column="26" />
+              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="9" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -97,7 +97,7 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/app_Transaction/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2465">
+            <state relative-caret-position="560">
               <caret line="145" column="26" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
             </state>
           </provider>
@@ -106,8 +106,32 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="143" column="28" selection-start-line="143" selection-start-column="28" selection-end-line="143" selection-end-column="28" />
+            <state relative-caret-position="-702">
+              <caret line="527" column="8" lean-forward="true" selection-start-line="527" selection-start-column="8" selection-end-line="527" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registration.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readCSV.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/readCSV.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="15" column="80" lean-forward="true" selection-start-line="15" selection-start-column="80" selection-end-line="15" selection-end-column="80" />
+              <folding>
+                <element signature="e#173#182#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -133,6 +157,10 @@
       <find>app_Transaction</find>
       <find>from_email</find>
       <find>initial=request.GET</find>
+      <find>ray</find>
+      <find>does</find>
+      <find>email</find>
+      <find>registration</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -152,23 +180,25 @@
         <option value="$PROJECT_DIR$/SPL/urls.py" />
         <option value="$PROJECT_DIR$/app_Transaction/filters.py" />
         <option value="$PROJECT_DIR$/app_Transaction/user_registration_scripts/polyCardData.py" />
-        <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/sendMail.html" />
         <option value="$PROJECT_DIR$/app_Transaction/urls.py" />
         <option value="$PROJECT_DIR$/static/app_Transaction/style.css" />
-        <option value="$PROJECT_DIR$/app_Transaction/forms.py" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/sendMessage.html" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/search_user.html" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/base.html" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/static/app_Transaction/bootstrap_colors.css" />
-        <option value="$PROJECT_DIR$/SPL/settings.py" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/studentLogin.html" />
-        <option value="$PROJECT_DIR$/app_Transaction/views.py" />
         <option value="$PROJECT_DIR$/app_Transaction/validators.py" />
         <option value="$PROJECT_DIR$/app_Transaction/models.py" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/userHeader.html" />
+        <option value="$PROJECT_DIR$/SPL/settings.py" />
+        <option value="$PROJECT_DIR$/app_Transaction/forms.py" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/checkInOrCheckOut.html" />
+        <option value="$PROJECT_DIR$/member_detail.csv" />
+        <option value="$PROJECT_DIR$/readCSV.py" />
+        <option value="$PROJECT_DIR$/app_Transaction/views.py" />
+        <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" />
       </list>
     </option>
   </component>
@@ -179,10 +209,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-3168" />
-    <option name="y" value="-16" />
-    <option name="width" value="3875" />
-    <option name="height" value="2195" />
+    <option name="x" value="-966" />
+    <option name="width" value="972" />
+    <option name="height" value="1166" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -266,6 +295,25 @@
     </option>
   </component>
   <component name="RunManager" selected="Django server.SPL">
+    <configuration name="readCSV" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SPL" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/readCSV.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="supportClasses" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SPL" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -311,9 +359,11 @@
     <list>
       <item itemvalue="Django server.SPL" />
       <item itemvalue="Python.supportClasses" />
+      <item itemvalue="Python.readCSV" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.readCSV" />
         <item itemvalue="Python.supportClasses" />
       </list>
     </recent_temporary>
@@ -483,7 +533,21 @@
       <option name="project" value="LOCAL" />
       <updated>1523854466531</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Remove requirement for cal poly email and for polycard">
+      <created>1527046106604</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1527046106604</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fix polycard bug">
+      <created>1527046899047</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1527046899047</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TodoView">
@@ -500,11 +564,11 @@
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32987747" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5005208" side_tool="true" weight="0.27049953" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50104165" side_tool="true" weight="0.39491045" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32987747" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49947917" weight="0.3953168" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49895832" visible="true" weight="0.39491045" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1171875" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
@@ -556,7 +620,9 @@
     <MESSAGE value="Can now send email to users in the database." />
     <MESSAGE value="update REQUIREMENTS.txt" />
     <MESSAGE value="change login page" />
-    <option name="LAST_COMMIT_MESSAGE" value="change login page" />
+    <MESSAGE value="Remove requirement for cal poly email and for polycard" />
+    <MESSAGE value="Fix polycard bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix polycard bug" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -567,20 +633,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app_Transaction/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="8" selection-start-line="7" selection-start-column="6" selection-end-line="19" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="66" column="49" lean-forward="true" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -780,20 +832,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="60" column="106" selection-start-line="60" selection-start-column="106" selection-end-line="60" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/django/core/handlers/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
@@ -833,13 +871,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/app_Transaction/bootstrap_colors.css" />
-    <entry file="file://$PROJECT_DIR$/SPL/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2516">
-          <caret line="148" selection-start-line="148" selection-end-line="148" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/studentLogin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
@@ -854,24 +885,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app_Transaction/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2465">
-          <caret line="145" column="26" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="143" column="28" selection-start-line="143" selection-start-column="28" selection-end-line="143" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/validators.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="8" selection-end-column="25" />
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="9" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -882,24 +899,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/userHeader.html">
+    <entry file="file://$PROJECT_DIR$/app_Transaction/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="76" lean-forward="true" selection-start-line="16" selection-start-column="76" selection-end-line="17" selection-end-column="69" />
+        <state relative-caret-position="323">
+          <caret line="73" column="50" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/models.py">
+    <entry file="file://$PROJECT_DIR$/member_detail.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SPL/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="60" column="88" lean-forward="true" selection-start-line="60" selection-start-column="88" selection-end-line="60" selection-end-column="88" />
+        <state relative-caret-position="425">
+          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readCSV.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="80" lean-forward="true" selection-start-line="15" selection-start-column="80" selection-end-line="15" selection-end-column="80" />
+          <folding>
+            <element signature="e#173#182#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/checkInOrCheckOut.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+        <state relative-caret-position="153">
+          <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/app_Transaction/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="145" column="26" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_Transaction/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="55" column="18" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/userHeader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="126" selection-start-line="11" selection-start-column="126" selection-end-line="11" selection-end-column="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-702">
+          <caret line="527" column="8" lean-forward="true" selection-start-line="527" selection-start-column="8" selection-end-line="527" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
         </state>
       </provider>
     </entry>
