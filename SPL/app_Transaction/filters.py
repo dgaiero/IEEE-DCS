@@ -4,8 +4,8 @@ from .models import User
 
 
 class UserFilter(django_filters.FilterSet):
-    # first_Name = django_filters.CharFilter(lookup_expr='icontains')
-    # last_Name = django_filters.CharFilter(lookup_expr='icontains')
+    first_Name = django_filters.CharFilter(lookup_expr='icontains')
+    last_Name = django_filters.CharFilter(lookup_expr='icontains')
     cal_Poly_Email = django_filters.CharFilter(lookup_expr='icontains')
     ieee_member_expiration_date = django_filters.NumberFilter(name='ieee_member_expiration_date', lookup_expr='year')
 

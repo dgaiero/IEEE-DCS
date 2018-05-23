@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c609fed0-8bcb-4d6b-9358-6efc1076cb47" name="Default" comment="">
+    <list default="true" id="c609fed0-8bcb-4d6b-9358-6efc1076cb47" name="Default" comment="Add kisok mode">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readCSV.py" beforeDir="false" afterPath="$PROJECT_DIR$/readCSV.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_Transaction/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/filters.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -85,15 +83,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="validators.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_Transaction/validators.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="9" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/app_Transaction/style.css">
           <provider selected="true" editor-type-id="text-editor">
@@ -108,18 +97,24 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-702">
               <caret line="527" column="8" lean-forward="true" selection-start-line="527" selection-start-column="8" selection-end-line="527" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registration.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="registration.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+            <state relative-caret-position="102">
+              <caret line="18" column="8" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filters.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app_Transaction/filters.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -128,10 +123,7 @@
         <entry file="file://$PROJECT_DIR$/readCSV.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="15" column="80" lean-forward="true" selection-start-line="15" selection-start-column="80" selection-end-line="15" selection-end-column="80" />
-              <folding>
-                <element signature="e#173#182#0" expanded="true" />
-              </folding>
+              <caret line="16" column="80" lean-forward="true" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
             </state>
           </provider>
         </entry>
@@ -178,7 +170,6 @@
         <option value="$PROJECT_DIR$/app_Transaction/supportClasses.py" />
         <option value="$PROJECT_DIR$/app_Transaction/static/app_Transaction/style.css" />
         <option value="$PROJECT_DIR$/SPL/urls.py" />
-        <option value="$PROJECT_DIR$/app_Transaction/filters.py" />
         <option value="$PROJECT_DIR$/app_Transaction/user_registration_scripts/polyCardData.py" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/sendMail.html" />
         <option value="$PROJECT_DIR$/app_Transaction/urls.py" />
@@ -199,6 +190,7 @@
         <option value="$PROJECT_DIR$/readCSV.py" />
         <option value="$PROJECT_DIR$/app_Transaction/views.py" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" />
+        <option value="$PROJECT_DIR$/app_Transaction/filters.py" />
       </list>
     </option>
   </component>
@@ -547,7 +539,14 @@
       <option name="project" value="LOCAL" />
       <updated>1527046899047</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Add kisok mode">
+      <created>1527054535015</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1527054535015</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TodoView">
@@ -566,11 +565,11 @@
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32987747" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50104165" side_tool="true" weight="0.39491045" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32987747" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3371869" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49895832" visible="true" weight="0.39491045" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49895832" visible="true" weight="0.39402696" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1171875" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.119936034" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="4" />
@@ -622,7 +621,8 @@
     <MESSAGE value="change login page" />
     <MESSAGE value="Remove requirement for cal poly email and for polycard" />
     <MESSAGE value="Fix polycard bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix polycard bug" />
+    <MESSAGE value="Add kisok mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add kisok mode" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -810,13 +810,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/filters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" column="49" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/user_registration_scripts/polyCardData.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -919,10 +912,7 @@
     <entry file="file://$PROJECT_DIR$/readCSV.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="15" column="80" lean-forward="true" selection-start-line="15" selection-start-column="80" selection-end-line="15" selection-end-column="80" />
-          <folding>
-            <element signature="e#173#182#0" expanded="true" />
-          </folding>
+          <caret line="16" column="80" lean-forward="true" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
         </state>
       </provider>
     </entry>
@@ -961,16 +951,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-702">
           <caret line="527" column="8" lean-forward="true" selection-start-line="527" selection-start-column="8" selection-end-line="527" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+        <state relative-caret-position="102">
+          <caret line="18" column="8" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_Transaction/filters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
         </state>
       </provider>
     </entry>
