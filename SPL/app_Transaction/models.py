@@ -1,7 +1,6 @@
 from datetime import date
 
 from django.db import models
-from django.forms import ValidationError
 
 
 # import jsonfield
@@ -58,7 +57,7 @@ class User(models.Model):
     ieee_member_number = models.CharField(null=True, max_length=500, blank=True, unique=True)
     ieee_member_expiration_date = models.DateField(null=True, blank=True)
     phone_Number = models.CharField(max_length= 100, null=True, blank=True)
-    polyCard_Data = models.CharField(max_length=500, null=True, unique=True)
+    polyCard_Data = models.CharField(max_length=500, null=True, blank=True, unique=True)
     # library_Code_Number = models.IntegerField(default=0)
     # iso_Number = models.IntegerField(default=0)
     parts                 = models.ManyToManyField(Part, blank=True)
@@ -98,14 +97,13 @@ class User(models.Model):
         #     raise ValidationError('Domain of email is not valid')
         # self.validate_email()
 
-    def validate_email(self):
-        print("test")
-        email = self.cal_Poly_Email
-
-        if not email.endswith('@calpoly.edu'):
-            raise ValidationError('Domain of email is not valid')
-
-        return email
+    # def validate_email(self):
+    #     email = self.cal_Poly_Email
+    #
+    #     if not email.endswith('@calpoly.edu'):
+    #         raise ValidationError('Domain of email is not valid')
+    #
+    #     return email
 
     def __str__(self):
         # return self.__dict__
