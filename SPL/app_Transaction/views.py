@@ -414,6 +414,7 @@ def studentLogin(request):
     #     print("GET")
     #     return HttpResponse("Login as new user is not yet fully operational.")
     else:
+        print("01TEST!!!!!!")
         if request.session.has_key('AdminPolyCardData'):
             # print(request.GET['mode'])
             if 'mode' in request.GET:
@@ -426,16 +427,16 @@ def studentLogin(request):
                     if 'service' in request.GET:
                         print(request.GET['service'])
                         return HttpResponseRedirect(request.GET['service'])
-        else:
-            if 'mode' in request.GET:
-                if request.GET['mode'] == 'kisok':
-                    print(request.GET['service'])
-                    currentPassthroughUser = User.objects.get(polyCard_Data=request.GET['service_auth_key'])
-                    if currentPassthroughUser.cal_Poly_Email == "kisk_officer@calpolyieee.com":
-                        print(currentPassthroughUser)
-                        loginUser(currentPassthroughUser, request)
-                    else:
-                        pass
+        print("TEST!!!!!!")
+        if 'mode' in request.GET:
+            if request.GET['mode'] == 'kisok':
+                print(request.GET['service'])
+                currentPassthroughUser = User.objects.get(polyCard_Data=request.GET['service_auth_key'])
+                if currentPassthroughUser.cal_Poly_Email == "kisk_officer@calpolyieee.com":
+                    print(currentPassthroughUser)
+                    loginUser(currentPassthroughUser, request)
+                else:
+                    pass
 
                 if 'service' in request.GET:
                     print(request.GET['service'])

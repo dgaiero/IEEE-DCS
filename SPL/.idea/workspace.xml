@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c609fed0-8bcb-4d6b-9358-6efc1076cb47" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_Transaction/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_Transaction/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/SPL/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
-              <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -48,7 +47,7 @@
       <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
+            <state relative-caret-position="1139">
               <caret line="73" column="50" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
             </state>
           </provider>
@@ -66,7 +65,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
+            <state relative-caret-position="901">
               <caret line="55" column="18" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="18" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
@@ -78,7 +77,7 @@
       <file leaf-file-name="checkInOrCheckOut.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/checkInOrCheckOut.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="612">
               <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
             </state>
           </provider>
@@ -87,28 +86,25 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/app_Transaction/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="917">
+            <state relative-caret-position="2465">
               <caret line="145" column="26" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="597" column="119" selection-start-line="597" selection-start-column="119" selection-end-line="597" selection-end-column="119" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="207">
+              <caret line="438" column="24" lean-forward="true" selection-start-line="438" selection-start-column="24" selection-end-line="438" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registration.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="registration.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="578">
               <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
             </state>
           </provider>
@@ -117,8 +113,8 @@
       <file leaf-file-name="filters.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_Transaction/filters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+            <state relative-caret-position="221">
+              <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -129,8 +125,8 @@
       <file leaf-file-name="readCSV.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readCSV.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="16" column="80" lean-forward="true" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
+            <state relative-caret-position="221">
+              <caret line="16" column="80" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
               <folding>
                 <element signature="e#86#101#0" expanded="true" />
               </folding>
@@ -199,8 +195,8 @@
         <option value="$PROJECT_DIR$/readCSV.py" />
         <option value="$PROJECT_DIR$/app_Transaction/filters.py" />
         <option value="$PROJECT_DIR$/SPL/settings.py" />
-        <option value="$PROJECT_DIR$/app_Transaction/views.py" />
         <option value="$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html" />
+        <option value="$PROJECT_DIR$/app_Transaction/views.py" />
       </list>
     </option>
   </component>
@@ -211,9 +207,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-966" />
-    <option name="width" value="972" />
-    <option name="height" value="1166" />
+    <option name="x" value="-15" />
+    <option name="y" value="-15" />
+    <option name="width" value="3875" />
+    <option name="height" value="2195" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -570,7 +567,21 @@
       <option name="project" value="LOCAL" />
       <updated>1527055397591</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fixed registration bug with Service account or admin">
+      <created>1527055810161</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1527055810161</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fixed registration bug with Service account or admin">
+      <created>1527056471509</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1527056471509</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -583,7 +594,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32987747" />
@@ -591,9 +602,9 @@
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3371869" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49895832" visible="true" weight="0.39402696" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49895832" visible="true" weight="0.35135135" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.119936034" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1529175" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="4" />
@@ -648,7 +659,8 @@
     <MESSAGE value="Add kisok mode" />
     <MESSAGE value="Adjust filter parameteres" />
     <MESSAGE value="Turn debug mode off" />
-    <option name="LAST_COMMIT_MESSAGE" value="Turn debug mode off" />
+    <MESSAGE value="Fixed registration bug with Service account or admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed registration bug with Service account or admin" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -659,6 +671,14 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6715">
+          <caret line="437" column="28" lean-forward="true" selection-start-line="437" selection-start-column="28" selection-end-line="437" selection-end-column="28" />
+          <caret line="412" column="35" lean-forward="true" selection-start-line="412" selection-start-column="35" selection-end-line="412" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -862,9 +882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -920,24 +937,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
+        <state relative-caret-position="1139">
           <caret line="73" column="50" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/member_detail.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/checkInOrCheckOut.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="612">
           <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
+        <state relative-caret-position="901">
           <caret line="55" column="18" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="18" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
@@ -955,14 +969,14 @@
     <entry file="file://$PROJECT_DIR$/SPL/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
-          <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/filters.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+        <state relative-caret-position="221">
+          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -971,8 +985,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/readCSV.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" column="80" lean-forward="true" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
+        <state relative-caret-position="221">
+          <caret line="16" column="80" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
           <folding>
             <element signature="e#86#101#0" expanded="true" />
           </folding>
@@ -981,25 +995,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/app_Transaction/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="917">
+        <state relative-caret-position="2465">
           <caret line="145" column="26" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="597" column="119" selection-start-line="597" selection-start-column="119" selection-end-line="597" selection-end-column="119" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_Transaction/templates/app_Transaction/registration.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="578">
           <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_Transaction/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="438" column="24" lean-forward="true" selection-start-line="438" selection-start-column="24" selection-end-line="438" selection-end-column="24" />
         </state>
       </provider>
     </entry>
