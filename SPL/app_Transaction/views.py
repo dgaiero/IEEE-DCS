@@ -316,7 +316,10 @@ def checkIn_Or_CheckOut(request):
         checkPolyCardData(request)
         userData = getJSONofCurrentUser(request.session['CustomerPolyCardData'])
         updateUserData = userData
-        updateUserData["polyCard_Data"] = urllib.parse.quote(userData["polyCard_Data"], safe="")
+        try:
+            updateUserData["polyCard_Data"] = urllib.parse.quote(userData["polyCard_Data"], safe="")
+        except TypeError:
+            pass
         try:
             updateUserData["ieee_member_expiration_date"] = userData['ieee_member_expiration_date'].strftime('%m/%d/%Y')
         except AttributeError:

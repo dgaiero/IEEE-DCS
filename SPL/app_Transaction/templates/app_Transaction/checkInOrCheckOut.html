@@ -34,12 +34,17 @@ https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
         {% endif %}
 
         <div class="jumbotron">
+            {% if request.session.AdminPolyCardData != None %}
+                {% if userData.polyCard_Data == "" %}
+                    <div class="alert alert-danger" role="alert">
+                        Please have {{ userData.first_Name }} swipe their polycard! Click the link below to update their
+                        profile.
+                    </div>
+                {% endif %}
+            {% endif %}
             {% include "app_Transaction/userHeader.html" %}
             {% if request.session.AdminPolyCardData != None %}
                 <br>
-                {% if userData.polyCard_Data == "" %}
-                    <span class="text-left">Please have {{ userData.first_Name }} swipe their polycard!</span>
-                {% endif %}
                 <a href="{% url 'registration' %}?mode=update&first_Name={{ userData.first_Name }}&last_Name={{ userData.last_Name }}&userType={{ userData.userType }}&cal_Poly_Email={{ userData.cal_Poly_Email }}&phone_Number={{ userData.phone_Number }}&polyCard_Data={{ userData.polyCard_Data }}&ieee_member_number={{ userData.ieee_member_number }}&ieee_member_expiration_date={{ userData.ieee_member_expiration_date }}"
                    class="btn btn-outline-primary">Update {{ userData.first_Name }}'s profile</a>
             {% endif %}

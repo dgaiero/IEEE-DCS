@@ -4,7 +4,7 @@ from django import forms
 from app_Transaction.models import User
 # Import custom scripts here
 from .models import Part
-from .validators import validate_domainonly_email, validate_polyCard
+from .validators import validate_polyCard
 
 
 # Define class-based model forms
@@ -66,12 +66,12 @@ class RegistrationForm(forms.ModelForm):
     mode = forms.CharField(required=False, initial="create")
     first_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_Name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    polyCard_Data = forms.CharField(required=True,
+    polyCard_Data = forms.CharField(required=False,
                                     widget=forms.TextInput(attrs={'class': 'form-control polyCardDataFieldMask'}),
                                     validators=[validate_polyCard])
     # see if you can force @calpoly.edu on email field
-    cal_Poly_Email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}), validators=[validate_domainonly_email])
-    phone_Number = forms.CharField(
+    cal_Poly_Email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    phone_Number = forms.CharField(required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'partName'}))
     ieee_member_number = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     ieee_member_expiration_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'mm/dd/yyyy'}))
