@@ -51,34 +51,32 @@ def searchUser(request):
 
 def csvExport(request):
     if request.session.has_key('AdminPolyCardData'):
-        # print(request.GET.dict())
-        # requestData = request.GET.dict()
-        # print(User.objects.filter(**requestData))
         user_list = User.objects.all()
         user_filter = UserFilter(request.GET, queryset=user_list)
         csvData = StringIO()
         writer = csv.writer(csvData)
 
         headers = []
-
         for field in User._meta.fields:
-            headers.append(field.name)
+            if field.name != 'polyCard_Data':
+                headers.append(field.name)
         writer.writerow(headers)
 
         for obj in user_filter.qs:
             row = []
             for field in headers:
-                val = getattr(obj, field)
-                if callable(val):
-                    val = val()
-                if type(val) == bytes:
-                    val = val.encode("utf-8")
-                row.append(val)
+                if field != 'polyCard_Data':
+                    val = getattr(obj, field)
+                    # print(val)
+                    if callable(val):
+                        val = val()
+                    if type(val) == bytes:
+                        val = val.encode("utf-8")
+                    row.append(val)
             writer.writerow(row)
         # return HttpResponse('WIP')
         response = HttpResponse(csvData.getvalue(), content_type="text/csv")
         fileName = 'IEEE_DATABASE_EXPORT_{}.csv'.format(datetime.today())
-        print(fileName)
         response['Content-Disposition'] = 'inline; filename=' + fileName
         return response
     else:

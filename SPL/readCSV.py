@@ -15,7 +15,7 @@ from app_Transaction.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 # Take parts in CSV file, create Django parts objects, and save them in database
-with open('member_detail.csv') as csvfile:
+with open('member_data_correct.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
         member_number = row[0]
